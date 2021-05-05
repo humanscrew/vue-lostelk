@@ -4,8 +4,8 @@
   <h1>{{ data }}</h1>
 </template>
 
-<script lang='ts'>
-import { defineComponent, SetupContext, ref } from "vue";
+<script lang="ts">
+import { defineComponent, ref } from "vue";
 import http from "@/plugins/http";
 
 export default defineComponent({
@@ -15,9 +15,9 @@ export default defineComponent({
   //   components: {
   //   },
 
-  setup(props, ctx: SetupContext) {
-    const data = ref("wait...");
-    const conslg = () => {
+  setup() {
+    let data = ref("wait...");
+    let conslg = () => {
       console.log("test");
       http({ url: "https://api.apiopen.top/getSingleJoke?sid=28654780" }).then(
         (res) => {
@@ -34,5 +34,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang='less'>
-</style>
+<style scoped lang="less"></style>

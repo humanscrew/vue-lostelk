@@ -1,0 +1,29 @@
+/* 设置字体格式 --> lemonada */
+@font-face {
+    font-family: "lemonada";
+    /* src: url('../fonts/pingfang-webfont.eot');
+    src: url('../fonts/pingfang-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/pingfang-webfont.woff') format('woff'),
+        url('../fonts/pingfang-webfont.ttf') format('truetype'),
+        url('../fonts/pingfang-webfont.svg#pingfang') format('svg'); */
+    /* src: url("../static/fonts/lemonada/Lemonada-VariableFont_wght.ttf") format("truetype"); */
+    src: url("../fonts/lemonada/Lemonada-VariableFont_wght.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 设置字体格式 --> kausha */
+@font-face {
+    font-family: "kausha";
+    src: url("../fonts/kausha/KaushanScript-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* .home-welcome {
+    font-family: lemonada;
+}
+
+.words-to-lostelk {
+    font-family: kaushascript;
+} */
