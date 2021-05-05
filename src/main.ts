@@ -6,7 +6,7 @@ import store from "./store";
 
 // createApp(App).use(store).use(router).mount("#app");
 const app = createApp(App);
-app.use(store).use(router).mount("#app");
+app.use(store).use(router)
 
 // The following are new additions --> by mr.wang
 
@@ -19,3 +19,7 @@ app.config.globalProperties.$http = http;
 import ElementPlus from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 app.use(ElementPlus);
+
+
+// app.mount最后加载，否则可能出现显示bug
+app.mount("#app");
