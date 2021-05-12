@@ -18,9 +18,9 @@
 
   <!-- 分割线 -->
   <div>
-    <el-divider class="divider-line"
-      ><i class="el-icon-s-promotion"></i
-    ></el-divider>
+    <el-divider class="divider-line">
+      <i class="el-icon-s-promotion"></i>
+    </el-divider>
   </div>
 
   <!-- 滚动条 -->

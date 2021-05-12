@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-func">
     <div>主功能区</div>
     <!-- layout布局 -->
     <div class="div-layout">
@@ -74,7 +74,7 @@ export default defineComponent({
 }
 .row-bg {
   padding: 10px 0;
-  background-color: #f9fafc;
+  // background-color: #f9fafc;
 }
 @media screen and (max-width: 768px) {
   .grid-content {

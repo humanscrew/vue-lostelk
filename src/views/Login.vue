@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import http from "@/plugins/http";
+import http from "@/plugins/request";
 
 export default defineComponent({
   //   name: '',

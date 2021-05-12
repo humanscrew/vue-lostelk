@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 创建 axios 实例
-const http = axios.create({
+const service = axios.create({
   // headers: {'Content-Type': 'application/json'},
   // 基础的请求地址
   baseURL: "https://127.0.0.1:9701/lostelkAPI/",
@@ -10,10 +10,10 @@ const http = axios.create({
 });
 
 // 设置 post默认 Content-Type
-http.defaults.headers.post["Content-Type"] = "multipart/form-data";
+service.defaults.headers.post["Content-Type"] = "multipart/form-data";
 
 // 添加请求拦截器
-http.interceptors.request.use(
+service.interceptors.request.use(
   (config) => {
     // if (config.method === 'post' || config.method === 'put') {
     //     // post、put 提交时，将对象转换为string, 为处理Java后台解析问题
@@ -29,7 +29,7 @@ http.interceptors.request.use(
 );
 
 // 添加响应拦截器
-http.interceptors.response.use(
+service.interceptors.response.use(
   (response) => {
     // let { data } = response
     // return data
@@ -40,5 +40,5 @@ http.interceptors.response.use(
   }
 );
 
-// 导出 --> http
-export default http;
+// 导出 --> service
+export default service;

@@ -3,7 +3,13 @@
     <template #header>
       <div class="card-header">
         <span>卡片名称</span>
-        <el-button icon="el-icon-search" circle type="primary" plain size="small"></el-button>
+        <el-button
+          icon="el-icon-search"
+          circle
+          type="primary"
+          plain
+          size="small"
+        ></el-button>
         <!-- 加载状态 => :loading="true" -->
       </div>
     </template>
@@ -13,7 +19,7 @@
   </el-card>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -27,22 +33,22 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang='less'>
-  .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-  }
-    
-  .box-card-text {
-    font-size: 14px;
-  }
+<style scoped lang="less">
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .box-card-item {
-    margin-bottom: 18px;
-  }
+.box-card-text {
+  font-size: 14px;
+}
 
-  .box-card {
-    width: auto;
-  }
+.box-card-item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: auto;
+}
 </style>
