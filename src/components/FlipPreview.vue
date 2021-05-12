@@ -146,7 +146,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 // @import url("https://fonts.googleapis.com/css?family=Raleway:200");
 body {
   font-family: "Raleway", sans-serif;

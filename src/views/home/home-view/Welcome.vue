@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="welcome">
     <Greet :greetMsg="greetMsg" />
   </div>
 </template>
@@ -9,7 +9,7 @@ import { defineComponent } from "vue";
 import Greet from "@/components/Greet.vue"; // @ is an alias to /src
 
 export default defineComponent({
-  name: "Home",
+  name: "welcome",
   components: {
     Greet,
   },
