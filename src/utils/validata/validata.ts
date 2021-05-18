@@ -36,7 +36,7 @@ export function validEmail(email: string): boolean {
   return reg.test(email);
 }
 
-export function isString(str: string | string): boolean {
+export function isString(str: string | any): boolean {
   if (typeof str === "string" || str instanceof String) {
     return true;
   }
