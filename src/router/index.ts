@@ -1,23 +1,17 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/home/Home.vue";
-import Login from "@/views/Login.vue";
-import MainFunc from "@/views/home/home-view/MainFunc.vue";
-
-// component for test
-import FlipPreview from "@/components/FlipPreview.vue";
 
 const routes: Array<RouteRecordRaw> = [
   //Home page
   {
     path: "/home",
     name: "Home",
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ "@/views/home/Home.vue"),
     children: [
       // 主功能区
       {
         path: "mainfunc",
         name: "MainFunc",
-        component: MainFunc,
+        component: () => import(/* webpackChunkName: "mainfunc" */ "@/views/home/home-view/MainFunc.vue"),
       },
       // About page --> 懒加载
       {
@@ -26,19 +20,13 @@ const routes: Array<RouteRecordRaw> = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "../views/home/home-view/About.vue"
-          ),
+        component: () => import(/* webpackChunkName: "about" */ "@/views/home/home-view/About.vue"),
       },
       // Welcome page --> 懒加载
       {
         path: "welcome",
         name: "Welcome",
-        component: () =>
-          import(
-            /* webpackChunkName: "welcome" */ "../views/home/home-view/Welcome.vue"
-          ),
+        component: () => import(/* webpackChunkName: "welcome" */ "@/views/home/home-view/Welcome.vue"),
         alias: "",
       },
     ],
@@ -51,12 +39,17 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Login,
+    component: () => import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
   },
   {
-    path: "/test",
-    name: "test",
-    component: FlipPreview,
+    path: "/flippreview",
+    name: "FlipPreview",
+    component: () => import(/* webpackChunkName: "flippreview" */ "@/components/FlipPreview.vue"),
+  },
+  {
+    path: "/demo",
+    name: "Demo",
+    component: () => import(/* webpackChunkName: "demo" */ "@/components/Demo.vue"),
   },
   {
     path: "/:redirect*",
