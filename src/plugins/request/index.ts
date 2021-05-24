@@ -1,10 +1,11 @@
 import axios from "axios";
+import { ElMessage } from 'element-plus'
 
 // 创建 axios 实例
 const service = axios.create({
   // headers: {'Content-Type': 'application/json'},
   // 基础的请求地址
-  baseURL: "https://127.0.0.1:9701/lostelkAPI/",
+  baseURL: "https://127.0.0.1:9701/lostelkAPI",
   // 设置超时时间 5s
   timeout: 5000,
 });
@@ -19,11 +20,19 @@ service.interceptors.request.use(
     //     // post、put 提交时，将对象转换为string, 为处理Java后台解析问题
     //     config.data = JSON.stringify(config.data)
     // }
-    // // 请求发送前进行处理
+    // 请求发送前进行处理
+    // if (store.getters.token) {
+    //   // let each request carry token
+    //   // ['X-Token'] is a custom headers key
+    //   // please modify it according to the actual situation
+    //   config.headers['Token'] = getToken()
+    // }
     return config;
   },
   (error) => {
     // 请求错误处理
+    ElMessage.error('请求失败！')
+    console.log(error) // for debug
     return Promise.reject(error);
   }
 );
@@ -31,11 +40,13 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
   (response) => {
-    // let { data } = response
+    // const res = response.data
     // return data
     return response;
   },
   (error) => {
+    ElMessage.error('响应失败！')
+    console.log('err' + error) // for debug
     return Promise.reject(error);
   }
 );

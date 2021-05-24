@@ -1,9 +1,9 @@
 <template>
-  <div class="hvr-ripple-out">
-    <el-card class="box-card hvr-back-pulse" shadow="always">
+  <div class="#">
+    <el-card class="card-box hvr-back-pulse" shadow="always">
       <template #header>
         <div class="card-header">
-          <div class="card-header-name">卡片名称</div>
+          <div class="card-header-name">{{ funclist }}卡片名称</div>
           <el-button
             icon="el-icon-search"
             circle
@@ -14,8 +14,10 @@
           <!-- 加载状态 => :loading="true" -->
         </div>
       </template>
-      <div v-for="o in 4" :key="o" class="box-card-text box-card-item">
-        {{ "列表内容 " + o }}
+      <div v-for="o in 4" :key="o" class="card-box-item">
+        <div class="card-box-item-text hvr-bounce-to-right">
+          {{ "列表内容 " + o }}
+        </div>
       </div>
     </el-card>
   </div>
@@ -26,9 +28,10 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardBox",
-  props: {},
+  props: {
+    funcList: Object,
+  },
   components: {},
-
   setup() {
     return {};
   },
@@ -41,14 +44,12 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
 }
-// .box-card-text {
-//   font-size: auto;
-// }
-.box-card-item {
-  padding: 10px;
-}
-.box-card {
+.card-box {
   width: auto;
+}
+.card-box-item-text {
+  padding: 6px;
+  margin: 4px;
 }
 
 // /* Grow Shadow */
@@ -72,57 +73,107 @@ export default defineComponent({
 //   transform: scale(1.1);
 // }
 
-/* Back Pulse */
-@keyframes hvr-back-pulse {
-  50% {
-    opacity: 0.7;
-  }
-}
-.hvr-back-pulse {
-  // display: inline-block;
-  vertical-align: middle;
-  position: relative;
-}
-.hvr-back-pulse:hover,
-.hvr-back-pulse:focus,
-.hvr-back-pulse:active {
-  animation-name: hvr-back-pulse;
-  animation-duration: 1s;
-  animation-delay: 0.6s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
+// /* Back Pulse */
+// @keyframes hvr-back-pulse {
+//   50% {
+//     opacity: 0.7;
+//   }
+// }
+// .hvr-back-pulse {
+//   vertical-align: middle;
+//   position: relative;
+// }
+// .hvr-back-pulse:hover,
+// .hvr-back-pulse:focus,
+// .hvr-back-pulse:active {
+//   animation-name: hvr-back-pulse;
+//   animation-duration: 3s;
+//   animation-delay: 0.6s;
+//   animation-timing-function: ease-in-out;
+//   animation-iteration-count: infinite;
+// }
 
-/* Ripple Out */
-@keyframes hvr-ripple-out {
-  100% {
-    top: -12px;
-    right: -12px;
-    bottom: -12px;
-    left: -12px;
-    opacity: 0;
-  }
-}
-.hvr-ripple-out {
+// /* Ripple Out */
+// @keyframes hvr-ripple-out {
+//   50% {
+//     top: -10px;
+//     right: -10px;
+//     bottom: -10px;
+//     left: -10px;
+//     opacity: 0.6;
+//   }
+//   100% {
+//     top: -20px;
+//     right: -20px;
+//     bottom: -20px;
+//     left: -20px;
+//     opacity: 0;
+//   }
+// }
+// .hvr-ripple-out {
+//   vertical-align: middle;
+//   transform: perspective(1px) translateZ(0);
+//   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+//   position: relative;
+// }
+// .hvr-ripple-out:before {
+//   content: "";
+//   position: absolute;
+//   border: #e1e1e1 solid 6px;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   opacity: 0;
+// }
+// .hvr-ripple-out:hover:before,
+// .hvr-ripple-out:focus:before,
+// .hvr-ripple-out:active:before {
+//   animation-name: hvr-ripple-out;
+//   animation-iteration-count: infinite;
+//   animation-duration: 1.2s;
+//   animation-timing-function: linear;
+//   // animation-direction: alternate;
+// }
+
+/* Bounce To Right */
+.hvr-bounce-to-right {
   vertical-align: middle;
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
+  transition-property: color;
+  transition-duration: 0.5s;
 }
-.hvr-ripple-out:before {
+.hvr-bounce-to-right:before {
   content: "";
   position: absolute;
-  border: #e1e1e1 solid 6px;
+  z-index: -1;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  animation-duration: 1s;
+  background-image: linear-gradient(to right, #757f9a 0%, #d7dde8 51%);
+  border-top: 1px solid rgba(200, 200, 200, 0.25);
+  border-right: 1px solid rgba(200, 200, 200, 1);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.75);
+  border-left: 1px solid rgba(200, 200, 200, 1);
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition-property: transform;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-in-out;
 }
-.hvr-ripple-out:hover:before,
-.hvr-ripple-out:focus:before,
-.hvr-ripple-out:active:before {
-  animation-name: hvr-ripple-out;
-  animation-iteration-count: infinite;
+.hvr-bounce-to-right:hover,
+.hvr-bounce-to-right:focus,
+.hvr-bounce-to-right:active {
+  color: black;
+}
+.hvr-bounce-to-right:hover:before,
+.hvr-bounce-to-right:focus:before,
+.hvr-bounce-to-right:active:before {
+  transform: scaleX(1);
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 }
 </style>

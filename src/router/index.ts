@@ -1,55 +1,46 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { Home, MainFunc, About, Welcome, Login, FlipPreview, Demo } from "@/router/routerLoad";
 
 const routes: Array<RouteRecordRaw> = [
   //Home page
   {
     path: "/home",
     name: "Home",
-    component: () => import(/* webpackChunkName: "home" */ "@/views/home/Home.vue"),
+    component: Home,
     children: [
-      // 主功能区
       {
         path: "mainfunc",
         name: "MainFunc",
-        component: () => import(/* webpackChunkName: "mainfunc" */ "@/views/home/home-view/MainFunc.vue"),
+        component: MainFunc,
       },
-      // About page --> 懒加载
       {
         path: "about",
         name: "About",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ "@/views/home/home-view/About.vue"),
+        component: About,
       },
-      // Welcome page --> 懒加载
       {
         path: "welcome",
         name: "Welcome",
-        component: () => import(/* webpackChunkName: "welcome" */ "@/views/home/home-view/Welcome.vue"),
+        component: Welcome,
         alias: "",
       },
     ],
   },
-
   // Login page
   {
     path: "/login",
     name: "Login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "login" */ "@/views/Login.vue"),
+    component: Login,
   },
   {
     path: "/flippreview",
     name: "FlipPreview",
-    component: () => import(/* webpackChunkName: "flippreview" */ "@/components/FlipPreview.vue"),
+    component: FlipPreview,
   },
   {
     path: "/demo",
     name: "Demo",
-    component: () => import(/* webpackChunkName: "demo" */ "@/components/Demo.vue"),
+    component: Demo,
   },
   {
     path: "/:redirect*",
