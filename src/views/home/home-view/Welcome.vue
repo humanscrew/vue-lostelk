@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Greet from "@/components/Greet.vue"; // @ is an alias to /src
+import Greet from "@/components/Greet/Greet.vue"; // @ is an alias to /src
 
 export default defineComponent({
   name: "welcome",

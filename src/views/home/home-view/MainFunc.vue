@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CardBox from "@/components/CardBox.vue";
+import CardBox from "@/components/CardBox/index.vue";
 
 export default defineComponent({
   name: "MainFunc",

@@ -3,7 +3,7 @@
     <div class="div-earth-img">
       <img
         alt="github earth img"
-        src="../static/imgs/githubEarthIMG.jpg"
+        src="@/static/imgs/githubEarthIMG.jpg"
         class="github-earth-img"
       />
     </div>
@@ -20,6 +20,7 @@
   </div>
 </template>
 
+<style scoped src="@/static/css/fonts.css"></style>
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -60,7 +61,7 @@ img.github-earth-img {
 }
 
 // 引入自定义字体格式
-@import "../static/css/fonts.css";
+// @import "../../static/css/fonts.css";
 .welcome-greet-words {
   font-family: kausha;
   font-size: 50px;
