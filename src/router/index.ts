@@ -1,5 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import { Home, MainFunc, About, Welcome, Login, FlipPreview, Demo } from "@/router/routerLoad";
+import {
+  Home,
+  MainFunc,
+  About,
+  Welcome,
+  Login,
+  FlipPreview,
+  Demo,
+} from "@/router/routerLoad";
 
 const routes: Array<RouteRecordRaw> = [
   //Home page

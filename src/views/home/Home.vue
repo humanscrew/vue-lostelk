@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div class="home-selector">
     <!-- 主页 -->
     <div class="div-inline">
       <router-link to="/home/welcome">Well</router-link>
@@ -24,8 +24,9 @@
   </div>
 
   <!-- 滚动条 -->
-  <el-scrollbar>
-    <!-- 为router-view设置elementplus过度动画 -->
+  <!-- <el-scrollbar> -->
+  <!-- 为router-view设置elementplus过度动画 -->
+  <div class="router-view-box">
     <router-view v-slot="{ Component }">
       <transition name="el-zoom-in-top" mode="out-in">
         <keep-alive>
@@ -33,7 +34,8 @@
         </keep-alive>
       </transition>
     </router-view>
-  </el-scrollbar>
+  </div>
+  <!-- </el-scrollbar> -->
 </template>
 
 <script>
@@ -48,14 +50,8 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.home-selector {
   text-align: center;
-  color: #2c3e50;
-}
-#nav {
   padding: 10px;
   a {
     font-weight: bold;
@@ -67,6 +63,7 @@ export default defineComponent({
 }
 .div-inline {
   display: inline-block;
+  text-align: center;
 }
 .separator-margin {
   margin-right: 15px;
@@ -75,5 +72,8 @@ export default defineComponent({
 .divider-line {
   margin-top: 15px !important;
   margin-bottom: 15px !important;
+}
+.router-view-box {
+  text-align: center;
 }
 </style>

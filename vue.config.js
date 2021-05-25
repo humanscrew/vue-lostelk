@@ -2,13 +2,13 @@ module.exports = {
   // 改变vue默认web图标
   pwa: {
     iconPaths: {
-      favicon32: 'favicon.ico',
-      favicon16: 'favicon.ico',
-      appleTouchIcon: 'favicon.ico',
-      maskIcon: 'favicon.ico',
-      msTileImage: 'favicon.ico'
-    }
-  }
+      favicon32: "favicon.ico",
+      favicon16: "favicon.ico",
+      appleTouchIcon: "favicon.ico",
+      maskIcon: "favicon.ico",
+      msTileImage: "favicon.ico",
+    },
+  },
 
   // baseUrl:'/',//根路径
   // outputDir:'dist',//打包的时候生成的一个文件名

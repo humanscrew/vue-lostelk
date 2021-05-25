@@ -1,12 +1,12 @@
 <template>
   <div>登录页面</div>
-  <button @click="conslg">test http</button>
-  <h1>{{ data }}</h1>
+  <button @click="loginResponse">Login</button>
+  <h2>{{ tempRef }}</h2>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import http from "@/plugins/request";
+import { login } from "@/utils/lostelkAPI/login";
 
 export default defineComponent({
   //   name: '',
@@ -16,19 +16,23 @@ export default defineComponent({
   //   },
 
   setup() {
-    let data = ref("wait...");
-    let conslg = () => {
-      console.log("test");
-      http({ url: "https://api.apiopen.top/getSingleJoke?sid=28654780" }).then(
-        (res) => {
+    let userData = { username: "root", password: "123456" };
+    // let data = { username: "root", password: "123456" };
+    let tempRef: any = ref("log");
+    let loginResponse = () => {
+      login(userData)
+        .then((res) => {
+          tempRef.value = res;
           console.log(res);
-          data.value = res.data.result.text;
-        }
-      );
+        })
+        .catch((err) => {
+          return;
+        });
     };
     return {
-      data,
-      conslg,
+      userData,
+      tempRef,
+      loginResponse,
     };
   },
 });
