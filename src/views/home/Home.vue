@@ -2,7 +2,7 @@
   <div class="home-selector">
     <!-- 主页 -->
     <div class="div-inline">
-      <router-link to="/home/welcome">Well</router-link>
+      <router-link to="/home/welcome">WELL</router-link>
     </div>
     <div class="div-inline separator-margin">|</div>
     <!-- 主功能区 -->
@@ -17,9 +17,9 @@
   </div>
 
   <!-- 分割线 -->
-  <div>
+  <div class="#">
     <el-divider class="divider-line">
-      <i class="el-icon-s-promotion"></i>
+      <div class="#"><i class="el-icon-s-promotion"></i></div>
     </el-divider>
   </div>
 
@@ -38,7 +38,7 @@
   <!-- </el-scrollbar> -->
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -63,17 +63,19 @@ export default defineComponent({
 }
 .div-inline {
   display: inline-block;
-  text-align: center;
+  // text-align: center;
 }
 .separator-margin {
-  margin-right: 15px;
-  margin-left: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 .divider-line {
   margin-top: 15px !important;
   margin-bottom: 15px !important;
 }
-.router-view-box {
-  text-align: center;
+
+.el-divider__text {
+  background-color: inherit;
+  // color: inherit
 }
 </style>

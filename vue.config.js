@@ -9,7 +9,12 @@ module.exports = {
       msTileImage: "favicon.ico",
     },
   },
-
+  // webpack 链接 API，用于生成和修改 webpack 配置
+  // https://github.com/mozilla-neutrino/webpack-chain
+  // chainWebpack: (config) => {
+  //   config.resolve.alias
+  //     .set('@$', resolve('src'))
+  // }
   // baseUrl:'/',//根路径
   // outputDir:'dist',//打包的时候生成的一个文件名
   // assetsDir:'assets',//静态资源目录(js,css,img,fonts)这些文件都可以写里面

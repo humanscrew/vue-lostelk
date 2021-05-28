@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ElMessage } from "element-plus";
+import { ElLoading, ElMessage } from "element-plus";
 
 // 创建 axios 实例
 const service = axios.create({
@@ -15,9 +15,16 @@ const service = axios.create({
 // 设置 post默认 Content-Type
 // service.defaults.headers.post["Content-Type"] = "multipart/form-data";
 
+// loading实例
+let loadingInstance: any;
 // 添加请求拦截器
 service.interceptors.request.use(
   (config) => {
+    loadingInstance = ElLoading.service({
+      fullscreen: true,
+      text: "让请求飞一会...",
+      lock: true,
+    });
     // if (config.method === 'post' || config.method === 'put') {
     // //     // post、put 提交时，将对象转换为string, 为处理后端解析问题
     //     config.data = JSON.stringify(config.data)
@@ -35,6 +42,7 @@ service.interceptors.request.use(
     // 请求错误处理
     ElMessage.error("请求失败！");
     console.log(error); // for debug
+    loadingInstance.close();
     return Promise.reject(error);
   }
 );
@@ -44,11 +52,16 @@ service.interceptors.response.use(
   (response) => {
     // const res = response.data
     // return data
+    loadingInstance.close();
     return response;
   },
   (error) => {
     ElMessage.error("响应失败！");
     console.log(error); // for debug
+    // 以服务的方式调用的 Loading 需要异步关闭
+    // this.$nextTick(() => {
+    loadingInstance.close();
+    // });
     return Promise.reject(error);
   }
 );

@@ -14,13 +14,11 @@
     </h3>
     <p class="contact-link">
       Here is a
-      <a href="https://www.baidu.com" target="_blank" rel="noopener">link</a
-      >.-->wait to use
+      <a href="https://www.baidu.com" target="_blank" rel="noopener">link</a> .
     </p>
   </div>
 </template>
 
-<style scoped src="@/static/css/fonts.css"></style>
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -33,7 +31,11 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped src="@/static/css/fonts.css"></style>
 <style scoped lang="less">
+.greet {
+  font-family: kausha;
+}
 h1,
 h3,
 p {
@@ -61,17 +63,11 @@ img.github-earth-img {
 }
 
 // 引入自定义字体格式
-// @import "../../static/css/fonts.css";
+// @import "~@/static/css/fonts.css";
 .welcome-greet-words {
-  font-family: kausha;
   font-size: 50px;
 }
-.words-to-lostelk {
-  font-family: lemonada;
-  // font-size: 25px;
-}
 .contact-link {
-  font-family: lemonada;
-  font-size: 15px;
+  font-size: 20px;
 }
 </style>

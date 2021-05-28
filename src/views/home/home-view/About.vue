@@ -14,7 +14,11 @@
 </template>
 
 <style scoped>
-/* @import "../static/css/fonts.css"; */
+@import "~@/static/css/fonts.css";
+.about {
+  text-align: center;
+  font-family: kausha;
+}
 .link-to-me {
   /* font-family: lemonada; */
   /* font-family: kausha; */

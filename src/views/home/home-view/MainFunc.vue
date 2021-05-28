@@ -51,6 +51,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.main-func {
+  text-align: center;
+}
 .div-layout {
   margin: 10px;
 }

@@ -22,4 +22,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.welcome {
+  text-align: center;
+}
+</style>
