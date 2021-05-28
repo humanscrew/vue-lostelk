@@ -10,26 +10,31 @@
         ref="loginFrom"
         label-position="right"
         label-width="auto"
-        class="loginFrom-container"
-        style="text-align: center"
       >
         <el-form-item
           label="用户名"
-          prop="checkPass"
+          prop="userName"
           required="true"
-          style="width: 50%"
+          style="margin: 20px 80px 20px 30px"
+        >
+          <el-input
+            v-model="loginFrom.userName"
+            autocomplete="off"
+            placeholder="UserName"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="密码"
+          prop="password"
+          required="true"
+          style="margin: 20px 80px 20px 30px"
         >
           <el-input
             type="password"
-            v-model="loginFrom.checkPass"
+            v-model="loginFrom.password"
             autocomplete="off"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="pass" required="true">
-          <el-input
-            type="password"
-            v-model="loginFrom.pass"
-            autocomplete="off"
+            show-password
+            placeholder="Password"
           ></el-input>
         </el-form-item>
 
@@ -46,43 +51,50 @@
 import { defineComponent, SetupContext, reactive, toRefs } from "vue";
 
 export default defineComponent({
-  //   name: "",
-  //   //   props: {},
-  //   //   components: {},
-  //   setup(props, ctx: SetupContext) {
-  //     return {};
-  //   },
   data() {
-    var validatePass = (rule, value, callback) => {
+    var validateUserName = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("请输入用户名"));
       } else {
-        if (this.loginFrom.checkPass !== "") {
-          this.$refs.loginFrom.validateField("checkPass");
-        }
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
+    var validatePassword = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.loginFrom.pass) {
-        callback(new Error("两次输入密码不一致!"));
+        callback(new Error("请输入密码"));
       } else {
+        if (this.loginFrom.userName !== "") {
+          this.$refs.loginFrom.validateField("userName");
+        }
         callback();
       }
     };
     return {
       loginFrom: {
-        pass: "",
-        checkPass: "",
+        password: "",
+        userName: "",
         age: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        userName: [{ validator: validateUserName, trigger: "blur" }],
+        password: [{ validator: validatePassword, trigger: "blur" }],
       },
     };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
   },
 });
 </script>
