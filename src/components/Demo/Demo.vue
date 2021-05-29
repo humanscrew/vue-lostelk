@@ -14,7 +14,7 @@
         <el-form-item
           label="用户名"
           prop="userName"
-          required="true"
+          required
           style="margin: 20px 80px 20px 30px"
         >
           <el-input
@@ -26,7 +26,7 @@
         <el-form-item
           label="密码"
           prop="password"
-          required="true"
+          required
           style="margin: 20px 80px 20px 30px"
         >
           <el-input
@@ -48,18 +48,21 @@
 </template>
 
 <script>
-import { defineComponent, SetupContext, reactive, toRefs } from "vue";
+import { defineComponent, getCurrentInstance } from "vue";
+import { ElMessage, ElNotification } from "element-plus";
+import { login } from "@/utils/lostelkAPI/login";
+import AES from "@/plugins/crypto-js/AES";
 
 export default defineComponent({
   data() {
-    var validateUserName = (rule, value, callback) => {
+    let validateUserName = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入用户名"));
       } else {
         callback();
       }
     };
-    var validatePassword = (rule, value, callback) => {
+    let validatePassword = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
@@ -81,20 +84,46 @@ export default defineComponent({
       },
     };
   },
-  methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+  setup() {
+    let that = getCurrentInstance();
+    let loginRequest = () => {
+      login({
+        username: that.data.loginFrom.userName,
+      })
+        .then((res) => {
+          if (Object.prototype.hasOwnProperty.call(res.data, 'msg')) {
+            ElMessage.success("登录成功");
+          }
+          ElMessage.error("登录失败");
+        })
+        .catch((err) => {
+          return;
+        });
+    };
+    let resetForm = (formName) => {
+      that.refs[formName].resetFields();
+    };
+    let submitForm = (formName) => {
+      that.refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          // ElMessage("登录中");
+          loginRequest();
         } else {
-          console.log("error submit!!");
+          ElNotification({
+            title: "提示",
+            type: "warning",
+            message: "用户名或密码有误！",
+            duration: 1000,
+            offset: 50,
+          });
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
+    };
+    return {
+      resetForm,
+      submitForm,
+    };
   },
 });
 </script>

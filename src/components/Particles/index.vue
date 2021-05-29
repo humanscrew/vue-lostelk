@@ -7,8 +7,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import "particles.js";
-import particle from "@/components/Particles/particles.json";
 export default defineComponent({
   //   name: "",
   //   //   props: {},
@@ -17,7 +15,7 @@ export default defineComponent({
   //     return {};
   //   },
   mounted() {
-    window.particlesJS("particles-container", particle);
+    // window.particlesJS("particles-container", particle);
   },
 });
 </script>

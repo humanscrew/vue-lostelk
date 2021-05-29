@@ -4,9 +4,6 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
-
-declare module 'particles.js'
-
 declare module '*.json' {
   const value: any;
   export default value;

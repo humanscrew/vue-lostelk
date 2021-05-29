@@ -9,12 +9,6 @@ import { defineComponent, ref } from "vue";
 import { login } from "@/utils/lostelkAPI/login";
 
 export default defineComponent({
-  //   name: '',
-  //   props: {
-  //   },
-  //   components: {
-  //   },
-
   setup() {
     let userData = { username: "root", password: "123456" };
     // let data = { username: "root", password: "123456" };
