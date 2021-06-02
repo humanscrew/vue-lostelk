@@ -50,7 +50,8 @@
 <script>
 import { defineComponent, getCurrentInstance } from "vue";
 import { ElMessage, ElNotification } from "element-plus";
-import { login } from "@/utils/lostelkAPI/login";
+import { login, getPublicKey } from "@/utils/lostelkAPI/login";
+import RSA from "@/plugins/crypto-js/RSA";
 import AES from "@/plugins/crypto-js/AES";
 
 export default defineComponent({
@@ -87,18 +88,32 @@ export default defineComponent({
   setup() {
     let that = getCurrentInstance();
     let loginRequest = () => {
-      login({
+      getPublicKey({
         username: that.data.loginFrom.userName,
-      })
-        .then((res) => {
-          if (Object.prototype.hasOwnProperty.call(res.data, 'msg')) {
-            ElMessage.success("登录成功");
-          }
-          ElMessage.error("登录失败");
+      }).then((res) => {
+        let publicKey = res.data.PKey;
+        let aesKey = AES.generateKey();
+        let password = that.data.loginFrom.password;
+        let passwordEncryptByAES = AES.encrypt(password, aesKey);
+        let aesKeyEncryptByRSA = RSA.encrypt(aesKey, publicKey);
+        login({
+          username: that.data.loginFrom.userName,
+          password: passwordEncryptByAES,
+          aesKey: aesKeyEncryptByRSA,
         })
-        .catch((err) => {
-          return;
-        });
+          .then((res) => {
+            if (res.data.msg == "登录成功！") {
+              // console.log(res);
+              ElMessage.success(res.data.msg);
+            } else {
+              // console.log(res);
+              ElMessage.error(res.data.msg);
+            }
+          })
+          .catch((err) => {
+            return;
+          });
+      });
     };
     let resetForm = (formName) => {
       that.refs[formName].resetFields();
@@ -112,7 +127,7 @@ export default defineComponent({
           ElNotification({
             title: "提示",
             type: "warning",
-            message: "用户名或密码有误！",
+            message: "请填入用户名或密码！",
             duration: 1000,
             offset: 50,
           });

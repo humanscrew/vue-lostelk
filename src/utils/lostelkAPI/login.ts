@@ -8,3 +8,11 @@ export function login(userData: any) {
     data: userData,
   });
 }
+
+export function getPublicKey(username: any) {
+  return request({
+    url: "getRSA",
+    method: "post",
+    data: username,
+  })
+}

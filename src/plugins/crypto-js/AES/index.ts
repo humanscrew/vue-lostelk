@@ -14,7 +14,7 @@ export default {
 
     //加密
     encrypt(word: any, keyStr: string) {
-        keyStr = keyStr ? keyStr : 'abcdsxyzhkj12580'; //判断是否存在ksy，不存在就用定义好的key
+        keyStr = keyStr ? keyStr : 'abcdsxyzhkj12580'; //判断是否存在key，不存在就用定义好的key
         const key = CryptoJS.enc.Utf8.parse(keyStr);
         const src = CryptoJS.enc.Utf8.parse(word);
         const encrypted = CryptoJS.AES.encrypt(src, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
