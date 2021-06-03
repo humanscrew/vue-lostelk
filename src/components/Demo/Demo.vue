@@ -49,6 +49,7 @@
 
 <script>
 import { defineComponent, getCurrentInstance } from "vue";
+import { useStore } from "vuex";
 import { ElMessage, ElNotification } from "element-plus";
 import { login, getPublicKey } from "@/utils/lostelkAPI/login";
 import RSA from "@/plugins/crypto-js/RSA";
@@ -87,15 +88,20 @@ export default defineComponent({
   },
   setup() {
     let that = getCurrentInstance();
+    let store = useStore();
     let loginRequest = () => {
       getPublicKey({
         username: that.data.loginFrom.userName,
       }).then((res) => {
+        let username = that.data.loginFrom.userName;
         let publicKey = res.data.PKey;
         let aesKey = AES.generateKey();
         let password = that.data.loginFrom.password;
         let passwordEncryptByAES = AES.encrypt(password, aesKey);
         let aesKeyEncryptByRSA = RSA.encrypt(aesKey, publicKey);
+        store.commit("setUsername", username);
+        store.commit("setPublicKey", publicKey);
+        store.commit("setAseKey", aesKey);
         login({
           username: that.data.loginFrom.userName,
           password: passwordEncryptByAES,
@@ -104,6 +110,8 @@ export default defineComponent({
           .then((res) => {
             if (res.data.msg == "登录成功！") {
               // console.log(res);
+              let token = res.data.Token;
+              store.commit("setToken", token);
               ElMessage.success(res.data.msg);
             } else {
               // console.log(res);

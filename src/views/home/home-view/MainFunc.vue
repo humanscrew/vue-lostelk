@@ -6,22 +6,22 @@
       <el-row :gutter="14" type="flex" justify="space-around" class="row-bg">
         <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="2">
           <div class="grid-content bg-purple-light">
-            <CardBox />
+            <CardBox :funcList="funcList[0]" />
           </div>
         </el-col>
         <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="2">
           <div class="grid-content bg-purple-light">
-            <CardBox />
+            <CardBox :funcList="funcList[1]" />
           </div>
         </el-col>
         <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="2">
           <div class="grid-content bg-purple-light grid-content-last-but-one">
-            <CardBox />
+            <CardBox :funcList="funcList[2]" />
           </div>
         </el-col>
         <el-col :xs="24" :sm="12" :md="12" :lg="4" :xl="2">
           <div class="grid-content bg-purple-light grid-content-last">
-            <CardBox />
+            <CardBox :funcList="funcList[3]" />
           </div>
         </el-col>
       </el-row>
@@ -40,13 +40,58 @@ export default defineComponent({
   components: {
     CardBox,
   },
-
-  //   setup(props){
-  //     let data: Data = reactive<Data>({})
-  //     return {
-  //       ...toRefs(data),
-  //     }
-  //   },
+  setup() {
+    let funcList = [
+      {
+        name: "财务核算",
+        children: [
+          { name: "账务处理" },
+          { name: "现金流量" },
+          { name: "模式记账" },
+          { name: "财务流" },
+        ],
+      },
+      {
+        name: "资金管理",
+        children: [
+          { name: "现金管理" },
+          { name: "银行存款" },
+          { name: "资金对账" },
+          { name: "资金流" },
+        ],
+      },
+      {
+        name: "工作流",
+        children: [
+          { name: "对公拨款" },
+          { name: "费用报销" },
+          { name: "采购订单" },
+          { name: "业务结转" },
+        ],
+      },
+      {
+        name: "资产管理",
+        children: [
+          { name: "固定资产" },
+          { name: "无形资产" },
+          { name: "长期待摊" },
+          { name: "其他资产" },
+        ],
+      },
+      {
+        name: "进销存",
+        children: [
+          { name: "库存管理" },
+          { name: "采购管理" },
+          { name: "销售管理" },
+          { name: "供应链" },
+        ],
+      },
+    ];
+    return {
+      funcList,
+    };
+  },
 });
 </script>
 

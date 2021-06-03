@@ -3,7 +3,7 @@
     <el-card class="card-box hvr-back-pulse" shadow="always">
       <template #header>
         <div class="card-header">
-          <div class="card-header-name">{{ funclist }}卡片名称</div>
+          <div class="card-header-name">{{ funcList.name }}</div>
           <el-button
             icon="el-icon-search"
             circle
@@ -14,9 +14,9 @@
           <!-- 加载状态 => :loading="true" -->
         </div>
       </template>
-      <div v-for="o in 4" :key="o" class="card-box-item">
+      <div v-for="item in funcList.children" :key="item" class="card-box-item">
         <div class="card-box-item-text hvr-bounce-to-right">
-          {{ "列表内容 " + o }}
+          {{ item.name }}
         </div>
       </div>
     </el-card>
