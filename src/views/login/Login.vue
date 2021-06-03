@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" @keyup.enter="submitForm('loginFrom')">
     <div class="login-form-box">
       <h1 class="title-text">登录</h1>
 
