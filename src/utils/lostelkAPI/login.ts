@@ -14,5 +14,5 @@ export function getPublicKey(username: any) {
     url: "getRSA",
     method: "post",
     data: username,
-  })
+  });
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="#">
+  <div class="card-root-div">
     <el-card class="card-box hvr-back-pulse" shadow="always">
       <template #header>
         <div class="card-header">
@@ -15,7 +15,10 @@
         </div>
       </template>
       <div v-for="item in funcList.children" :key="item" class="card-box-item">
-        <div class="card-box-item-text hvr-bounce-to-right">
+        <div
+          class="card-box-item-text hvr-bounce-to-right"
+          @click="routerPush(item.path)"
+        >
           {{ item.name }}
         </div>
       </div>
@@ -25,6 +28,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "CardBox",
@@ -33,12 +37,23 @@ export default defineComponent({
   },
   components: {},
   setup() {
-    return {};
+    let router = useRouter();
+    let routerPush = (path: string) => {
+      if (path) {
+        router.push({ path });
+      }
+    };
+    return {
+      routerPush,
+    };
   },
 });
 </script>
 
 <style scoped lang="less">
+.card-root-div {
+  min-width: 250px;
+}
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -169,6 +184,7 @@ export default defineComponent({
 .hvr-bounce-to-right:focus,
 .hvr-bounce-to-right:active {
   color: black;
+  // color: #01FF70
 }
 .hvr-bounce-to-right:hover:before,
 .hvr-bounce-to-right:focus:before,

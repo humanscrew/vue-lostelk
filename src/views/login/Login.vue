@@ -21,6 +21,7 @@
             v-model="loginFrom.userName"
             autocomplete="off"
             placeholder="UserName"
+            autofocus
           ></el-input>
         </el-form-item>
         <el-form-item
@@ -69,9 +70,9 @@ export default defineComponent({
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.loginFrom.userName !== "") {
-          this.$refs.loginFrom.validateField("userName");
-        }
+        // if (this.loginFrom.userName !== "") {
+        //   this.$refs.loginFrom.validateField("userName");
+        // }
         callback();
       }
     };
@@ -122,6 +123,7 @@ export default defineComponent({
             }
           })
           .catch((err) => {
+            console.log(err)
             return;
           });
       });

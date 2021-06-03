@@ -45,7 +45,7 @@ export default defineComponent({
       {
         name: "财务核算",
         children: [
-          { name: "账务处理" },
+          { name: "账务处理", path: "/func" },
           { name: "现金流量" },
           { name: "模式记账" },
           { name: "财务流" },

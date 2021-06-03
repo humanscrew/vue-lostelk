@@ -5,6 +5,7 @@ import {
   About,
   Welcome,
   Login,
+  Layout,
   FlipPreview,
   Demo,
 } from "@/router/routerLoad";
@@ -39,6 +40,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  // func page -> Layout on Left
+  {
+    path: "/func",
+    name: "Func",
+    component: Layout,
   },
   {
     path: "/flippreview",

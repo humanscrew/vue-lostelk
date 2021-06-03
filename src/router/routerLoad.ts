@@ -21,10 +21,13 @@ const Welcome = () =>
 const Login = () =>
   import(/* webpackChunkName: "login" */ "@/views/login/Login.vue");
 
+const Layout = () =>
+  import(/* webpackChunkName: "layout" */ "@/views/layout/Layout.vue");
+
 const FlipPreview = () =>
   import(/* webpackChunkName: "flippreview" */ "@/components/FlipPreview.vue");
 
 const Demo = () =>
   import(/* webpackChunkName: "demo" */ "@/components/Demo/Demo.vue");
 
-export { Home, MainFunc, About, Welcome, Login, FlipPreview, Demo };
+export { Home, MainFunc, About, Welcome, Login, Layout, FlipPreview, Demo };
