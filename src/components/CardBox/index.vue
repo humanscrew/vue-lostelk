@@ -52,7 +52,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .card-root-div {
-  min-width: 250px;
+  min-width: 230px;
 }
 .card-header {
   display: flex;
