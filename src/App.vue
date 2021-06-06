@@ -1,8 +1,6 @@
 <template>
   <el-scrollbar max-height="100vh">
-    <div class="router-view-box">
       <router-view />
-    </div>
   </el-scrollbar>
 </template>
 

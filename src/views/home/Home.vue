@@ -23,10 +23,8 @@
     </el-divider>
   </div>
 
-  <!-- 滚动条 -->
-  <!-- <el-scrollbar> -->
   <!-- 为router-view设置elementplus过度动画 -->
-  <div class="router-view-box">
+
     <router-view v-slot="{ Component }">
       <transition name="el-zoom-in-top" mode="out-in">
         <keep-alive>
@@ -34,8 +32,7 @@
         </keep-alive>
       </transition>
     </router-view>
-  </div>
-  <!-- </el-scrollbar> -->
+
 </template>
 
 <script lang="ts">

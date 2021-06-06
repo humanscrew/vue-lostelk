@@ -7,15 +7,15 @@ const Home = () =>
 
 const MainFunc = () =>
   import(
-    /* webpackChunkName: "mainfunc" */ "@/views/home/home-view/MainFunc.vue"
+    /* webpackChunkName: "mainfunc" */ "@/views/home/homePages/MainFunc.vue"
   );
 
 const About = () =>
-  import(/* webpackChunkName: "about" */ "@/views/home/home-view/About.vue");
+  import(/* webpackChunkName: "about" */ "@/views/home/homePages/About.vue");
 
 const Welcome = () =>
   import(
-    /* webpackChunkName: "welcome" */ "@/views/home/home-view/Welcome.vue"
+    /* webpackChunkName: "welcome" */ "@/views/home/homePages/Welcome.vue"
   );
 
 const Login = () =>
@@ -30,4 +30,19 @@ const FlipPreview = () =>
 const Demo = () =>
   import(/* webpackChunkName: "demo" */ "@/components/Demo/Demo.vue");
 
-export { Home, MainFunc, About, Welcome, Login, Layout, FlipPreview, Demo };
+const FuncArea = () =>
+  import(/* webpackChunkName: "funcarea" */ "@/views/func/FuncArea.vue");
+
+const Func0Child0 = () =>
+  import(/* webpackChunkName: "func0child0" */ "@/views/func/func0/child0/Func0Child0.vue");
+
+const Func0Child1 = () =>
+  import(/* webpackChunkName: "func0child1" */ "@/views/func/func0/child1/Func0Child1.vue");
+
+const Func1Child0 = () =>
+  import(/* webpackChunkName: "func1child0" */ "@/views/func/func1/child0/Func1Child0.vue");
+
+const Func1Child1 = () =>
+  import(/* webpackChunkName: "func1child1" */ "@/views/func/func1/child1/Func1Child1.vue");
+
+export { Home, MainFunc, About, Welcome, Login, Layout, FlipPreview, Demo, FuncArea, Func0Child0, Func0Child1, Func1Child0, Func1Child1 };

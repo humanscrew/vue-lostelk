@@ -3,7 +3,7 @@
     <div>主功能区</div>
     <!-- Space间距 -->
     <el-space wrap :size="50" style="margin: 50px">
-      <div v-for="item in funcList" :key="item">
+      <div v-for="item in menuList" :key="item">
         <CardBox :funcList="item" />
       </div>
     </el-space>
@@ -11,7 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
+import { useStore } from "vuex";
 import CardBox from "@/components/CardBox/index.vue";
 
 export default defineComponent({
@@ -22,20 +23,25 @@ export default defineComponent({
     CardBox,
   },
   setup() {
-    let funcList = [
+    let store = useStore();
+    let menuList = [
       {
         name: "财务核算",
+        icon: "el-icon-menu",
+        path: "/layout/0",
         children: [
-          { name: "账务处理", path: "/func" },
-          { name: "现金流量" },
+          { name: "账务处理", path: "/layout/1/1" },
+          { name: "现金流量", path: "/layout/0/1" },
           { name: "模式记账" },
           { name: "财务流" },
         ],
       },
       {
         name: "资金管理",
+        icon: "el-icon-menu",
+        path: "/layout/1",
         children: [
-          { name: "现金管理" },
+          { name: "现金管理", path: "/layout/1/0" },
           { name: "银行存款" },
           { name: "资金对账" },
           { name: "资金流" },
@@ -43,6 +49,8 @@ export default defineComponent({
       },
       {
         name: "工作流",
+        icon: "el-icon-menu",
+        path: "/layout/func3",
         children: [
           { name: "对公拨款" },
           { name: "费用报销" },
@@ -52,6 +60,8 @@ export default defineComponent({
       },
       {
         name: "资产管理",
+        icon: "el-icon-menu",
+        path: "/layout/func4",
         children: [
           { name: "固定资产" },
           { name: "无形资产" },
@@ -61,6 +71,8 @@ export default defineComponent({
       },
       {
         name: "进销存",
+        icon: "el-icon-menu",
+        path: "/layout/func5",
         children: [
           { name: "库存管理" },
           { name: "采购管理" },
@@ -69,8 +81,11 @@ export default defineComponent({
         ],
       },
     ];
+    onMounted(() => {
+      store.commit("setMenuList", menuList);
+    });
     return {
-      funcList,
+      menuList,
     };
   },
 });
