@@ -1,193 +1,411 @@
 <template>
-  <div class="login-container">
-    <div class="login-form-box">
-      <h1 class="title-text">登录</h1>
-
-      <el-form
-        :model="loginFrom"
-        status-icon
-        :rules="rules"
-        ref="loginFrom"
-        label-position="right"
-        label-width="auto"
-      >
-        <el-form-item
-          label="用户名"
-          prop="userName"
-          required
-          style="margin: 20px 80px 20px 30px"
-        >
-          <el-input
-            v-model="loginFrom.userName"
-            autocomplete="off"
-            placeholder="UserName"
-          ></el-input>
-        </el-form-item>
-        <el-form-item
-          label="密码"
-          prop="password"
-          required
-          style="margin: 20px 80px 20px 30px"
-        >
-          <el-input
-            type="password"
-            v-model="loginFrom.password"
-            autocomplete="off"
-            show-password
-            placeholder="Password"
-          ></el-input>
-        </el-form-item>
-
-        <el-button type="primary" @click="submitForm('loginFrom')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('loginFrom')">重置</el-button>
-      </el-form>
+  <div class="sidebar">
+    <div class="logo_content">
+      <div class="logo">
+        <i class="bx bxl-c-plus-plus"></i>
+        <div class="logo_name">CodingLab</div>
+      </div>
+      <i class="bx bx-menu" id="btn"></i>
     </div>
+    <ul class="nav_list">
+      <li>
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Search..." />
+        <span class="tooltip">Search</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-user"></i>
+          <span class="links_name">User</span>
+        </a>
+        <span class="tooltip">User</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-chat"></i>
+          <span class="links_name">Messages</span>
+        </a>
+        <span class="tooltip">Messages</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Analytics</span>
+        </a>
+        <span class="tooltip">Analytics</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-folder"></i>
+          <span class="links_name">File Manager</span>
+        </a>
+        <span class="tooltip">Files</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-cart-alt"></i>
+          <span class="links_name">Order</span>
+        </a>
+        <span class="tooltip">Order</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-heart"></i>
+          <span class="links_name">Saved</span>
+        </a>
+        <span class="tooltip">Saved</span>
+      </li>
+      <li>
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="links_name">Setting</span>
+        </a>
+        <span class="tooltip">Setting</span>
+      </li>
+    </ul>
+    <div class="profile_content">
+      <div class="profile">
+        <div class="profile_details">
+          <!--<img src="profile.jpg" alt="">-->
+          <div class="name_job">
+            <div class="name">Prem Shahi</div>
+            <div class="job">Web Designer</div>
+          </div>
+        </div>
+        <i class="bx bx-log-out" id="log_out"></i>
+      </div>
+    </div>
+  </div>
+  <div class="home_content">
+    <div class="text">Home Content</div>
   </div>
 </template>
 
-<script>
-import { defineComponent, getCurrentInstance } from "vue";
-import { useStore } from "vuex";
-import { ElMessage, ElNotification } from "element-plus";
-import { login, getPublicKey } from "@/utils/lostelkAPI/login";
-import RSA from "@/plugins/crypto-js/RSA";
-import AES from "@/plugins/crypto-js/AES";
 
+<script>
+import { defineComponent } from "vue";
 export default defineComponent({
-  data() {
-    let validateUserName = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入用户名"));
+  mounted() {
+    let btn = document.querySelector("#btn");
+    let sidebar = document.querySelector(".sidebar");
+    let searchBtn = document.querySelector(".bx-search");
+
+    btn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (btn.classList.contains("bx-menu")) {
+        btn.classList.replace("bx-menu", "bx-menu-alt-right");
       } else {
-        callback();
+        btn.classList.replace("bx-menu-alt-right", "bx-menu");
       }
     };
-    let validatePassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.loginFrom.userName !== "") {
-          this.$refs.loginFrom.validateField("userName");
-        }
-        callback();
-      }
-    };
-    return {
-      loginFrom: {
-        password: "",
-        userName: "",
-        age: "",
-      },
-      rules: {
-        userName: [{ validator: validateUserName, trigger: "blur" }],
-        password: [{ validator: validatePassword, trigger: "blur" }],
-      },
-    };
-  },
-  setup() {
-    let that = getCurrentInstance();
-    let store = useStore();
-    let loginRequest = () => {
-      getPublicKey({
-        username: that.data.loginFrom.userName,
-      }).then((res) => {
-        let username = that.data.loginFrom.userName;
-        let publicKey = res.data.PKey;
-        let aesKey = AES.generateKey();
-        let password = that.data.loginFrom.password;
-        let passwordEncryptByAES = AES.encrypt(password, aesKey);
-        let aesKeyEncryptByRSA = RSA.encrypt(aesKey, publicKey);
-        store.commit("setUsername", username);
-        store.commit("setPublicKey", publicKey);
-        store.commit("setAseKey", aesKey);
-        login({
-          username: that.data.loginFrom.userName,
-          password: passwordEncryptByAES,
-          aesKey: aesKeyEncryptByRSA,
-        })
-          .then((res) => {
-            if (res.data.msg == "登录成功！") {
-              // console.log(res);
-              let token = res.data.Token;
-              store.commit("setToken", token);
-              ElMessage.success(res.data.msg);
-            } else {
-              // console.log(res);
-              ElMessage.error(res.data.msg);
-            }
-          })
-          .catch((err) => {
-            return;
-          });
-      });
-    };
-    let resetForm = (formName) => {
-      that.refs[formName].resetFields();
-    };
-    let submitForm = (formName) => {
-      that.refs[formName].validate((valid) => {
-        if (valid) {
-          // ElMessage("登录中");
-          loginRequest();
-        } else {
-          ElNotification({
-            title: "提示",
-            type: "warning",
-            message: "请填入用户名或密码！",
-            duration: 1000,
-            offset: 50,
-          });
-          return false;
-        }
-      });
-    };
-    return {
-      resetForm,
-      submitForm,
+    searchBtn.onclick = function () {
+      sidebar.classList.toggle("active");
     };
   },
 });
 </script>
 
-<style scoped lang="less">
-.login-container {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  // 设置背景图片
-  background: url(~@/static/imgs/loginBackground.png);
-  background-size: cover;
-  background-attachment: fixed;
+
+<style scoped>
+/* boxicons */
+/* @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"); */
+@import url("~@/components/Sidebar/sidebarIcons/sidebarIcons.css");
+/* Google Font */
+@import url("~@/components/Sidebar/sidebarFonts/sidebarFonts.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
-.login-form-box {
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 400px;
-  height: 400px;
-  border-radius: 30px;
 
-  // 水平垂直的居中
+body {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+::selection {
+  color: #fff;
+  background: #11101d;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 78px;
+  background: #11101d;
+  padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+
+.sidebar.active {
+  width: 240px;
+}
+
+.sidebar .logo_content .logo {
+  color: #fff;
+  display: flex;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.sidebar.active .logo_content .logo {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.logo_content .logo i {
+  font-size: 28px;
+  margin-right: 5px;
+}
+
+.logo_content .logo .logo_name {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.sidebar #btn {
   position: absolute;
-  top: 50%;
+  color: #fff;
+  top: 6px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 22px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  transform: translateX(-50%);
+}
 
-  // 毛玻璃效果
-  backdrop-filter: blur(3px);
-  border-left: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+.sidebar.active #btn {
+  left: 90%;
+}
+
+.sidebar ul {
+  margin-top: 20px;
+}
+
+.sidebar ul li {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin: 0 5px;
+  list-style: none;
+  line-height: 50px;
+  margin: 5px 0;
+}
+
+.sidebar ul li .tooltip {
+  position: absolute;
+  left: 125px;
+  top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  height: 35px;
+  width: 120px;
+  background: #fff;
+  line-height: 35px;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: 0s;
+  opacity: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.sidebar.active ul li .tooltip {
+  display: none;
+}
+
+.sidebar ul li:hover .tooltip {
+  transition: all 0.5s ease;
+  opacity: 1;
+  top: 50%;
+}
+
+.sidebar ul li input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+  outline: none;
+  border: none;
+  background: #1d1b31;
+  padding-left: 50px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.sidebar ul li .bx-search {
+  position: absolute;
+  z-index: 99;
+  color: #fff;
+  font-size: 22px;
+  transition: all 0.5 ease;
+}
+
+.sidebar ul li .bx-search:hover {
+  background: #fff;
+  color: #1d1b31;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 12px;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #11101d;
+  background: #fff;
+}
+
+.sidebar ul li i {
+  font-size: 18px;
+  font-weight: 400;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 12px;
+  line-height: 50px;
   text-align: center;
 }
-h1 {
-  // 标题字体
-  margin: 20px;
-  font-size: 2em;
+
+.sidebar .links_name {
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
-.title-text {
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
+
+.sidebar.active .links_name {
+  transition: 0s;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar .profile_content {
+  position: absolute;
+  color: #fff;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.sidebar .profile_content .profile {
+  position: relative;
+  padding: 10px 6px;
+  height: 60px;
+  background: none;
+  transition: all 0.4s ease;
+}
+
+.sidebar.active .profile_content .profile {
+  background: #1d1b31;
+}
+
+.profile_content .profile .profile_details {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+
+.sidebar.active ~ .profile .profile_details {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.profile .profile_details img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.profile .profile_details .name_job {
+  margin-left: 10px;
+}
+
+.profile .profile_details .name {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.profile .profile_details .job {
+  font-size: 12px;
+}
+
+.profile #log_out {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.4s ease;
+  background: #1d1b31;
+}
+
+.sidebar.active .profile #log_out {
+  left: 88%;
+}
+
+.sidebar.active .profile #log_out {
+  background: none;
+}
+
+.home_content {
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 78px);
+  left: 78px;
+  background: #e4e9f7;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.active ~ .home_content {
+  z-index: 100;
+}
+
+.home_content .text {
+  font-size: 25px;
+  font-weight: 500;
+  color: #1d1b31;
+  margin: 12px;
+}
+
+.sidebar.active ~ .home_content {
+  width: calc(100% - 240px);
+  left: 240px;
 }
 </style>
