@@ -13,13 +13,21 @@
           @click="isActive = !isActive"
         ></i>
       </div>
-      <!-- <el-scrollbar max-height="80vh"> -->
+
       <div class="submenu">
         <ul class="nav_list">
           <li>
             <i class="bx bx-search" @click="isActive = !isActive"></i>
             <input type="text" placeholder="Search..." />
             <span class="tooltip">搜索</span>
+          </li>
+          <!-- <el-scrollbar max-height="80vh"> -->
+          <li v-for="item in menuList" :key="item">
+            <a href="#" @click="routerPush(item.path)">
+              <i class="bx" :class="item.icon"></i>
+              <span class="links_name">{{ item.name }}</span>
+            </a>
+            <span class="tooltip">{{ item.name }}</span>
           </li>
           <li v-for="item in menuList" :key="item">
             <a href="#" @click="routerPush(item.path)">
@@ -28,9 +36,10 @@
             </a>
             <span class="tooltip">{{ item.name }}</span>
           </li>
+          <!-- </el-scrollbar> -->
         </ul>
       </div>
-      <!-- </el-scrollbar> -->
+
       <div class="profile_content">
         <div class="profile">
           <div class="profile_details">
@@ -45,11 +54,12 @@
       </div>
     </div>
     <div class="home_content">
-      <div class="text">Home Content</div>
+      <div class="text" v-for="item in Array(10).keys()" :key="item">
+        Home Content
+      </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import { computed, defineComponent, ref } from "vue";
@@ -74,7 +84,6 @@ export default defineComponent({
   },
 });
 </script>
-
 
 <style scoped lang="less">
 /* boxicons */
@@ -161,12 +170,20 @@ export default defineComponent({
 
 .sidebar ul {
   margin-top: 20px;
+  width: 184px;
+  // overflow-y: scroll;
+  overflow-x: hidden;
+  // overflow-y: overlay;
+  height: 75vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .sidebar ul li {
   position: relative;
   height: 50px;
-  width: 100%;
+  width: 50px;
   margin: 0 5px;
   list-style: none;
   line-height: 50px;
@@ -189,6 +206,11 @@ export default defineComponent({
   opacity: 0;
   pointer-events: none;
   display: block;
+}
+
+.sidebar.active ul li {
+  transition: all 0.5s ease;
+  width: 100%;
 }
 
 .sidebar.active ul li .tooltip {
@@ -215,7 +237,10 @@ export default defineComponent({
   font-size: 18px;
   color: #fff;
 }
-
+.sidebar.active ul li input {
+  padding-left: 55px;
+  transition: all 5 ease;
+}
 .sidebar ul li .bx-search {
   position: absolute;
   z-index: 99;
@@ -366,9 +391,9 @@ export default defineComponent({
   left: 240px;
 }
 
-/* .nav_list >>> .is-horizontal {
-  display: none;
-} */
+// .nav_list >>> .is-horizontal {
+//   display: none;
+// }
 
 #log_out:hover {
   background: #e4e9f7;

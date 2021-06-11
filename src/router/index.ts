@@ -6,13 +6,9 @@ import {
   Welcome,
   Login,
   Layout,
-  FlipPreview,
   Demo,
   FuncArea,
-  Func0Child0,
-  Func0Child1,
-  Func1Child0,
-  Func1Child1,
+  FinancialAccounting,
 } from "@/router/routerLoad";
 
 const routes: Array<RouteRecordRaw> = [
@@ -56,46 +52,13 @@ const routes: Array<RouteRecordRaw> = [
         path: "0",
         name: "FuncArea",
         component: FuncArea,
-        children: [
-          {
-            path: "0",
-            name: "Func0Child0",
-            component: Func0Child0,
-            meta: { index: 0 }
-          },
-          {
-            path: "1",
-            name: "Func0Child1",
-            component: Func0Child1,
-            meta: { index: 0 }
-          }
-        ]
       },
       {
-        path: "1",
-        name: "FuncArea",
-        component: FuncArea,
-        children: [
-          {
-            path: "0",
-            name: "Func1Child0",
-            component: Func1Child0,
-            meta: { index: 1 }
-          },
-          {
-            path: "1",
-            name: "Func1Child1",
-            component: Func1Child1,
-            meta: { index: 1 }
-          }
-        ]
+        path: "financialaccouting",
+        name: "FinancialAccounting",
+        component: FinancialAccounting,
       },
-    ]
-  },
-  {
-    path: "/flippreview",
-    name: "FlipPreview",
-    component: FlipPreview,
+    ],
   },
   {
     path: "/demo",

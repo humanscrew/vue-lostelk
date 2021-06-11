@@ -3,46 +3,46 @@
 // which is lazy-loaded when the route is visited.
 
 const Home = () =>
-  import(/* webpackChunkName: "home" */ "@/views/home/Home.vue");
+  import(/* webpackChunkName: "Home" */ "@/views/Home/Home.vue");
 
 const MainFunc = () =>
   import(
-    /* webpackChunkName: "mainfunc" */ "@/views/home/homePages/MainFunc.vue"
+    /* webpackChunkName: "MainFunc" */ "@/views/Home/HomePages/MainFunc.vue"
   );
 
 const About = () =>
-  import(/* webpackChunkName: "about" */ "@/views/home/homePages/About.vue");
+  import(/* webpackChunkName: "About" */ "@/views/Home/HomePages/About.vue");
 
 const Welcome = () =>
   import(
-    /* webpackChunkName: "welcome" */ "@/views/home/homePages/Welcome.vue"
+    /* webpackChunkName: "Welcome" */ "@/views/Home/HomePages/Welcome.vue"
   );
 
 const Login = () =>
-  import(/* webpackChunkName: "login" */ "@/views/login/Login.vue");
+  import(/* webpackChunkName: "Login" */ "@/views/Login/Login.vue");
 
 const Layout = () =>
-  import(/* webpackChunkName: "layout" */ "@/views/layout/Layout.vue");
-
-const FlipPreview = () =>
-  import(/* webpackChunkName: "flippreview" */ "@/components/FlipPreview.vue");
+  import(/* webpackChunkName: "Layout" */ "@/views/Layout/Layout.vue");
 
 const Demo = () =>
-  import(/* webpackChunkName: "demo" */ "@/components/Demo/Demo.vue");
+  import(/* webpackChunkName: "Demo" */ "@/components/Demo/Demo.vue");
 
 const FuncArea = () =>
-  import(/* webpackChunkName: "funcarea" */ "@/views/func/FuncArea.vue");
+  import(/* webpackChunkName: "FuncArea" */ "@/views/Function/FuncArea.vue");
 
-const Func0Child0 = () =>
-  import(/* webpackChunkName: "func0child0" */ "@/views/func/func0/child0/Func0Child0.vue");
+const FinancialAccounting = () =>
+  import(
+    /* webpackChunkName: "FinancialAccounting" */ "@/views/Function/Financial/FinancialAccounting.vue"
+  );
 
-const Func0Child1 = () =>
-  import(/* webpackChunkName: "func0child1" */ "@/views/func/func0/child1/Func0Child1.vue");
-
-const Func1Child0 = () =>
-  import(/* webpackChunkName: "func1child0" */ "@/views/func/func1/child0/Func1Child0.vue");
-
-const Func1Child1 = () =>
-  import(/* webpackChunkName: "func1child1" */ "@/views/func/func1/child1/Func1Child1.vue");
-
-export { Home, MainFunc, About, Welcome, Login, Layout, FlipPreview, Demo, FuncArea, Func0Child0, Func0Child1, Func1Child0, Func1Child1 };
+export {
+  Home,
+  MainFunc,
+  About,
+  Welcome,
+  Login,
+  Layout,
+  Demo,
+  FuncArea,
+  FinancialAccounting,
+};

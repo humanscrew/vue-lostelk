@@ -91,20 +91,14 @@ export default createStore({
         name: "数据建模",
         icon: "bxs-data",
         path: "/layout/func5",
-        children: [
-          { name: "会计科目" },
-          { name: "核算项目" },
-        ],
+        children: [{ name: "会计科目" }, { name: "核算项目" }],
       },
       {
         name: "系统设置",
         icon: "bx-cog",
         path: "/layout/func5",
-        children: [
-          { name: "权限分配" },
-          { name: "账户管理" },
-        ],
-      }
+        children: [{ name: "权限分配" }, { name: "账户管理" }],
+      },
     ],
   },
   mutations: {
@@ -125,7 +119,7 @@ export default createStore({
     },
     setMenuList: (store, menuList) => {
       store.menuList = menuList;
-    }
+    },
   },
   actions: {},
   modules: {},

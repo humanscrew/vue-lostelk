@@ -24,15 +24,13 @@
   </div>
 
   <!-- 为router-view设置elementplus过度动画 -->
-
-    <router-view v-slot="{ Component }">
-      <transition name="el-zoom-in-top" mode="out-in">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
-    </router-view>
-
+  <router-view v-slot="{ Component }">
+    <transition name="el-zoom-in-top" mode="out-in">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </transition>
+  </router-view>
 </template>
 
 <script lang="ts">
@@ -40,9 +38,6 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Home",
-  // setup() {
-  //   return { };
-  // },
 });
 </script>
 

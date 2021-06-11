@@ -31,10 +31,10 @@ export function validAlphabets(str: string): boolean {
   return reg.test(str);
 }
 
-export function validEmail(email: string): boolean {
-  const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return reg.test(email);
-}
+// export function validEmail(email: string): boolean {
+//   const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//   return reg.test(email);
+// }
 
 export function isString(str: string | any): boolean {
   if (typeof str === "string" || str instanceof String) {
