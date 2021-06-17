@@ -8,7 +8,12 @@
   ></sidebar>
 
   <div class="function-area" :class="{ active: sidebarActive }">
-    <el-tabs tab-position="top" type="border-card" class="el-tabs-box">
+    <el-tabs
+      tab-position="top"
+      type="border-card"
+      class="el-tabs-box"
+      @tab-click="handleTabClick"
+    >
       <el-tab-pane
         v-for="item in submenu"
         :key="item.name"
@@ -16,9 +21,13 @@
         class="el-tab-pane"
         lazy
       >
-        <!-- <router-view></router-view> -->
-        <!-- <div class="text">测试</div> -->
-        <div class="main-area">{{ item.name }}</div>
+        <el-scrollbar max-height="calc(100vh - 20px - 39px - 20px)" noresize>
+          <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
+            {{ item.name }}
+          </div> -->
+          <div>测试</div>
+          <!-- <router-view></router-view> -->
+        </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -50,6 +59,9 @@ export default defineComponent({
     let getMainMenuIndex = (index: number) => {
       mainMenuIndex.value = index;
     };
+    let handleTabClick = () => {
+      console.log("T");
+    };
     return {
       menuList,
       username,
@@ -59,6 +71,7 @@ export default defineComponent({
       submenu,
       getIsActive,
       getMainMenuIndex,
+      handleTabClick,
     };
   },
 });
@@ -77,29 +90,14 @@ export default defineComponent({
   transition: all 0.5s;
 }
 
-.function-area .text {
-  font-size: 25px;
-  font-weight: 500;
-  color: #1d1b31;
-  margin: 12px;
-}
-
 .active {
   width: calc(100% - 240px - 20px);
   left: 240px;
   transition: all 0.5s;
 }
 
-.el-tabs-box {
-  height: 100%;
-  &::v-deep .el-tabs__content {
-    height: 100%;
-    background: green;
-    // overflow: scroll;
-  }
-}
-.el-tab-pane {
-  // height: 100%;
-  // background: red;
+::v-deep(.el-tabs__content) {
+  height: calc(100vh - 20px - 39px - 20px);
+  padding: 10px;
 }
 </style>
