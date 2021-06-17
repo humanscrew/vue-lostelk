@@ -10,20 +10,20 @@
         <i
           class="bx expand-button"
           :class="isActive ? 'bx-arrow-from-right' : 'bx-menu'"
-          @click="isActive = !isActive"
+          @click="turnIsActive"
         ></i>
       </div>
 
-      <div class="submenu">
+      <div class="main-menu">
         <ul class="nav_list">
           <li>
-            <i class="bx bx-search" @click="isActive = !isActive"></i>
+            <i class="bx bx-search" @click="turnIsActive"></i>
             <input type="text" placeholder="Search..." />
             <span class="tooltip">搜索</span>
           </li>
           <!-- <el-scrollbar max-height="80vh"> -->
-          <li v-for="item in menuList" :key="item">
-            <a href="#" @click="routerPush(item.path)">
+          <li v-for="(item, index) in menuList" :key="item">
+            <a href="#" @click="mainMenuIndex(index)">
               <i class="bx" :class="item.icon"></i>
               <span class="links_name">{{ item.name }}</span>
             </a>
@@ -46,33 +46,31 @@
         </div>
       </div>
     </div>
-    <div class="home_content">
-      <!-- <div class="text"> -->
-      <router-viwe></router-viwe>
-      <!-- </div> -->
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  setup() {
-    let store = useStore();
-    let menuList = computed(() => store.state.menuList);
-    let username = computed(() => store.state.username);
-    let role = computed(() => store.state.role);
+  name: "Sidebar",
+  props: {
+    menuList: Object,
+    username: String,
+    role: String,
+  },
+  setup(porps, { emit }) {
     let isActive = ref(false);
-    let routerPush = (path: string) => {
-      console.log(path);
+    let turnIsActive = () => {
+      isActive.value = !isActive.value;
+      emit("isActive", isActive.value);
+    };
+    let mainMenuIndex = (index: number) => {
+      emit("mainMenuIndex", index);
     };
     return {
-      menuList,
-      username,
-      role,
       isActive,
-      routerPush,
+      turnIsActive,
+      mainMenuIndex,
     };
   },
 });
@@ -167,7 +165,7 @@ export default defineComponent({
   // overflow-y: scroll;
   overflow-x: hidden;
   // overflow-y: overlay;
-  height: 75vh;
+  height: 80vh;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -362,27 +360,27 @@ export default defineComponent({
   background: none;
 }
 
-.home_content {
-  position: absolute;
-  height: 100%;
-  width: calc(100% - 78px);
-  left: 78px;
-  background: #e4e9f7;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2px);
-  transition: all 0.5s ease;
-}
+// .home_content {
+//   position: absolute;
+//   height: 100%;
+//   width: calc(100% - 78px);
+//   left: 78px;
+//   background: #e4e9f7;
+//   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2px);
+//   transition: all 0.5s ease;
+// }
 
-.home_content .text {
-  font-size: 25px;
-  font-weight: 500;
-  color: #1d1b31;
-  margin: 12px;
-}
+// .home_content .text {
+//   font-size: 25px;
+//   font-weight: 500;
+//   color: #1d1b31;
+//   margin: 12px;
+// }
 
-.sidebar.active ~ .home_content {
-  width: calc(100% - 240px);
-  left: 240px;
-}
+// .sidebar.active ~ .home_content {
+//   width: calc(100% - 240px);
+//   left: 240px;
+// }
 
 // .nav_list >>> .is-horizontal {
 //   display: none;

@@ -7,7 +7,6 @@ import {
   Login,
   Layout,
   Demo,
-  FuncArea,
   FinancialAccounting,
 } from "@/router/routerLoad";
 
@@ -48,11 +47,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "Layout",
     component: Layout,
     children: [
-      {
-        path: "0",
-        name: "FuncArea",
-        component: FuncArea,
-      },
       {
         path: "financialaccouting",
         name: "FinancialAccounting",

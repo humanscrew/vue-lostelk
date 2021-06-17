@@ -7,16 +7,14 @@ const Home = () =>
 
 const MainFunc = () =>
   import(
-    /* webpackChunkName: "MainFunc" */ "@/views/Home/HomePages/MainFunc.vue"
+    /* webpackChunkName: "Home" */ "@/views/Home/HomePages/MenuSelector.vue"
   );
 
 const About = () =>
-  import(/* webpackChunkName: "About" */ "@/views/Home/HomePages/About.vue");
+  import(/* webpackChunkName: "Home" */ "@/views/Home/HomePages/About.vue");
 
 const Welcome = () =>
-  import(
-    /* webpackChunkName: "Welcome" */ "@/views/Home/HomePages/Welcome.vue"
-  );
+  import(/* webpackChunkName: "Home" */ "@/views/Home/HomePages/Welcome.vue");
 
 const Login = () =>
   import(/* webpackChunkName: "Login" */ "@/views/Login/Login.vue");
@@ -26,9 +24,6 @@ const Layout = () =>
 
 const Demo = () =>
   import(/* webpackChunkName: "Demo" */ "@/components/Demo/Demo.vue");
-
-const FuncArea = () =>
-  import(/* webpackChunkName: "FuncArea" */ "@/views/Function/FuncArea.vue");
 
 const FinancialAccounting = () =>
   import(
@@ -43,6 +38,5 @@ export {
   Login,
   Layout,
   Demo,
-  FuncArea,
   FinancialAccounting,
 };

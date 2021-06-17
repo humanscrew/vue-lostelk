@@ -14,7 +14,7 @@ export default createStore({
         icon: "bx-book-bookmark",
         path: "/layout/0",
         children: [
-          { name: "账务处理", path: "/demo" },
+          { name: "账务处理", path: "/layout" },
           { name: "现金流量", path: "/layout/0/1" },
           { name: "模式记账" },
           { name: "财务流" },

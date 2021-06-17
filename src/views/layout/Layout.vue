@@ -1,107 +1,105 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-aside :style="{ width: 'auto' }">
-        <div @click="isAsideShow(isCollapse)" class="is-aside-show-box">
-          <div v-show="isCollapse" class="el-icon-d-arrow-left"></div>
-          <div v-show="!isCollapse" class="el-icon-d-arrow-right"></div>
-        </div>
+  <sidebar
+    :menuList="menuList"
+    :username="username"
+    :role="role"
+    @isActive="getIsActive"
+    @mainMenuIndex="getMainMenuIndex"
+  ></sidebar>
 
-        <el-menu
-          class="el-menu-vertical-demo"
-          :collapse="isCollapse"
-          @select="handleSelect"
-        >
-          <div v-for="(item, index) in menuList" :key="item.name">
-            <el-menu-item :index="index.toString()">
-              <i :class="item.icon"></i>
-              <template #title>
-                <span>{{ item.name }}</span>
-              </template>
-            </el-menu-item>
-          </div>
-        </el-menu>
-      </el-aside>
-
-      <el-container>
-        <el-header height="auto"> </el-header>
-
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-        <el-footer height="auto">Footer</el-footer>
-      </el-container>
-    </el-container>
+  <div class="function-area" :class="{ active: sidebarActive }">
+    <el-tabs tab-position="top" type="border-card" class="el-tabs-box">
+      <el-tab-pane
+        v-for="item in submenu"
+        :key="item.name"
+        :label="item.name"
+        class="el-tab-pane"
+        lazy
+      >
+        <!-- <router-view></router-view> -->
+        <!-- <div class="text">测试</div> -->
+        <div class="main-area">{{ item.name }}</div>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import Sidebar from "@/components/Sidebar/Sidebar.vue";
 
 export default defineComponent({
-  //   name: '',
+  name: "layout",
   //   props: {
   //   },
-  //   components: {
-  //   },
+  components: {
+    Sidebar,
+  },
   setup() {
     let store = useStore();
-    let router = useRouter();
     let menuList = computed(() => store.state.menuList);
-    let isCollapse = ref(true);
-    let isAsideShow = () => {
-      isCollapse.value = !isCollapse.value;
+    let username = computed(() => store.state.username);
+    let role = computed(() => store.state.role);
+    let sidebarActive = ref(false);
+    let mainMenuIndex = ref(0);
+    let submenu = computed(() => menuList.value[mainMenuIndex.value].children);
+    let getIsActive = (isActive: boolean) => {
+      sidebarActive.value = isActive;
     };
-    let handleSelect = (index: number) => {
-      router.push(`${menuList.value[index].path}`);
+    let getMainMenuIndex = (index: number) => {
+      mainMenuIndex.value = index;
     };
     return {
       menuList,
-      isCollapse,
-      isAsideShow,
-      handleSelect,
+      username,
+      role,
+      sidebarActive,
+      mainMenuIndex,
+      submenu,
+      getIsActive,
+      getMainMenuIndex,
     };
   },
 });
 </script>
 
 <style scoped lang="less">
-.common-layout {
-  width: 100vw;
-  height: 100vh;
-}
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-  // line-height: 60px;
-}
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  height: 100vh;
-  // padding-top: 5%;
-  //   line-height: 200px;
+.function-area {
+  position: absolute;
+  height: calc(100% - 20px);
+  width: calc(100% - 78px - 20px);
+  left: 78px;
+  background: #e4e9f7;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2px);
+  transition: all 0.5s ease;
+  margin: 10px;
+  transition: all 0.5s;
 }
 
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  height: 80vh;
-  //   line-height: 160px;
+.function-area .text {
+  font-size: 25px;
+  font-weight: 500;
+  color: #1d1b31;
+  margin: 12px;
 }
 
-.is-aside-show-box {
-  font-size: 130%;
-  width: 100%;
-  &:hover {
-    color: #409eff;
+.active {
+  width: calc(100% - 240px - 20px);
+  left: 240px;
+  transition: all 0.5s;
+}
+
+.el-tabs-box {
+  height: 100%;
+  &::v-deep .el-tabs__content {
+    height: 100%;
+    background: green;
+    // overflow: scroll;
   }
+}
+.el-tab-pane {
+  // height: 100%;
+  // background: red;
 }
 </style>

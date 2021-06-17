@@ -1,5 +1,5 @@
 <template>
-  <div class="main-func">
+  <div class="menu-selector">
     <div>主功能区</div>
     <!-- Space间距 -->
     <el-space wrap :size="50" style="margin: 50px">
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
-import CardBox from "@/components/CardBox/index.vue";
+import CardBox from "@/components/CardBox/CardBox.vue";
 
 export default defineComponent({
   name: "MainFunc",
@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.main-func {
+.menu-selector {
   text-align: center;
 }
 </style>

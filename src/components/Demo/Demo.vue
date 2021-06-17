@@ -29,13 +29,6 @@
             </a>
             <span class="tooltip">{{ item.name }}</span>
           </li>
-          <li v-for="item in menuList" :key="item">
-            <a href="#" @click="routerPush(item.path)">
-              <i class="bx" :class="item.icon"></i>
-              <span class="links_name">{{ item.name }}</span>
-            </a>
-            <span class="tooltip">{{ item.name }}</span>
-          </li>
           <!-- </el-scrollbar> -->
         </ul>
       </div>
