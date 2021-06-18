@@ -4,7 +4,7 @@
     <!-- Space间距 -->
     <el-space wrap :size="50" style="margin: 50px">
       <div v-for="item in menuList" :key="item">
-        <CardBox :funcList="item" />
+        <CardBox :cardList="item" />
       </div>
     </el-space>
   </div>

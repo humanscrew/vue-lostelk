@@ -3,7 +3,7 @@
     <el-card class="card-box hvr-back-pulse" shadow="always">
       <template #header>
         <div class="card-header">
-          <div class="card-header-name">{{ funcList.name }}</div>
+          <div class="card-header-name">{{ cardList.name }}</div>
           <el-button
             icon="el-icon-search"
             circle
@@ -14,7 +14,7 @@
           <!-- 加载状态 => :loading="true" -->
         </div>
       </template>
-      <div v-for="item in funcList.children" :key="item" class="card-box-item">
+      <div v-for="item in cardList.children" :key="item" class="card-box-item">
         <div
           class="card-box-item-text hvr-bounce-to-right"
           @click="routerPush(item.path)"
@@ -33,7 +33,7 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   name: "CardBox",
   props: {
-    funcList: Object,
+    cardList: Object,
   },
   components: {},
   setup() {

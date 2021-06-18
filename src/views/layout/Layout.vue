@@ -36,6 +36,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 
 export default defineComponent({
@@ -46,6 +47,7 @@ export default defineComponent({
     Sidebar,
   },
   setup() {
+    let router = useRouter();
     let store = useStore();
     let menuList = computed(() => store.state.menuList);
     let username = computed(() => store.state.username);
@@ -59,8 +61,12 @@ export default defineComponent({
     let getMainMenuIndex = (index: number) => {
       mainMenuIndex.value = index;
     };
-    let handleTabClick = () => {
-      console.log("T");
+    let handleTabClick = (tab: any) => {
+      let submenuPath = submenu.value[tab.index].path;
+      if (submenuPath) {
+        router.push(submenuPath);
+      }
+      // router.push(tab.index);
     };
     return {
       menuList,
