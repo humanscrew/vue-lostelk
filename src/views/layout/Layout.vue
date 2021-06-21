@@ -12,21 +12,23 @@
       tab-position="top"
       type="border-card"
       class="el-tabs-box"
+      v-model="tabName"
       @tab-click="handleTabClick"
     >
       <el-tab-pane
         v-for="item in submenu"
         :key="item.name"
         :label="item.name"
+        :name="item.name"
         class="el-tab-pane"
+        :disabled="!item.path"
         lazy
       >
         <el-scrollbar max-height="calc(100vh - 20px - 39px - 20px)" noresize>
           <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
             {{ item.name }}
           </div> -->
-          <div>测试</div>
-          <!-- <router-view></router-view> -->
+          <router-view></router-view>
         </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
@@ -36,7 +38,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 
 export default defineComponent({
@@ -48,25 +50,29 @@ export default defineComponent({
   },
   setup() {
     let router = useRouter();
+    let route = useRoute();
     let store = useStore();
     let menuList = computed(() => store.state.menuList);
     let username = computed(() => store.state.username);
     let role = computed(() => store.state.role);
     let sidebarActive = ref(false);
-    let mainMenuIndex = ref(0);
-    let submenu = computed(() => menuList.value[mainMenuIndex.value].children);
+    let mainMenuIndex = ref(route.meta.mainMenuIndex);
+    let submenu = computed(
+      () => menuList.value[mainMenuIndex.value as number].children
+    );
+    let tabName = ref(submenu.value[route.meta.submenuIndex as number].name);
     let getIsActive = (isActive: boolean) => {
       sidebarActive.value = isActive;
     };
     let getMainMenuIndex = (index: number) => {
       mainMenuIndex.value = index;
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let handleTabClick = (tab: any) => {
       let submenuPath = submenu.value[tab.index].path;
       if (submenuPath) {
         router.push(submenuPath);
       }
-      // router.push(tab.index);
     };
     return {
       menuList,
@@ -75,6 +81,7 @@ export default defineComponent({
       sidebarActive,
       mainMenuIndex,
       submenu,
+      tabName,
       getIsActive,
       getMainMenuIndex,
       handleTabClick,

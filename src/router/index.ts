@@ -1,34 +1,42 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import {
   Home,
-  MainFunc,
+  MenuSelector,
   About,
   Welcome,
   Login,
   Layout,
   Demo,
   FinancialAccounting,
+  CashManagement,
 } from "@/router/routerLoad";
+
+// declare module 'vue-router' {
+//   interface RouteMeta {
+//     mainMenuIndex?: number
+//     submenuIndex?: number
+//   }
+// }
 
 const routes: Array<RouteRecordRaw> = [
   //Home page
   {
-    path: "/home",
+    path: "/Home",
     name: "Home",
     component: Home,
     children: [
       {
-        path: "mainfunc",
-        name: "MainFunc",
-        component: MainFunc,
+        path: "MenuSelector",
+        name: "MenuSelector",
+        component: MenuSelector,
       },
       {
-        path: "about",
+        path: "About",
         name: "About",
         component: About,
       },
       {
-        path: "welcome",
+        path: "Welcome",
         name: "Welcome",
         component: Welcome,
         alias: "",
@@ -37,25 +45,32 @@ const routes: Array<RouteRecordRaw> = [
   },
   // Login page
   {
-    path: "/login",
+    path: "/Login",
     name: "Login",
     component: Login,
   },
   // func page -> Layout on Left
   {
-    path: "/layout",
+    path: "/Main",
     name: "Layout",
     component: Layout,
     children: [
       {
-        path: "financialaccouting",
+        path: "FinancialAccounting",
         name: "FinancialAccounting",
         component: FinancialAccounting,
+        meta: { mainMenuIndex: 0, submenuIndex: 0 },
+      },
+      {
+        path: "CashManagement",
+        name: "CashManagement",
+        component: CashManagement,
+        meta: { mainMenuIndex: 0, submenuIndex: 1 },
       },
     ],
   },
   {
-    path: "/demo",
+    path: "/Demo",
     name: "Demo",
     component: Demo,
   },

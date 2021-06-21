@@ -5,7 +5,7 @@
 const Home = () =>
   import(/* webpackChunkName: "Home" */ "@/views/Home/Home.vue");
 
-const MainFunc = () =>
+const MenuSelector = () =>
   import(
     /* webpackChunkName: "Home" */ "@/views/Home/HomePages/MenuSelector.vue"
   );
@@ -27,16 +27,20 @@ const Demo = () =>
 
 const FinancialAccounting = () =>
   import(
-    /* webpackChunkName: "FinancialAccounting" */ "@/views/Function/Financial/FinancialAccounting.vue"
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/FinancialAccounting.vue"
   );
-
+const CashManagement = () =>
+  import(
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/CashManagement.vue"
+  );
 export {
   Home,
-  MainFunc,
+  MenuSelector,
   About,
   Welcome,
   Login,
   Layout,
   Demo,
   FinancialAccounting,
+  CashManagement,
 };

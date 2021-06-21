@@ -2,12 +2,12 @@
   <div class="home-selector">
     <!-- 主页 -->
     <div class="div-inline">
-      <router-link to="/home/welcome">WELL</router-link>
+      <router-link to="/Home/Welcome">WELL</router-link>
     </div>
     <div class="div-inline separator-margin">|</div>
     <!-- 主功能区 -->
     <div class="div-inline">
-      <router-link to="/home/MainFunc">Main</router-link>
+      <router-link to="/home/menuselector">Main</router-link>
     </div>
     <div class="div-inline separator-margin">|</div>
     <!-- 联系页 -->
