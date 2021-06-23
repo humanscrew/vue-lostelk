@@ -29,10 +29,70 @@ const FinancialAccounting = () =>
   import(
     /* webpackChunkName: "Financial" */ "@/views/Function/Financial/FinancialAccounting.vue"
   );
+const CashFlow = () =>
+  import(
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/CashFlow.vue"
+  );
+const Bookkeeping = () =>
+  import(
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/Bookkeeping.vue"
+  );
+const FinancialFlow = () =>
+  import(
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/FinancialFlow.vue"
+  );
+
 const CashManagement = () =>
   import(
-    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/CashManagement.vue"
+    /* webpackChunkName: "FundsManagement" */ "@/views/Function/FundsManagement/CashManagement.vue"
   );
+const BankDeposit = () =>
+  import(
+    /* webpackChunkName: "FundsManagement" */ "@/views/Function/FundsManagement/BankDeposit.vue"
+  );
+const FundsChecking = () =>
+  import(
+    /* webpackChunkName: "FundsManagement" */ "@/views/Function/FundsManagement/FundsChecking.vue"
+  );
+const FundsFlow = () =>
+  import(
+    /* webpackChunkName: "FundsManagement" */ "@/views/Function/FundsManagement/FundsFlow.vue"
+  );
+
+const Appropriation = () =>
+  import(
+    /* webpackChunkName: "WorkFlow" */ "@/views/Function/WorkFlow/Appropriation.vue"
+  );
+const Reimbursement = () =>
+  import(
+    /* webpackChunkName: "WorkFlow" */ "@/views/Function/WorkFlow/Reimbursement.vue"
+  );
+const Approval = () =>
+  import(
+    /* webpackChunkName: "WorkFlow" */ "@/views/Function/WorkFlow/Approval.vue"
+  );
+const CarriedForward = () =>
+  import(
+    /* webpackChunkName: "WorkFlow" */ "@/views/Function/WorkFlow/CarriedForward.vue"
+  );
+
+const TicketOrder = () =>
+  import(
+    /* webpackChunkName: "TicketManagement" */ "@/views/Function/TicketManagement/TicketOrder.vue"
+  );
+const OfflineTicket = () =>
+  import(
+    /* webpackChunkName: "TicketManagement" */ "@/views/Function/TicketManagement/OfflineTicket.vue"
+  );
+const TicketCollection = () =>
+  import(
+    /* webpackChunkName: "TicketManagement" */ "@/views/Function/TicketManagement/TicketCollection.vue"
+  );
+const TicketAdjustment = () =>
+  import(
+    /* webpackChunkName: "TicketManagement" */ "@/views/Function/TicketManagement/TicketAdjustment.vue"
+  );
+
 export {
   Home,
   MenuSelector,
@@ -42,5 +102,19 @@ export {
   Layout,
   Demo,
   FinancialAccounting,
+  CashFlow,
+  Bookkeeping,
+  FinancialFlow,
   CashManagement,
+  BankDeposit,
+  FundsChecking,
+  FundsFlow,
+  Appropriation,
+  Reimbursement,
+  Approval,
+  CarriedForward,
+  TicketOrder,
+  OfflineTicket,
+  TicketCollection,
+  TicketAdjustment,
 };

@@ -15,9 +15,9 @@ export default createStore({
         path: "/Main",
         children: [
           { name: "账务处理", path: "/Main/FinancialAccounting" },
-          { name: "现金流量", path: "/Main/CashManagement" },
-          { name: "模式记账" },
-          { name: "财务流" },
+          { name: "现金流量", path: "/Main/CashFlow" },
+          { name: "模式记账", path: "/Main/Bookkeeping" },
+          { name: "财务流", path: "/Main/FinancialFlow" },
         ],
       },
       {
@@ -25,10 +25,10 @@ export default createStore({
         icon: "bx-dollar",
         path: "/Main",
         children: [
-          { name: "现金管理", path: "/Main/FinancialAccounting" },
-          { name: "银行存款" },
-          { name: "资金对账" },
-          { name: "资金流" },
+          { name: "现金管理", path: "/Main/CashManagement" },
+          { name: "银行存款", path: "/Main/BankDeposit" },
+          { name: "资金对账", path: "/Main/FundsChecking" },
+          { name: "资金流", path: "/Main/FundsFlow" },
         ],
       },
       {
@@ -36,10 +36,10 @@ export default createStore({
         icon: "bx-trip",
         path: "/Main",
         children: [
-          { name: "对公拨款" },
-          { name: "费用报销" },
-          { name: "采购订单" },
-          { name: "业务结转" },
+          { name: "拨款申请", path: "/Main/Appropriation" },
+          { name: "费用报销", path: "/Main/Reimbursement" },
+          { name: "理正审批", path: "/Main/Approval" },
+          { name: "业务结转", path: "/Main/CarriedForward" },
         ],
       },
       {
@@ -48,10 +48,10 @@ export default createStore({
         // icon: "bxs-ship",
         path: "/Main",
         children: [
-          { name: "系统订单" },
-          { name: "线下订单" },
-          { name: "缴款登记" },
-          { name: "票务调整" },
+          { name: "系统订单", path: "/Main/TicketOrder" },
+          { name: "线下订单", path: "/Main/OfflineTicket" },
+          { name: "缴款登记", path: "/Main/TicketCollection" },
+          { name: "票务调整", path: "/Main/TicketAdjustment" },
         ],
       },
       {

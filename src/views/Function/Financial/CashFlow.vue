@@ -1,11 +1,11 @@
 <template>
-  <div>CashMangement</div>
+  <div>CashFlow</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "CashMangement",
+  name: "CashFlow",
   //   setup() {},
 });
 </script>

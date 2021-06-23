@@ -66,6 +66,11 @@ export default defineComponent({
     };
     let getMainMenuIndex = (index: number) => {
       mainMenuIndex.value = index;
+      let submenuPath = submenu.value[0].path;
+      if (submenuPath) {
+        tabName.value = submenu.value[0].name;
+        router.push(submenuPath);
+      }
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let handleTabClick = (tab: any) => {
