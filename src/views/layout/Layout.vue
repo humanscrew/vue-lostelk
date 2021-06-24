@@ -42,7 +42,7 @@ import { useRouter, useRoute } from "vue-router";
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 
 export default defineComponent({
-  name: "layout",
+  name: "Layout",
   //   props: {
   //   },
   components: {

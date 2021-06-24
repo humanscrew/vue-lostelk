@@ -38,13 +38,13 @@ export default createStore({
         children: [
           { name: "拨款申请", path: "/Main/Appropriation" },
           { name: "费用报销", path: "/Main/Reimbursement" },
-          { name: "理正审批", path: "/Main/Approval" },
+          { name: "审批理正", path: "/Main/Approval" },
           { name: "业务结转", path: "/Main/CarriedForward" },
         ],
       },
       {
         name: "票务系统",
-        icon: "bx bx-barcode",
+        icon: "bx-barcode",
         // icon: "bxs-ship",
         path: "/Main",
         children: [

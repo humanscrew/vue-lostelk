@@ -1,6 +1,5 @@
 <template>
   <div class="menu-selector">
-    <div>主功能区</div>
     <!-- Space间距 -->
     <el-space wrap :size="50" style="margin: 50px">
       <div v-for="item in menuList" :key="item">
@@ -16,7 +15,7 @@ import { useStore } from "vuex";
 import CardBox from "@/components/CardBox/CardBox.vue";
 
 export default defineComponent({
-  name: "MainFunc",
+  name: "MenuSelector",
   components: {
     CardBox,
   },
