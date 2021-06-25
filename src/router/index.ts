@@ -6,7 +6,7 @@ import {
   Welcome,
   Login,
   Layout,
-  Demo,
+  Upload,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,
@@ -171,9 +171,9 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: "/Demo",
-    name: "Demo",
-    component: Demo,
+    path: "/Upload",
+    name: "Upload",
+    component: Upload,
   },
   {
     path: "/:redirect*",

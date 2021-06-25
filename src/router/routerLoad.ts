@@ -22,8 +22,8 @@ const Login = () =>
 const Layout = () =>
   import(/* webpackChunkName: "Layout" */ "@/views/Layout/Layout.vue");
 
-const Demo = () =>
-  import(/* webpackChunkName: "Demo" */ "@/components/Demo/Demo.vue");
+const Upload = () =>
+  import(/* webpackChunkName: "Demo" */ "@/components/Upload/Upload.vue");
 
 const FinancialAccounting = () =>
   import(
@@ -100,7 +100,7 @@ export {
   Welcome,
   Login,
   Layout,
-  Demo,
+  Upload,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,

@@ -28,7 +28,11 @@
           <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
             {{ item.name }}
           </div> -->
-          <router-view></router-view>
+          <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
         </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
