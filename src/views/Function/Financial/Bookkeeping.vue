@@ -24,7 +24,7 @@
     </el-select>
 
     <el-tooltip
-      content="仅支持上传.xls,.xlsx文件"
+      content="仅支持.xls,.xlsx文件"
       placement="bottom"
       effect="light"
       transition="el-fade-in-linear"

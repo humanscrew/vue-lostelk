@@ -60,7 +60,7 @@ export default defineComponent({
   align-items: center;
 }
 .card-box {
-  width: auto;
+  width: 228px;
 }
 .card-box-item-text {
   padding: 6px;

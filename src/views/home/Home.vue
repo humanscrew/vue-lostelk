@@ -1,27 +1,29 @@
 <template>
-  <div class="home-selector">
-    <!-- 主页 -->
-    <div class="div-inline">
-      <router-link to="/Home/Welcome">WELL</router-link>
+  <el-affix :offset="0" class="el-affix-box">
+    <div class="home-selector">
+      <!-- 主页 -->
+      <div class="div-inline">
+        <router-link to="/Home/Welcome">WELL</router-link>
+      </div>
+      <div class="div-inline separator-margin">|</div>
+      <!-- 主功能区 -->
+      <div class="div-inline">
+        <router-link to="/home/menuselector">Main</router-link>
+      </div>
+      <div class="div-inline separator-margin">|</div>
+      <!-- 联系页 -->
+      <div class="div-inline">
+        <router-link to="/home/about">About</router-link>
+      </div>
     </div>
-    <div class="div-inline separator-margin">|</div>
-    <!-- 主功能区 -->
-    <div class="div-inline">
-      <router-link to="/home/menuselector">Main</router-link>
-    </div>
-    <div class="div-inline separator-margin">|</div>
-    <!-- 联系页 -->
-    <div class="div-inline">
-      <router-link to="/home/about">About</router-link>
-    </div>
-  </div>
 
-  <!-- 分割线 -->
-  <div class="#">
-    <el-divider class="divider-line">
-      <div class="#"><i class="el-icon-s-promotion"></i></div>
-    </el-divider>
-  </div>
+    <!-- 分割线 -->
+    <div class="divider-line-box">
+      <el-divider class="divider-line">
+        <div class="#"><i class="el-icon-s-promotion"></i></div>
+      </el-divider>
+    </div>
+  </el-affix>
 
   <!-- 为router-view设置elementplus过度动画 -->
   <router-view v-slot="{ Component }">
@@ -41,10 +43,11 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .home-selector {
   text-align: center;
   padding: 10px;
+  background: white;
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -56,18 +59,21 @@ export default defineComponent({
 .div-inline {
   display: inline-block;
   // text-align: center;
+  background-color: white;
 }
+
 .separator-margin {
   padding-right: 15px;
   padding-left: 15px;
 }
-.divider-line {
-  margin-top: 15px !important;
-  margin-bottom: 15px !important;
-}
 
-.el-divider__text {
-  background-color: inherit;
-  // color: inherit
+.divider-line-box {
+  background-color: white;
+  padding: 1px;
+  // backdrop-filter: blur(3px);
+  // box-shadow: 0px 5px 7px -7px #5e5e5e;
+}
+::v-deep(.el-divider__text) {
+  background-color: #dcdfe6;
 }
 </style>

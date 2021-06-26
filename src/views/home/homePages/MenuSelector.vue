@@ -1,11 +1,10 @@
 <template>
-  <div class="menu-selector">
-    <!-- Space间距 -->
-    <el-space wrap :size="50" style="margin: 50px">
-      <div v-for="item in menuList" :key="item">
+  <div class="menu-selector-box">
+    <div class="menu-selector">
+      <div v-for="item in menuList" :key="item" class="menu-selector-item">
         <CardBox :cardList="item" />
       </div>
-    </el-space>
+    </div>
   </div>
 </template>
 
@@ -32,5 +31,16 @@ export default defineComponent({
 <style scoped lang="less">
 .menu-selector {
   text-align: center;
+  // display: flex;
+  // flex-wrap: wrap;
+  // // align-items: center;
+  // align-content: space-around;
+  // // justify-content: flex-start;
+  // justify-content: center;
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: repeat(auto-fill, 230px);
+  grid-gap: 30px 30px;
+  margin: 20px;
 }
 </style>
