@@ -1,11 +1,11 @@
 <template>
-  <sidebar
+  <Sidebar
     :menuList="menuList"
     :username="username"
     :role="role"
     @isActive="getIsActive"
     @mainMenuIndex="getMainMenuIndex"
-  ></sidebar>
+  ></Sidebar>
 
   <div class="function-area" :class="{ active: sidebarActive }">
     <el-tabs

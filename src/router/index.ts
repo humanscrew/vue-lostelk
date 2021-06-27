@@ -7,6 +7,7 @@ import {
   Login,
   Layout,
   Upload,
+  HandsOnTable,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,
@@ -174,6 +175,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/Upload",
     name: "Upload",
     component: Upload,
+  },
+  {
+    path: "/HandsOnTable",
+    name: "HandsOnTable",
+    component: HandsOnTable,
   },
   {
     path: "/:redirect*",
