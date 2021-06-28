@@ -25,10 +25,10 @@ const Layout = () =>
 const Upload = () =>
   import(/* webpackChunkName: "Components" */ "@/components/Upload/Upload.vue");
 
-const HandsOnTable = () =>
-  import(
-    /* webpackChunkName: "Components" */ "@/components/HandsOnTable/HandsOnTable.vue"
-  );
+// const HandsOnTable = () =>
+//   import(
+//     /* webpackChunkName: "Components" */ "@/components/HandsOnTable/HandsOnTable.vue"
+//   );
 
 const FinancialAccounting = () =>
   import(
@@ -106,7 +106,7 @@ export {
   Login,
   Layout,
   Upload,
-  HandsOnTable,
+  // HandsOnTable,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,

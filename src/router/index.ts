@@ -7,7 +7,7 @@ import {
   Login,
   Layout,
   Upload,
-  HandsOnTable,
+  // HandsOnTable,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,
@@ -25,6 +25,8 @@ import {
   TicketCollection,
   TicketAdjustment,
 } from "@/router/routerLoad";
+
+import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 
 // declare module 'vue-router' {
 //   interface RouteMeta {

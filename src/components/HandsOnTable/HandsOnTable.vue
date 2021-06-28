@@ -1,15 +1,15 @@
 <template>
   <div>HandsOnTable</div>
-  <hot-table :data="data" :rowHeaders="true" :colHeaders="true"></hot-table>
+  <!-- <hot-table :data="data" :rowHeaders="true" :colHeaders="true"></hot-table> -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { HotTable } from "@handsontable/vue";
+// import { HotTable } from "@handsontable/vue";
 export default defineComponent({
   name: "HandsOnTable",
   components: {
-    HotTable,
+    // HotTable,
   },
   data: function () {
     return {
@@ -24,7 +24,3 @@ export default defineComponent({
   // setup() {},
 });
 </script>
-
-<style
-  src="../../../node_modules/handsontable/dist/handsontable.full.css"
-></style>
