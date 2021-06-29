@@ -16,6 +16,7 @@ const service = axios.create({
 // service.defaults.headers.post["Content-Type"] = "multipart/form-data";
 
 // loading实例
+// eslint-disable-next-line
 let loadingInstance: any;
 // 添加请求拦截器
 service.interceptors.request.use(

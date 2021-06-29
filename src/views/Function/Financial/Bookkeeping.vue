@@ -49,7 +49,7 @@
       <el-upload
         class="files-upload-box"
         ref="uploadFiles"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action="#"
         :auto-upload="false"
         accept=".xls,.xlsx"
         multiple
@@ -100,17 +100,8 @@ export default defineComponent({
   components: {
     // HotTable,
   },
-  data() {
-    return {
-      data: [
-        ["", "Ford", "Volvo", "Toyota", "Honda"],
-        ["2016", 10, 11, 12, 13],
-        ["2017", 20, 11, 14, 13],
-        ["2018", 30, 15, 12, 13],
-      ],
-    };
-  },
   setup() {
+    // eslint-disable-next-line
     let that: any = getCurrentInstance();
     let voucherTemplateOptions = [
       {
@@ -135,6 +126,7 @@ export default defineComponent({
       that.refs["uploadFiles"].clearFiles();
       // that.refs.uploadFiles.clearFiles();
     };
+    // console.log(process.env.BASE_URL);
     return {
       voucherTemplateOptions,
       voucherTemplateName,
