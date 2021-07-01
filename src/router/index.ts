@@ -8,6 +8,7 @@ import {
   Layout,
   Upload,
   // HandsOnTable,
+  LuckySheet,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,
@@ -182,6 +183,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/HandsOnTable",
     name: "HandsOnTable",
     component: HandsOnTable,
+  },
+  {
+    path: "/LuckySheet",
+    name: "LuckySheet",
+    component: LuckySheet,
   },
   {
     path: "/:redirect*",

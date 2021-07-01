@@ -15,10 +15,10 @@ module.exports = {
   //   config.resolve.alias
   //     .set('@$', resolve('src'))
   // }
-  // baseUrl:'/',//根路径
+  // publicPath: "", //根路径
   // outputDir:'dist',//打包的时候生成的一个文件名
-  // assetsDir:'assets',//静态资源目录(js,css,img,fonts)这些文件都可以写里面
-  // lintOnSave:false,//是否开启eslint保存检测 ,它的有效值为 true || false || 'error'
+  // assetsDir: "assets", //静态资源目录(js,css,img,fonts)这些文件都可以写里面
+  // lintOnSave: false, //是否开启eslint保存检测 ,它的有效值为 true || false || 'error'
   // devServer:{
   //     open:false,//启动项目后自动开启浏览器
   //     host:'localhost',//对应的主机名
@@ -36,5 +36,10 @@ module.exports = {
   //         }
   //       }
   //     }
+  // }
+  // configureWebpack: {
+  //   externals: {
+  //     luckysheet: "luckysheet", // 其中 左侧是你要import时的名字 右侧是此js抛出的全局变量名称
+  //   }
   // }
 };

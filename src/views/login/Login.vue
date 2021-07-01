@@ -162,7 +162,7 @@ export default defineComponent({
   height: 100vh;
   overflow: hidden;
   // 设置背景图片
-  background: url(~@/static/imgs/loginBackground.png);
+  background: url(~@/assets/imgs/loginBackground.png);
   background-size: cover;
   background-attachment: fixed;
 }

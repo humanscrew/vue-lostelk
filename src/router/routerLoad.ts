@@ -30,6 +30,10 @@ const Upload = () =>
 //   import(
 //     /* webpackChunkName: "Components" */ "@/components/HandsOnTable/HandsOnTable.vue"
 //   );
+const LuckySheet = () =>
+  import(
+    /* webpackChunkName: "Components" */ "@/components/LuckySheet/LuckySheet.vue"
+  );
 
 const FinancialAccounting = () =>
   import(
@@ -108,6 +112,7 @@ export {
   Layout,
   Upload,
   // HandsOnTable,
+  LuckySheet,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,

@@ -36,7 +36,7 @@
       <div class="profile_content">
         <div class="profile">
           <div class="profile_details">
-            <img src="@/static/imgs/NamchaBarwa.jpg" alt="" />
+            <img src="~@/assets/imgs/NamchaBarwa.jpg" alt="" />
             <div class="name_job">
               <div class="name">{{ username }}</div>
               <div class="job">{{ role }}</div>

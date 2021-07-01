@@ -3,7 +3,7 @@
     <div class="div-earth-img">
       <img
         alt="github earth img"
-        src="@/static/imgs/githubEarthIMG.jpg"
+        src="~@/assets/imgs/githubEarthIMG.jpg"
         class="github-earth-img"
       />
     </div>
@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="@/static/css/fonts.css"></style>
+<style scoped src="@/assets/css/fonts.css"></style>
 <style scoped lang="less">
 .greet {
   font-family: kausha;
@@ -63,7 +63,7 @@ img.github-earth-img {
 }
 
 // 引入自定义字体格式
-// @import "~@/static/css/fonts.css";
+// @import "~@/assets/css/fonts.css";
 .welcome-greet-words {
   font-size: 50px;
 }

@@ -1,7 +1,5 @@
 <template>
-  <el-scrollbar max-height="100vh">
-    <router-view />
-  </el-scrollbar>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -12,7 +10,7 @@ export default defineComponent({
 });
 </script>
 
-<style src="@/static/css/normalize.css"></style>
+<style src="@/assets/css/normalize.css"></style>
 <style lang="less">
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;

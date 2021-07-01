@@ -14,7 +14,7 @@
 </template>
 
 <style scoped>
-@import "~@/static/css/fonts.css";
+@import "~@/assets/css/fonts.css";
 .about {
   text-align: center;
   font-family: kausha;

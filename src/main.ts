@@ -20,5 +20,8 @@ import ElementPlus from "element-plus";
 import "element-plus/lib/theme-chalk/index.css";
 app.use(ElementPlus);
 
+// import Handsontable from "handsontable";
+// app.config.globalProperties.$HandsOnTable = Handsontable;
+
 // app.mount最后加载，否则可能出现显示bug
 app.mount("#app");
