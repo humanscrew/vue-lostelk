@@ -31,8 +31,8 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="@/assets/css/fonts.css"></style>
 <style scoped lang="less">
+@import "~@/assets/css/fonts.css";
 .greet {
   font-family: kausha;
 }

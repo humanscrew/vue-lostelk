@@ -13,7 +13,7 @@ export default {
     init() {
       let data = [
         ["", "Ford", "Tesla", "Toyota", "Honda"],
-        ["2017", 10, 11, 12, 130000],
+        ["2017", 10, 11, 12, 15400],
         ["2018", 20, 11, 14, 13],
         ["2019", 30, 15, 12, 13],
       ];
@@ -31,3 +31,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@import "~../../../public/handsontable/handsontable.full.min.css";
+</style>
