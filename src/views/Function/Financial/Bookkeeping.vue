@@ -89,10 +89,8 @@
   </div>
 
   <el-divider><i class="el-icon-mobile-phone"></i></el-divider>
-  <div class="handsontable-wrapper">
-    <HandsOnTable></HandsOnTable>
-  </div>
-  <div>end</div>
+  <HandsOnTable :handsOnTableSetting="handsOnTableSetting"></HandsOnTable>
+  <div class="end">end</div>
   <!-- <hotTable :data="data" :rowHeaders="true" :colHeaders="true"></hotTable> -->
 </template>
 
@@ -131,13 +129,43 @@ export default defineComponent({
       that.refs["uploadFiles"].clearFiles();
       // that.refs.uploadFiles.clearFiles();
     };
-    // console.log(process.env.BASE_URL);
+
+    let handsOnTableData = [
+      ["T", "Ford", "Tesla", "Toyota", "Honda"],
+      ["2017", 10, 11, 12, 25],
+      ["2018", 20, 11, 14, 13],
+      ["2019", 30, 15, 12, 13],
+    ];
+    let handsOnTableSetting = {
+      data: handsOnTableData,
+      rowHeaders: true,
+      colHeaders: true,
+      filters: true,
+      headerTooltips: true,
+      observeChanges: true,
+      // editor: false,
+      wordWrap: true,
+      // dropdownMenu: true,
+      manualColumnMove: true, //是否能拖动列
+      manualColumnResize: true,
+      manualRowMove: true,
+      manualRowResize: true,
+      manualColumnFreeze: true,
+      search: true,
+      contextMenu: true, //右键显示更多功能,
+      autoColumnSize: true,
+      // comments: true,
+      copyable: true,
+      language: "zh-CN",
+      licenseKey: "non-commercial-and-evaluation",
+    };
     return {
       voucherTemplateOptions,
       voucherTemplateName,
       filesUploadDrawer,
       submitUploadFiles,
       clearUploadFiles,
+      handsOnTableSetting,
     };
   },
 });
@@ -163,9 +191,5 @@ export default defineComponent({
 .files-upload-box {
   padding: 15px;
   margin-top: -32px;
-}
-.handsontable-wrapper {
-  // position: absolute;
-  height: 200px;
 }
 </style>
