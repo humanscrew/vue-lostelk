@@ -24,16 +24,18 @@
         :disabled="!item.path"
         lazy
       >
-        <el-scrollbar max-height="calc(100vh - 20px - 39px - 20px)" noresize>
-          <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
-            {{ item.name }}
-          </div> -->
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
-        </el-scrollbar>
+        <div class="scrollbar-wrapper">
+          <el-scrollbar>
+            <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
+              {{ item.name }}
+            </div> -->
+            <router-view v-slot="{ Component }">
+              <keep-alive>
+                <component :is="Component" />
+              </keep-alive>
+            </router-view>
+          </el-scrollbar>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -121,5 +123,8 @@ export default defineComponent({
 ::v-deep(.el-tabs__content) {
   height: calc(100vh - 20px - 39px - 20px);
   padding: 10px;
+}
+.scrollbar-wrapper {
+  height: calc(100vh - 20px - 39px - 20px);
 }
 </style>

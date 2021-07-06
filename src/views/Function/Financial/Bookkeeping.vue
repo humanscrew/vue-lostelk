@@ -89,16 +89,21 @@
   </div>
 
   <el-divider><i class="el-icon-mobile-phone"></i></el-divider>
-
+  <div class="handsontable-wrapper">
+    <HandsOnTable></HandsOnTable>
+  </div>
+  <div>end</div>
   <!-- <hotTable :data="data" :rowHeaders="true" :colHeaders="true"></hotTable> -->
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
+import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 export default defineComponent({
   name: "Bookkeeping",
   components: {
     // HotTable,
+    HandsOnTable,
   },
   setup() {
     // eslint-disable-next-line
@@ -158,5 +163,9 @@ export default defineComponent({
 .files-upload-box {
   padding: 15px;
   margin-top: -32px;
+}
+.handsontable-wrapper {
+  // position: absolute;
+  height: 200px;
 }
 </style>

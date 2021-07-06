@@ -1,6 +1,9 @@
 <template>
   <!-- <div>HandsOnTable</div> -->
-  <div id="example"></div>
+  <div
+    id="el-handsontable"
+    style="width: 100%; height: 100%; overflow-y: hidden; overflow-x: hidden"
+  ></div>
 </template>
 
 <script>
@@ -17,16 +20,26 @@ export default {
         ["2018", 20, 11, 14, 13],
         ["2019", 30, 15, 12, 13],
       ];
-      let container = document.getElementById("example");
+      let handsOnTableMount = document.getElementById("el-handsontable");
       /* eslint-disable */
-      let hot = new Handsontable(container, {
+      let handsOnTableSetting = {
         data: data,
-        rowHeaders: true,
-        colHeaders: true,
+        // rowHeaders: true,
+        // colHeaders: true,
         filters: true,
-        dropdownMenu: true,
+        // dropdownMenu: true,
+        // manualColumnMove: true, //是否能拖动列
+        manualColumnResize: true,
+        // manualRowMove: true,
+        manualRowResize: true,
+        manualColumnFreeze: true,
+        search: true,
+        contextMenu: true, //右键显示更多功能,
+        autoColumnSize: true,
+        language: "zh-CN",
         licenseKey: "non-commercial-and-evaluation",
-      });
+      };
+      Handsontable(handsOnTableMount, handsOnTableSetting);
     },
   },
 };
@@ -34,4 +47,7 @@ export default {
 
 <style scoped>
 @import "~../../../public/handsontable/handsontable.full.min.css";
+#el-handsontable {
+  height: auto;
+}
 </style>

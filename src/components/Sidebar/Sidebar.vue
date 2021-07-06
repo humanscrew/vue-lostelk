@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-box">
+  <div class="sidebar-wrapper">
     <div class="sidebar" :class="{ active: isActive }">
       <div class="logo_content">
         <div class="logo">
@@ -89,7 +89,7 @@ export default defineComponent({
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-/* .sidebar-box {
+/* .sidebar-wrapper {
   position: relative;
   min-height: 100vh;
   width: 100%;
@@ -108,7 +108,7 @@ export default defineComponent({
   width: 78px;
   background: #11101d;
   padding: 6px 14px;
-  z-index: 99;
+  z-index: 1;
   transition: all 0.5s ease;
 }
 .sidebar.active {
@@ -161,14 +161,16 @@ export default defineComponent({
 
 .sidebar ul {
   margin-top: 20px;
-  width: 184px;
-  // overflow-y: scroll;
+  width: 50px;
   overflow-x: hidden;
-  // overflow-y: overlay;
   height: 80vh;
   &::-webkit-scrollbar {
     display: none;
   }
+}
+.sidebar ul:hover,
+.sidebar.active ul {
+  width: 184px;
 }
 
 .sidebar ul li {
@@ -196,7 +198,7 @@ export default defineComponent({
   transition: 0s;
   opacity: 0;
   pointer-events: none;
-  display: block;
+  // display: none;
 }
 
 .sidebar.active ul li {
@@ -212,6 +214,8 @@ export default defineComponent({
   transition: all 0.5s ease;
   opacity: 1;
   top: 50%;
+  // display: block;
+  z-index: 1;
 }
 
 .sidebar ul li input {
