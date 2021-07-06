@@ -1,48 +1,49 @@
 <template>
-  <!-- <div>HandsOnTable</div> -->
-  <div
-    id="el-handsontable"
-    style="width: 100%; height: 100%; overflow-y: hidden; overflow-x: hidden"
-  ></div>
+  <div ref="refHandsOnTable"></div>
 </template>
 
 <script>
-export default {
+import { defineComponent, onMounted, ref } from "vue";
+export default defineComponent({
   name: "HandsOnTable",
-  mounted() {
-    this.init();
-  },
-  methods: {
-    init() {
-      let data = [
-        ["", "Ford", "Tesla", "Toyota", "Honda"],
-        ["2017", 10, 11, 12, 15400],
-        ["2018", 20, 11, 14, 13],
-        ["2019", 30, 15, 12, 13],
-      ];
-      let handsOnTableMount = document.getElementById("el-handsontable");
+  setup() {
+    let refHandsOnTable = ref();
+    let handsOnTableData = [
+      ["T", "Ford", "Tesla", "Toyota", "Honda"],
+      ["2017", 10, 11, 12, 25],
+      ["2018", 20, 11, 14, 13],
+      ["2019", 30, 15, 12, 13],
+    ];
+    let handsOnTableSetting = {
+      data: handsOnTableData,
+      // rowHeaders: true,
+      // colHeaders: true,
+      filters: true,
+      // dropdownMenu: true,
+      // manualColumnMove: true, //是否能拖动列
+      manualColumnResize: true,
+      // manualRowMove: true,
+      manualRowResize: true,
+      manualColumnFreeze: true,
+      search: true,
+      contextMenu: true, //右键显示更多功能,
+      autoColumnSize: true,
+      language: "zh-CN",
+      licenseKey: "non-commercial-and-evaluation",
+    };
+    let creatHandsOnTable = () => {
+      // let handsOnTableMount = document.getElementById("el-handsontable");
       /* eslint-disable */
-      let handsOnTableSetting = {
-        data: data,
-        // rowHeaders: true,
-        // colHeaders: true,
-        filters: true,
-        // dropdownMenu: true,
-        // manualColumnMove: true, //是否能拖动列
-        manualColumnResize: true,
-        // manualRowMove: true,
-        manualRowResize: true,
-        manualColumnFreeze: true,
-        search: true,
-        contextMenu: true, //右键显示更多功能,
-        autoColumnSize: true,
-        language: "zh-CN",
-        licenseKey: "non-commercial-and-evaluation",
-      };
-      Handsontable(handsOnTableMount, handsOnTableSetting);
-    },
+      Handsontable(refHandsOnTable.value, handsOnTableSetting);
+    };
+    onMounted(() => {
+      creatHandsOnTable();
+    });
+    return {
+      refHandsOnTable,
+    };
   },
-};
+});
 </script>
 
 <style scoped>

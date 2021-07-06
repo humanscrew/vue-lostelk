@@ -1,8 +1,7 @@
 <template>
-  <div>LuckySheet</div>
-  <div class="hello">
+  <div class="lucky-sheet-wrapper">
     <div
-      id="zzh"
+      id="LuckySheet"
       style="
         margin: 0px;
         padding: 0px;
@@ -10,7 +9,7 @@
         width: 100%;
         height: 100%;
         left: 0px;
-        top: 50px;
+        top: 0px;
       "
     ></div>
   </div>
@@ -32,18 +31,18 @@ export default {
   methods: {
     init() {
       var options = {
-        container: "zzh", //luckysheet为容器id
-        title: "zzh", //表 头名
+        container: "LuckySheet", //luckysheet为容器id
+        title: "LuckySheet", //表 头名
         lang: "zh", //中文
         column: 10, //列数
         row: 30, //行数
         showtoolbar: true, //是否显示工具栏
-        showinfobar: true, //是否显示顶部信息栏
+        showinfobar: false, //是否显示顶部信息栏
         showsheetbar: true, //是否显示底部sheet按钮
         allowEdit: true, //是否允许前端编辑
-        myFolderUrl: "https://www.cnblogs.com/javascript9527/", //<左上角的“后退”按钮的链接
-        functionButton:
-          '<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">download</button> <button id="" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">share</button> <button id="luckysheet-share-btn-title" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">show data</button>', //右上角按钮
+        // myFolderUrl: "#", //<左上角的“后退”按钮的链接
+        // functionButton:
+        //   '<button id="" class="btn btn-primary" style="padding:3px 6px;font-size: 12px;margin-right: 10px;">download</button> <button id="" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">share</button> <button id="luckysheet-share-btn-title" class="btn btn-primary btn-danger" style=" padding:3px 6px; font-size: 12px; margin-right: 10px;">show data</button>', //右上角按钮
         cellRightClickConfig: {
           //自定义配置单元右键菜单
           copy: true, // 复制
