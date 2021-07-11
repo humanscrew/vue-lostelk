@@ -99,7 +99,7 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
-import XLSX from "xlsx";
+import { loadXLSX } from "@/plugins/sheetjs";
 export default defineComponent({
   name: "Bookkeeping",
   components: {
@@ -107,7 +107,6 @@ export default defineComponent({
     HandsOnTable,
   },
   setup() {
-    // eslint-disable-next-line
     let that: any = getCurrentInstance();
     let voucherTemplateOptions = [
       {
@@ -132,20 +131,27 @@ export default defineComponent({
       // that.refs["uploadFiles"].clearFiles();
       that.refs.uploadFiles.clearFiles();
     };
-    // eslint-disable-next-line
-    let handleFilesChange = (file: any, fileList: any) => {
-      let fileReader = new FileReader();
-      // fileReader.readAsBinaryString(file.raw);
-      fileReader.readAsArrayBuffer(file.raw);
-      fileReader.onload = () => {
-        let workBook = XLSX.read(fileReader.result, { type: "buffer" });
-        let sheetNameList = workBook.SheetNames;
-        let sheetResult = XLSX.utils.sheet_to_json(
-          workBook.Sheets[sheetNameList[0]],
-          { header: 1 }
-        );
-        handsOnTableSetting.value.data = sheetResult as string[][];
-      };
+    let uploadFilesKeep = ref({});
+    let uploadFileList = ref();
+    let currentFile = ref();
+    let currentWorkBook = ref();
+    let currentSheetNameList = ref();
+    let currentSheetData = ref();
+    let handleFilesChange = async (file: any, fileList: any) => {
+      // eslint-disable-next-line
+      let XLSXResult: any = await loadXLSX(file, fileList);
+      currentFile.value = XLSXResult.file;
+      uploadFileList.value = XLSXResult.fileList;
+      currentWorkBook.value = XLSXResult.currentWorkBook;
+      currentSheetNameList.value = XLSXResult.currentSheetNameList;
+      currentSheetData.value = XLSXResult.currentSheetData;
+      handsOnTableSetting.value.data = currentSheetData.value;
+      Object.defineProperty(uploadFilesKeep.value, file.name, {
+        value: currentWorkBook.value,
+        writable: true,
+        enumerable: true,
+        configurable: true,
+      });
     };
     let tableData = [
       ["T", "Ford", "Tesla", "Toyota", "Honda"],
@@ -215,7 +221,7 @@ export default defineComponent({
 }
 .handsontable {
   height: calc(100vh - 20px - 39px - 20px - 42px - 49px);
-  width: calc(100% - 200px);
+  // width: calc(100% - 20px);
   overflow: hidden;
 }
 </style>

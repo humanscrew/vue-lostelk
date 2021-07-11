@@ -23,7 +23,6 @@ export default defineComponent({
     };
     onMounted(() => {
       creatHandsOnTable();
-      console.log(refHandsOnTable.value)
     });
     watch(
       () => _.cloneDeep(props.handsOnTableSetting),

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref, watch } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 /* eslint-disable */
 export default defineComponent({
   name: "LuckySheet",
