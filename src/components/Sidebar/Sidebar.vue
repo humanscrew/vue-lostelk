@@ -108,7 +108,7 @@ export default defineComponent({
   width: 78px;
   background: #11101d;
   padding: 6px 14px;
-  z-index: 1;
+  z-index: 1000;
   transition: all 0.5s ease;
 }
 .sidebar.active {

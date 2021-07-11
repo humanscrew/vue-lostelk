@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
+import _ from "lodash";
 export default defineComponent({
   name: "HandsOnTable",
   props: {
@@ -13,14 +14,27 @@ export default defineComponent({
   },
   setup(props) {
     let refHandsOnTable = ref();
+    let hot;
     let creatHandsOnTable = () => {
       // let handsOnTableMount = document.getElementById("el-handsontable");
       /* eslint-disable */
-      Handsontable(refHandsOnTable.value, props.handsOnTableSetting);
+      props.handsOnTableSetting.licenseKey = "non-commercial-and-evaluation";
+      hot = Handsontable(refHandsOnTable.value, props.handsOnTableSetting);
     };
     onMounted(() => {
       creatHandsOnTable();
+      console.log(refHandsOnTable.value)
     });
+    watch(
+      () => _.cloneDeep(props.handsOnTableSetting),
+      (newValues, prevValues) => {
+        hot.loadData(props.handsOnTableSetting.data);
+      },
+      {
+        // immediate: true,
+        deep: true,
+      }
+    );
     return {
       refHandsOnTable,
     };
@@ -30,9 +44,4 @@ export default defineComponent({
 
 <style scoped>
 @import "~../../../public/handsontable/handsontable.full.min.css";
-
-::v-deep(.wtHolder) {
-  height: 100% !important;
-  width: 100% !important;
-}
 </style>

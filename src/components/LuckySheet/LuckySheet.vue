@@ -2,6 +2,7 @@
   <div class="lucky-sheet-wrapper">
     <div
       id="LuckySheet"
+      ref="refLuckySheet"
       style="
         margin: 0px;
         padding: 0px;
@@ -16,26 +17,25 @@
 </template>
 
 <script>
+import { defineComponent, onMounted, ref, watch } from "vue";
 /* eslint-disable */
-export default {
+export default defineComponent({
   name: "LuckySheet",
   props: {
     msg: String,
   },
-  data() {
-    return {};
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    init() {
-      var options = {
+  // mounted() {
+  //   this.init();
+  // },
+  setup() {
+    let refLuckySheet = ref();
+    let creatLuckySheet = () => {
+      let options = {
         container: "LuckySheet", //luckysheet为容器id
         title: "LuckySheet", //表 头名
         lang: "zh", //中文
-        column: 10, //列数
-        row: 30, //行数
+        // column: 10, //列数
+        // row: 30, //行数
         showtoolbar: true, //是否显示工具栏
         showinfobar: false, //是否显示顶部信息栏
         showsheetbar: true, //是否显示底部sheet按钮
@@ -60,19 +60,26 @@ export default {
           clear: true, // 清空选定内容clear content
           matrix: false, //矩阵 matrix operation selection
           sort: false, // 排序sort selection
-          filter: false, //筛选 filter selection
+          filter: true, //筛选 filter selection
           chart: false, //图表生成 chart generation
           image: false, //插入图片 insert picture
           link: false, // 插入连接，比如网址之类insert link
           data: false, //数据校验 data verification
-          cellFormat: false, //设置单元格格式，锁定单元格格式，隐藏公示等 Set cell format
+          cellFormat: true, //设置单元格格式，锁定单元格格式，隐藏公示等 Set cell format
         },
       };
       /* eslint-disable */
       luckysheet.create(options);
-    },
+    };
+    onMounted(() => {
+      creatLuckySheet();
+      console.log(refLuckySheet.value);
+    });
+    return {
+      refLuckySheet,
+    };
   },
-};
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -51,8 +51,9 @@
         ref="uploadFiles"
         action="#"
         :auto-upload="false"
-        accept=".xls,.xlsx"
+        accept=".xls, .xlsx"
         multiple
+        :on-change="handleFilesChange"
       >
         <template #trigger>
           <el-button
@@ -89,14 +90,16 @@
   </div>
 
   <el-divider><i class="el-icon-mobile-phone"></i></el-divider>
-  <HandsOnTable :handsOnTableSetting="handsOnTableSetting"></HandsOnTable>
-  <div class="end">end</div>
-  <!-- <hotTable :data="data" :rowHeaders="true" :colHeaders="true"></hotTable> -->
+  <HandsOnTable
+    :handsOnTableSetting="handsOnTableSetting"
+    class="handsontable"
+  ></HandsOnTable>
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
+import XLSX from "xlsx";
 export default defineComponent({
   name: "Bookkeeping",
   components: {
@@ -123,29 +126,44 @@ export default defineComponent({
     let voucherTemplateName = ref();
     let filesUploadDrawer = ref(false);
     let submitUploadFiles = () => {
-      that.refs["uploadFiles"].submit();
+      that.refs.uploadFiles.submit();
     };
     let clearUploadFiles = () => {
-      that.refs["uploadFiles"].clearFiles();
-      // that.refs.uploadFiles.clearFiles();
+      // that.refs["uploadFiles"].clearFiles();
+      that.refs.uploadFiles.clearFiles();
     };
-
-    let handsOnTableData = [
+    // eslint-disable-next-line
+    let handleFilesChange = (file: any, fileList: any) => {
+      let fileReader = new FileReader();
+      // fileReader.readAsBinaryString(file.raw);
+      fileReader.readAsArrayBuffer(file.raw);
+      fileReader.onload = () => {
+        let workBook = XLSX.read(fileReader.result, { type: "buffer" });
+        let sheetNameList = workBook.SheetNames;
+        let sheetResult = XLSX.utils.sheet_to_json(
+          workBook.Sheets[sheetNameList[0]],
+          { header: 1 }
+        );
+        handsOnTableSetting.value.data = sheetResult as string[][];
+      };
+    };
+    let tableData = [
       ["T", "Ford", "Tesla", "Toyota", "Honda"],
       ["2017", 10, 11, 12, 25],
       ["2018", 20, 11, 14, 13],
       ["2019", 30, 15, 12, 13],
     ];
-    let handsOnTableSetting = {
-      data: handsOnTableData,
+    let handsOnTableSetting = ref({
+      data: tableData,
       rowHeaders: true,
       colHeaders: true,
       filters: true,
       headerTooltips: true,
       observeChanges: true,
       // editor: false,
+      // trimRows: true,
       wordWrap: true,
-      // dropdownMenu: true,
+      dropdownMenu: true,
       manualColumnMove: true, //是否能拖动列
       manualColumnResize: true,
       manualRowMove: true,
@@ -156,9 +174,11 @@ export default defineComponent({
       autoColumnSize: true,
       // comments: true,
       copyable: true,
+      // stretchH: "all",
+      // preventOverflow: "horizontal",
+      // readOnly: true,
       language: "zh-CN",
-      licenseKey: "non-commercial-and-evaluation",
-    };
+    });
     return {
       voucherTemplateOptions,
       voucherTemplateName,
@@ -166,6 +186,7 @@ export default defineComponent({
       submitUploadFiles,
       clearUploadFiles,
       handsOnTableSetting,
+      handleFilesChange,
     };
   },
 });
@@ -191,5 +212,10 @@ export default defineComponent({
 .files-upload-box {
   padding: 15px;
   margin-top: -32px;
+}
+.handsontable {
+  height: calc(100vh - 20px - 39px - 20px - 42px - 49px);
+  width: calc(100% - 200px);
+  overflow: hidden;
 }
 </style>
