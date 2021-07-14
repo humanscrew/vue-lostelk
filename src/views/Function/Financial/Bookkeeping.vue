@@ -1,7 +1,7 @@
 <template>
   <div class="selector-area">
     <el-select
-      class="voucher-template-select"
+      class="template-select"
       v-model="voucherTemplateName"
       placeholder="制证模板"
       no-match-text="未找到..."
@@ -23,22 +23,73 @@
       </el-option>
     </el-select>
 
-    <el-tooltip
-      content="仅支持 .xls,.xlsx 文件"
-      placement="bottom"
-      effect="light"
-      transition="el-fade-in-linear"
-    >
-      <el-button
-        size="small"
-        type="primary"
-        class="files-upload-button"
-        @click="filesUploadDrawer = true"
+    <div class="files-upload-button">
+      <el-tooltip
+        content="仅支持 .xls,.xlsx 文件"
+        placement="bottom"
+        effect="light"
+        transition="el-fade-in-linear"
       >
-        文件导入
-        <i class="el-icon-folder-opened el-icon--right"></i>
-      </el-button>
-    </el-tooltip>
+        <el-badge :value="uploadFilesKeep.length" :max="10" type="danger">
+          <el-button
+            size="small"
+            type="primary"
+            @click="filesUploadDrawer = true"
+          >
+            文件导入
+            <i class="el-icon-folder-opened el-icon--right"></i>
+          </el-button>
+        </el-badge>
+      </el-tooltip>
+    </div>
+
+    <el-select
+      class="template-select"
+      v-model="currentFileIndex"
+      placeholder="选择工作簿"
+      no-match-text="未找到..."
+      no-data-text="请导入.xls,.xlsx文件"
+      size="small"
+      filterable
+      default-first-option
+      @change="fileSelectChange"
+    >
+      <el-option
+        v-for="(item, index) in uploadFilesKeep"
+        :key="item.file.name"
+        :label="item.file.name"
+        :value="index"
+      >
+        <span style="float: left">{{ item.file.name }}</span>
+        <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
+          item.encoding
+        }}</span> -->
+      </el-option>
+    </el-select>
+
+    <el-select
+      class="template-select"
+      v-model="currentSheetIndex"
+      placeholder="选择工作表"
+      no-match-text="未找到..."
+      no-data-text="请导入.xls,.xlsx文件"
+      size="small"
+      filterable
+      default-first-option
+      @change="sheetSelectChange"
+    >
+      <el-option
+        v-for="(item, index) in currentSheetNameList"
+        :key="item"
+        :label="item"
+        :value="index"
+      >
+        <span style="float: left">{{ item }}</span>
+        <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
+          item.encoding
+        }}</span> -->
+      </el-option>
+    </el-select>
 
     <el-drawer
       title="文件导入"
@@ -54,6 +105,7 @@
         accept=".xls, .xlsx"
         multiple
         :on-change="handleFilesChange"
+        :before-upload="beforeUpload"
       >
         <template #trigger>
           <el-button
@@ -100,6 +152,9 @@
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { loadXLSX } from "@/plugins/sheetjs";
+// import { ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
+
 export default defineComponent({
   name: "Bookkeeping",
   components: {
@@ -107,6 +162,7 @@ export default defineComponent({
     HandsOnTable,
   },
   setup() {
+    // eslint-disable-next-line
     let that: any = getCurrentInstance();
     let voucherTemplateOptions = [
       {
@@ -130,37 +186,83 @@ export default defineComponent({
     let clearUploadFiles = () => {
       // that.refs["uploadFiles"].clearFiles();
       that.refs.uploadFiles.clearFiles();
+      uploadFilesKeep.value = [];
+      currentFileIndex.value = null;
+      currentSheetNameList.value = null;
+      currentSheetIndex.value = null;
+      handsOnTableSetting.value.data = emptySheetData;
     };
-    let uploadFilesKeep = ref({});
-    let uploadFileList = ref();
-    let currentFile = ref();
-    let currentWorkBook = ref();
+    let fileSelectChange = () => {
+      currentSheetIndex.value = 0;
+      currentSheetNameList.value =
+        uploadFilesKeep.value[currentFileIndex.value].sheetNameList;
+      handsOnTableSetting.value.data =
+        uploadFilesKeep.value[currentFileIndex.value].sheetData[
+          currentSheetIndex.value
+        ];
+    };
+    let sheetSelectChange = () => {
+      handsOnTableSetting.value.data =
+        uploadFilesKeep.value[currentFileIndex.value].sheetData[
+          currentSheetIndex.value
+        ];
+    };
+    // let fileRepeatDeal = () =>
+    //   ElMessageBox.confirm("存在重复文件名, 是否更新该文件?", "文件重复", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning",
+    //     center: true,
+    //   })
+    //     .then(() => {
+    //       ElMessage({
+    //         type: "success",
+    //         message: "文件更新成功!",
+    //       });
+    //     })
+    //     .catch(() => {
+    //       ElMessage({
+    //         type: "info",
+    //         message: "已取消",
+    //       });
+    //     });
+    // eslint-disable-next-line
+    let uploadFilesKeep = ref<any[]>([]);
+    let currentFileIndex = ref();
     let currentSheetNameList = ref();
-    let currentSheetData = ref();
+    let currentSheetIndex = ref();
+    let beforeUpload = () => {
+      console.log("beforeUpload");
+    };
+    // eslint-disable-next-line
     let handleFilesChange = async (file: any, fileList: any) => {
+      let isFileRepeat = false;
+      // eslint-disable-next-line
+      uploadFilesKeep.value.forEach((item: any) => {
+        if (file.name === item.file.name) {
+          isFileRepeat = true;
+        }
+      });
+      if (isFileRepeat) {
+        ElMessage({
+          type: "error",
+          message: "文件重复!",
+        });
+        return;
+      }
+      // let temp = await fileRepeatDeal();
       // eslint-disable-next-line
       let XLSXResult: any = await loadXLSX(file, fileList);
-      currentFile.value = XLSXResult.file;
-      uploadFileList.value = XLSXResult.fileList;
-      currentWorkBook.value = XLSXResult.currentWorkBook;
-      currentSheetNameList.value = XLSXResult.currentSheetNameList;
-      currentSheetData.value = XLSXResult.currentSheetData;
-      handsOnTableSetting.value.data = currentSheetData.value;
-      Object.defineProperty(uploadFilesKeep.value, file.name, {
-        value: currentWorkBook.value,
-        writable: true,
-        enumerable: true,
-        configurable: true,
-      });
+      currentSheetNameList.value = XLSXResult.sheetNameList;
+      currentSheetIndex.value = 0;
+      handsOnTableSetting.value.data =
+        XLSXResult.sheetData[currentSheetIndex.value];
+      uploadFilesKeep.value.push(XLSXResult);
+      currentFileIndex.value = uploadFilesKeep.value.length - 1;
     };
-    let tableData = [
-      ["T", "Ford", "Tesla", "Toyota", "Honda"],
-      ["2017", 10, 11, 12, 25],
-      ["2018", 20, 11, 14, 13],
-      ["2019", 30, 15, 12, 13],
-    ];
+    let emptySheetData = new Array(25).fill("").map(() => new Array(26));
     let handsOnTableSetting = ref({
-      data: tableData,
+      data: emptySheetData,
       rowHeaders: true,
       colHeaders: true,
       filters: true,
@@ -192,7 +294,14 @@ export default defineComponent({
       submitUploadFiles,
       clearUploadFiles,
       handsOnTableSetting,
+      beforeUpload,
       handleFilesChange,
+      currentFileIndex,
+      currentSheetNameList,
+      currentSheetIndex,
+      uploadFilesKeep,
+      fileSelectChange,
+      sheetSelectChange,
     };
   },
 });
@@ -203,25 +312,28 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 10px;
 }
-.voucher-template-select {
+.template-select {
   padding-right: 10px;
   margin-bottom: 10px;
 }
-.voucher-files-upload {
-  padding-right: 10px;
-  // max-height: 32px;
-}
 .files-upload-button {
   height: 32px;
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 .files-upload-box {
   padding: 15px;
   margin-top: -32px;
 }
 .handsontable {
-  height: calc(100vh - 20px - 39px - 20px - 42px - 49px);
+  height: calc(100vh - 20px - 39px - 20px - 42px - 21px - 20px);
   // width: calc(100% - 20px);
   overflow: hidden;
+}
+.el-divider--horizontal {
+  margin: 0px;
+  margin-bottom: 20px;
 }
 </style>

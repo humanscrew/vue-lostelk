@@ -1,28 +1,34 @@
 import XLSX from "xlsx";
 
-export function loadXLSX(file: any, fileList: any, defaultSheetIndex = 0) {
+export function loadXLSX(file: any, fileList: any) {
   return new Promise(function (resolve, reject) {
-    let currentWorkBook: any;
-    let currentSheetNameList: any;
-    let currentSheetData: any;
+    let fileBuffer: any;
+    let workBook: any;
+    let sheetNameList: any;
+    const sheetData: any[] = [];
     const fileReader = new FileReader();
     // fileReader.readAsBinaryString(file.raw);
     fileReader.readAsArrayBuffer(file.raw);
     fileReader.onload = () => {
-      currentWorkBook = XLSX.read(fileReader.result, {
+      fileBuffer = fileReader.result;
+      workBook = XLSX.read(fileReader.result, {
         type: "buffer",
       });
-      currentSheetNameList = currentWorkBook.SheetNames;
-      currentSheetData = XLSX.utils.sheet_to_json(
-        currentWorkBook.Sheets[currentSheetNameList[defaultSheetIndex]],
-        { header: 1 }
-      );
+      sheetNameList = workBook.SheetNames;
+      for (let sheetIndex = 0, sheetLen = sheetNameList.length; sheetIndex < sheetLen; sheetIndex++) {
+        const sheetJson = XLSX.utils.sheet_to_json(
+          workBook.Sheets[sheetNameList[sheetIndex]],
+          { header: 1 }
+        )
+        sheetData.push(sheetJson)
+      }
       resolve({
         file,
+        fileBuffer,
         fileList,
-        currentWorkBook,
-        currentSheetNameList,
-        currentSheetData,
+        workBook,
+        sheetNameList,
+        sheetData,
       });
     };
   });
