@@ -14,7 +14,13 @@
     </h3>
     <p class="contact-link">
       Here is a
-      <a href="https://www.baidu.com" target="_blank" rel="noopener">link</a> .
+      <a
+        href="https://www.bilibili.com/video/BV1Gz4y197E9"
+        target="_blank"
+        rel="noopener"
+        >link</a
+      >
+      .
     </p>
   </div>
 </template>

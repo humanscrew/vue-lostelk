@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     handsOnTableSetting: Object,
   },
-  setup(props) {
+  setup(props, { emit }) {
     let refHandsOnTable = ref();
     let hot;
     let creatHandsOnTable = () => {
@@ -23,6 +23,7 @@ export default defineComponent({
     };
     onMounted(() => {
       creatHandsOnTable();
+      emit("refHandsOnTable", refHandsOnTable.value);
     });
     watch(
       () => _.cloneDeep(props.handsOnTableSetting),

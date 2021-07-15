@@ -144,6 +144,7 @@
   <el-divider><i class="el-icon-mobile-phone"></i></el-divider>
   <HandsOnTable
     :handsOnTableSetting="handsOnTableSetting"
+    @refHandsOnTable="getRefHandsOnTable"
     class="handsontable"
   ></HandsOnTable>
 </template>
@@ -154,6 +155,7 @@ import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { loadXLSX } from "@/plugins/sheetjs";
 // import { ElMessageBox } from "element-plus";
 import { ElMessage } from "element-plus";
+import { ElLoading } from "element-plus";
 
 export default defineComponent({
   name: "Bookkeeping",
@@ -164,6 +166,11 @@ export default defineComponent({
   setup() {
     // eslint-disable-next-line
     let that: any = getCurrentInstance();
+    let refHandsOnTable = ref();
+    // eslint-disable-next-line
+    let getRefHandsOnTable = (refDom: any) => {
+      refHandsOnTable.value = refDom;
+    };
     let voucherTemplateOptions = [
       {
         name: "收入收款",
@@ -236,6 +243,14 @@ export default defineComponent({
     };
     // eslint-disable-next-line
     let handleFilesChange = async (file: any, fileList: any) => {
+      let loadingInstance = ElLoading.service({
+        lock: true,
+        text: "文件解析ing...",
+        // spinner: "el-icon-loading",
+        // background: "rgba(0, 0, 0, 0.7)",
+        target: refHandsOnTable.value,
+        // fullscreen: true,
+      });
       let isFileRepeat = false;
       // eslint-disable-next-line
       uploadFilesKeep.value.forEach((item: any) => {
@@ -248,6 +263,7 @@ export default defineComponent({
           type: "error",
           message: "文件重复!",
         });
+        loadingInstance.close();
         return;
       }
       // let temp = await fileRepeatDeal();
@@ -259,6 +275,7 @@ export default defineComponent({
         XLSXResult.sheetData[currentSheetIndex.value];
       uploadFilesKeep.value.push(XLSXResult);
       currentFileIndex.value = uploadFilesKeep.value.length - 1;
+      loadingInstance.close();
     };
     let emptySheetData = new Array(25).fill("").map(() => new Array(26));
     let handsOnTableSetting = ref({
@@ -294,6 +311,7 @@ export default defineComponent({
       submitUploadFiles,
       clearUploadFiles,
       handsOnTableSetting,
+      getRefHandsOnTable,
       beforeUpload,
       handleFilesChange,
       currentFileIndex,
