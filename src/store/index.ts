@@ -18,6 +18,7 @@ export default createStore({
           { name: "现金流量", path: "/Main/CashFlow" },
           { name: "模式记账", path: "/Main/Bookkeeping" },
           { name: "财务流", path: "/Main/FinancialFlow" },
+          { name: "制证模板", path: "/Main/VoucherTemplate" },
         ],
       },
       {

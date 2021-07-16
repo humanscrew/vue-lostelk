@@ -276,6 +276,7 @@ export default defineComponent({
       uploadFilesKeep.value.push(XLSXResult);
       currentFileIndex.value = uploadFilesKeep.value.length - 1;
       loadingInstance.close();
+      filesUploadDrawer.value = false;
     };
     let emptySheetData = new Array(25).fill("").map(() => new Array(26));
     let handsOnTableSetting = ref({

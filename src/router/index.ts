@@ -13,6 +13,7 @@ import {
   CashFlow,
   Bookkeeping,
   FinancialFlow,
+  VoucherTemplate,
   CashManagement,
   BankDeposit,
   FundsChecking,
@@ -96,6 +97,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "FinancialFlow",
         component: FinancialFlow,
         meta: { mainMenuIndex: 0, submenuIndex: 3 },
+      },
+      {
+        path: "VoucherTemplate",
+        name: "VoucherTemplate",
+        component: VoucherTemplate,
+        meta: { mainMenuIndex: 0, submenuIndex: 4 },
       },
 
       {

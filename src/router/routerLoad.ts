@@ -51,6 +51,10 @@ const FinancialFlow = () =>
   import(
     /* webpackChunkName: "Financial" */ "@/views/Function/Financial/FinancialFlow.vue"
   );
+const VoucherTemplate = () =>
+  import(
+    /* webpackChunkName: "Financial" */ "@/views/Function/Financial/VoucherTemplate.vue"
+  );
 
 const CashManagement = () =>
   import(
@@ -117,6 +121,7 @@ export {
   CashFlow,
   Bookkeeping,
   FinancialFlow,
+  VoucherTemplate,
   CashManagement,
   BankDeposit,
   FundsChecking,

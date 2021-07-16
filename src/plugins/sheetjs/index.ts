@@ -15,12 +15,16 @@ export function loadXLSX(file: any, fileList: any) {
         type: "buffer",
       });
       sheetNameList = workBook.SheetNames;
-      for (let sheetIndex = 0, sheetLen = sheetNameList.length; sheetIndex < sheetLen; sheetIndex++) {
+      for (
+        let sheetIndex = 0, sheetLen = sheetNameList.length;
+        sheetIndex < sheetLen;
+        sheetIndex++
+      ) {
         const sheetJson = XLSX.utils.sheet_to_json(
           workBook.Sheets[sheetNameList[sheetIndex]],
           { header: 1 }
-        )
-        sheetData.push(sheetJson)
+        );
+        sheetData.push(sheetJson);
       }
       resolve({
         file,
