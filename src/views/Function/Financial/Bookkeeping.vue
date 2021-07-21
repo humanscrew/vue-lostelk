@@ -90,18 +90,14 @@
 
     <div class="files-export-button">
       <el-tooltip
-        content="导出当期工作表.xlsx文件"
+        content="导出当前工作表.xlsx文件"
         placement="bottom"
         effect="light"
         transition="el-fade-in-linear"
       >
-        <el-button
-          size="small"
-          type="primary"
-          @click="filesUploadDrawer = true"
-        >
+        <el-button size="small" type="primary" @click="exportCurrentSheet">
           导出
-          <i class="el-icon-right el-icon--right"></i>
+          <i class="el-icon-download el-icon--right"></i>
         </el-button>
       </el-tooltip>
     </div>
@@ -168,7 +164,7 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
-import { loadXLSX } from "@/plugins/sheetjs";
+import { loadXLSX, exportArray2Sheet } from "@/plugins/sheetjs";
 // import { ElMessageBox } from "element-plus";
 import { ElMessage, ElLoading } from "element-plus";
 
@@ -321,6 +317,16 @@ export default defineComponent({
       // readOnly: true,
       language: "zh-CN",
     });
+    let exportCurrentSheet = () => {
+      if (currentFileIndex.value == null) {
+        return;
+      }
+      exportArray2Sheet(
+        handsOnTableSetting.value.data as [],
+        uploadFilesKeep.value[currentFileIndex.value].file.name,
+        currentSheetNameList.value[currentSheetIndex.value]
+      );
+    };
     return {
       voucherTemplateOptions,
       voucherTemplateName,
@@ -337,6 +343,7 @@ export default defineComponent({
       uploadFilesKeep,
       fileSelectChange,
       sheetSelectChange,
+      exportCurrentSheet,
     };
   },
 });
