@@ -85,11 +85,26 @@
         :value="index"
       >
         <span style="float: left">{{ item }}</span>
-        <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.encoding
-        }}</span> -->
       </el-option>
     </el-select>
+
+    <div class="files-export-button">
+      <el-tooltip
+        content="导出当期工作表.xlsx文件"
+        placement="bottom"
+        effect="light"
+        transition="el-fade-in-linear"
+      >
+        <el-button
+          size="small"
+          type="primary"
+          @click="filesUploadDrawer = true"
+        >
+          导出
+          <i class="el-icon-right el-icon--right"></i>
+        </el-button>
+      </el-tooltip>
+    </div>
 
     <el-drawer
       title="文件导入"
@@ -141,7 +156,8 @@
     </el-drawer>
   </div>
 
-  <el-divider><i class="el-icon-mobile-phone"></i></el-divider>
+  <el-divider><i class="el-icon-data-analysis"></i></el-divider>
+
   <HandsOnTable
     :handsOnTableSetting="handsOnTableSetting"
     @refHandsOnTable="getRefHandsOnTable"
@@ -154,8 +170,7 @@ import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { loadXLSX } from "@/plugins/sheetjs";
 // import { ElMessageBox } from "element-plus";
-import { ElMessage } from "element-plus";
-import { ElLoading } from "element-plus";
+import { ElMessage, ElLoading } from "element-plus";
 
 export default defineComponent({
   name: "Bookkeeping",
@@ -195,7 +210,7 @@ export default defineComponent({
       that.refs.uploadFiles.clearFiles();
       uploadFilesKeep.value = [];
       currentFileIndex.value = null;
-      currentSheetNameList.value = null;
+      currentSheetNameList.value = [];
       currentSheetIndex.value = null;
       handsOnTableSetting.value.data = emptySheetData;
     };
@@ -295,6 +310,7 @@ export default defineComponent({
       manualRowMove: true,
       manualRowResize: true,
       manualColumnFreeze: true,
+      mergeCells: true,
       search: true,
       contextMenu: true, //右键显示更多功能,
       autoColumnSize: true,

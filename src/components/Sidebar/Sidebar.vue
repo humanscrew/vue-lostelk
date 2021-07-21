@@ -23,7 +23,8 @@
           </li>
           <!-- <el-scrollbar max-height="80vh"> -->
           <li v-for="(item, index) in menuList" :key="item">
-            <a href="#" @click="mainMenuIndex(index)">
+            <!-- 阻止<a></a>标签自带的跳转事件，否则会与route.push()冲突 -->
+            <a href="javascript:void(0);" @click="mainMenuIndex(index)">
               <i class="bx" :class="item.icon"></i>
               <span class="links_name">{{ item.name }}</span>
             </a>

@@ -70,19 +70,20 @@ export default defineComponent({
     let getIsActive = (isActive: boolean) => {
       sidebarActive.value = isActive;
     };
-    let getMainMenuIndex = (index: number) => {
+    let getMainMenuIndex = async (index: number) => {
       mainMenuIndex.value = index;
       let submenuPath = submenu.value[0].path;
       if (submenuPath) {
+        // await nextTick();
         tabName.value = submenu.value[0].name;
-        router.push(submenuPath);
+        await router.push({ path: submenuPath });
       }
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let handleTabClick = (tab: any) => {
+    let handleTabClick = async (tab: any) => {
       let submenuPath = submenu.value[tab.index].path;
       if (submenuPath) {
-        router.push(submenuPath);
+        await router.push(submenuPath);
       }
     };
     return {
@@ -90,7 +91,6 @@ export default defineComponent({
       username,
       role,
       sidebarActive,
-      mainMenuIndex,
       submenu,
       tabName,
       getIsActive,
