@@ -97,7 +97,7 @@
       >
         <el-button size="small" type="primary" @click="exportCurrentSheet">
           导出
-          <i class="el-icon-download el-icon--right"></i>
+          <i class="el-icon-notebook-2 el-icon--right"></i>
         </el-button>
       </el-tooltip>
     </div>
@@ -256,7 +256,7 @@ export default defineComponent({
     let handleFilesChange = async (file: any, fileList: any) => {
       let loadingInstance = ElLoading.service({
         lock: true,
-        text: "文件解析ing...",
+        text: "文件解析中...",
         // spinner: "el-icon-loading",
         // background: "rgba(0, 0, 0, 0.7)",
         target: refHandsOnTable.value,

@@ -23,7 +23,7 @@ service.interceptors.request.use(
   (config) => {
     loadingInstance = ElLoading.service({
       fullscreen: true,
-      text: "让请求飞一会...",
+      text: "发送请求中...",
       lock: true,
     });
     // if (config.method === 'post' || config.method === 'put') {

@@ -40,7 +40,7 @@
         </el-form-item>
 
         <el-button type="primary" @click="submitForm('loginFrom')"
-          >提交</el-button
+          >登录</el-button
         >
         <el-button @click="resetForm('loginFrom')">重置</el-button>
       </el-form>
