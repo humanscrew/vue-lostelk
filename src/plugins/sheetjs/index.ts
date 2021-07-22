@@ -1,5 +1,5 @@
 import XLSX from "xlsx";
-
+/* eslint-disable */
 export function loadXLSX(file: any, fileList: any) {
   return new Promise(function (resolve, reject) {
     let fileBuffer: any;
@@ -48,4 +48,5 @@ export function exportArray2Sheet(
   const timeStamp = new Date().getTime();
   XLSX.utils.book_append_sheet(workBook, exportSheet, sheetName);
   XLSX.writeFile(workBook, fileName + "#" + timeStamp + ".xlsx");
+  return;
 }

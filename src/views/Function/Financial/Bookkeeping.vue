@@ -162,6 +162,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { loadXLSX, exportArray2Sheet } from "@/plugins/sheetjs";
@@ -175,10 +176,8 @@ export default defineComponent({
     HandsOnTable,
   },
   setup() {
-    // eslint-disable-next-line
     let that: any = getCurrentInstance();
     let refHandsOnTable = ref();
-    // eslint-disable-next-line
     let getRefHandsOnTable = (refDom: any) => {
       refHandsOnTable.value = refDom;
     };
@@ -244,7 +243,6 @@ export default defineComponent({
     //         message: "已取消",
     //       });
     //     });
-    // eslint-disable-next-line
     let uploadFilesKeep = ref<any[]>([]);
     let currentFileIndex = ref();
     let currentSheetNameList = ref();
@@ -252,7 +250,6 @@ export default defineComponent({
     let beforeUpload = () => {
       console.log("beforeUpload");
     };
-    // eslint-disable-next-line
     let handleFilesChange = async (file: any, fileList: any) => {
       let loadingInstance = ElLoading.service({
         lock: true,
@@ -263,7 +260,6 @@ export default defineComponent({
         // fullscreen: true,
       });
       let isFileRepeat = false;
-      // eslint-disable-next-line
       uploadFilesKeep.value.forEach((item: any) => {
         if (file.name === item.file.name) {
           isFileRepeat = true;
@@ -278,7 +274,6 @@ export default defineComponent({
         return;
       }
       // let temp = await fileRepeatDeal();
-      // eslint-disable-next-line
       let XLSXResult: any = await loadXLSX(file, fileList);
       currentSheetNameList.value = XLSXResult.sheetNameList;
       currentSheetIndex.value = 0;
