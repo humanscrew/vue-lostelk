@@ -80,7 +80,7 @@
     >
       <el-option
         v-for="(item, index) in currentSheetNameList"
-        :key="item"
+        :key="index"
         :label="item"
         :value="index"
       >
@@ -165,6 +165,11 @@
 /* eslint-disable */
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
+import {
+  defaultHandsOnTableSetting,
+  emptySheetData,
+} from "@/components/HandsOnTable/handsOnTableSetting";
+import _ from "lodash";
 import { loadXLSX, exportArray2Sheet } from "@/plugins/sheetjs";
 // import { ElMessageBox } from "element-plus";
 import { ElMessage, ElLoading } from "element-plus";
@@ -268,7 +273,7 @@ export default defineComponent({
       if (isFileRepeat) {
         ElMessage({
           type: "error",
-          message: "文件重复!",
+          message: "文件名重复!",
         });
         loadingInstance.close();
         return;
@@ -284,43 +289,23 @@ export default defineComponent({
       loadingInstance.close();
       filesUploadDrawer.value = false;
     };
-    let emptySheetData = new Array(25).fill("").map(() => new Array(26));
-    let handsOnTableSetting = ref({
-      data: emptySheetData,
-      rowHeaders: true,
-      colHeaders: true,
-      filters: true,
-      headerTooltips: true,
-      observeChanges: true,
-      // editor: false,
-      // trimRows: true,
-      wordWrap: true,
-      dropdownMenu: true,
-      manualColumnMove: true, //是否能拖动列
-      manualColumnResize: true,
-      manualRowMove: true,
-      manualRowResize: true,
-      manualColumnFreeze: true,
-      mergeCells: true,
-      search: true,
-      contextMenu: true, //右键显示更多功能,
-      autoColumnSize: true,
-      // comments: true,
-      copyable: true,
-      // stretchH: "all",
-      // preventOverflow: "horizontal",
-      // readOnly: true,
-      language: "zh-CN",
-    });
-    let exportCurrentSheet = () => {
+    let handsOnTableSetting = ref(_.cloneDeep(defaultHandsOnTableSetting));
+    let exportCurrentSheet = async () => {
       if (currentFileIndex.value == null) {
         return;
       }
-      exportArray2Sheet(
+      let loadingInstance = await ElLoading.service({
+        lock: true,
+        text: "文件导出中...",
+        target: refHandsOnTable.value,
+        // fullscreen: true,
+      });
+      await exportArray2Sheet(
         handsOnTableSetting.value.data as [],
         uploadFilesKeep.value[currentFileIndex.value].file.name,
         currentSheetNameList.value[currentSheetIndex.value]
       );
+      loadingInstance.close();
     };
     return {
       voucherTemplateOptions,

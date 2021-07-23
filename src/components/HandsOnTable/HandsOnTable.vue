@@ -29,7 +29,8 @@ export default defineComponent({
     watch(
       () => _.cloneDeep(props.handsOnTableSetting),
       (newValues, prevValues) => {
-        hot.loadData(props.handsOnTableSetting.data);
+        hot.updateSettings(props.handsOnTableSetting);
+        // hot.loadData(props.handsOnTableSetting.data);
       },
       {
         // immediate: true,

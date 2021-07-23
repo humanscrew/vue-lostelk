@@ -28,7 +28,7 @@ import {
   TicketAdjustment,
 } from "@/router/routerLoad";
 
-import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
+// import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 
 // declare module 'vue-router' {
 //   interface RouteMeta {
@@ -186,11 +186,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Upload",
     component: Upload,
   },
-  {
-    path: "/HandsOnTable",
-    name: "HandsOnTable",
-    component: HandsOnTable,
-  },
+  // {
+  //   path: "/HandsOnTable",
+  //   name: "HandsOnTable",
+  //   component: HandsOnTable,
+  // },
   {
     path: "/LuckySheet",
     name: "LuckySheet",
