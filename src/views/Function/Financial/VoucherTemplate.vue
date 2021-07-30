@@ -9,25 +9,97 @@
   <el-card class="box-card" body-style="padding: 5px">
     <template #header>
       <div class="card-header">
-        <span>记账凭证规则</span>
+        <span class="el-card-label">记账凭证规则</span>
         <el-button
           :icon="
-            handsOnTableSetting.readOnly ? 'el-icon-edit' : 'el-icon-finished'
+            handsOnTableSettingVoucher.readOnly
+              ? 'el-icon-edit'
+              : 'el-icon-finished'
           "
           circle
-          type="primary"
-          plain
+          type="danger"
           size="small"
           @click="handleTemplateEdit"
         ></el-button>
       </div>
     </template>
     <HandsOnTable
-      :handsOnTableSetting="handsOnTableSetting"
-      @refHandsOnTable="getRefHandsOnTable"
+      :handsOnTableSetting="handsOnTableSettingVoucher"
+      @refHandsOnTable="getRefHandsOnTableVoucher"
       class="handsontable"
     ></HandsOnTable>
   </el-card>
+
+  <br />
+
+  <el-card class="box-card" body-style="padding: 5px">
+    <template #header>
+      <div class="card-header">
+        <span class="el-card-label">现金流量规则</span>
+        <el-button
+          :icon="
+            handsOnTableSettingCashFlow.readOnly
+              ? 'el-icon-edit'
+              : 'el-icon-finished'
+          "
+          circle
+          type="danger"
+          size="small"
+          @click="handleTemplateEdit"
+        ></el-button>
+      </div>
+    </template>
+    <HandsOnTable
+      :handsOnTableSetting="handsOnTableSettingCashFlow"
+      @refHandsOnTable="getRefHandsOnTableCashFlow"
+      class="handsontable"
+    ></HandsOnTable>
+  </el-card>
+
+  <div class="sql-select-wrapper">
+    <el-card class="box-card" shadow="hover">
+      <template #header>
+        <div class="card-header">
+          <span class="el-card-label">SQL执行</span>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            size="mini"
+            @click="handleSQL"
+          >
+            解析
+          </el-button>
+        </div>
+      </template>
+      <div>
+        <el-input
+          type="textarea"
+          v-model="sqlStatement"
+          class="sql-input-textarea"
+          :autosize="{ minRows: 10, maxRows: 20 }"
+          placeholder="请输入SQL语句"
+        ></el-input>
+      </div>
+    </el-card>
+    <el-card class="box-card" shadow="hover">
+      <template #header>
+        <div class="card-header">
+          <span class="el-card-label">查询结果</span>
+          <el-button type="primary" icon="el-icon-copy-document" size="mini">
+            复制
+          </el-button>
+        </div>
+      </template>
+      <div>
+        <el-input
+          type="textarea"
+          v-model="sqlResult"
+          class="sql-input-textarea"
+          :autosize="{ minRows: 10, maxRows: 20 }"
+        ></el-input>
+      </div>
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -38,6 +110,7 @@ import _ from "lodash";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { defaultHandsOnTableSetting } from "@/components/HandsOnTable/handsOnTableSetting";
 import { ElMessageBox, ElMessage } from "element-plus";
+import { executeSQL } from "@/utils/lostelkAPI/executeSQL";
 
 export default defineComponent({
   name: "VoucherTemplate",
@@ -55,20 +128,46 @@ export default defineComponent({
     let voucherTemplateArray = computed(() => [
       Object.values(voucherTemplate.value),
     ]);
-    let refHandsOnTable = ref();
-    let getRefHandsOnTable = (refDom: any) => {
-      refHandsOnTable.value = refDom;
+    let cashFlowTemplateArray = computed(() => [
+      Object.values(cashflowTemplate.value),
+    ]);
+    let refHandsOnTableVoucher = ref();
+    let getRefHandsOnTableVoucher = (refDom: any) => {
+      refHandsOnTableVoucher.value = refDom;
     };
-    let handsOnTableSetting = ref(_.cloneDeep(defaultHandsOnTableSetting));
+    let refHandsOnTableCashFlow = ref();
+    let getRefHandsOnTableCashFlow = (refDom: any) => {
+      refHandsOnTableCashFlow.value = refDom;
+    };
+    let handsOnTableSettingVoucher = ref(
+      _.cloneDeep(defaultHandsOnTableSetting)
+    );
+    let handsOnTableSettingCashFlow = ref(
+      _.cloneDeep(defaultHandsOnTableSetting)
+    );
     // @ts-ignore
-    handsOnTableSetting.value.colHeaders = Object.keys(voucherTemplate.value);
-    handsOnTableSetting.value.readOnly = true;
-    handsOnTableSetting.value.dropdownMenu = false;
-    handsOnTableSetting.value.data = voucherTemplateArray.value;
-    // handsOnTableSetting.value.autoColumnSize = false;
+    handsOnTableSettingVoucher.value.colHeaders = Object.keys(
+      voucherTemplate.value
+    );
+    handsOnTableSettingVoucher.value.readOnly = true;
+    handsOnTableSettingVoucher.value.dropdownMenu = false;
+    handsOnTableSettingVoucher.value.data = voucherTemplateArray.value;
+    // @ts-ignore
+    handsOnTableSettingCashFlow.value.colHeaders = Object.keys(
+      cashflowTemplate.value
+    );
+    handsOnTableSettingCashFlow.value.readOnly = true;
+    handsOnTableSettingCashFlow.value.dropdownMenu = false;
+    handsOnTableSettingCashFlow.value.data = cashFlowTemplateArray.value;
     let handleTemplateEdit = () => {
-      if (!handsOnTableSetting.value.readOnly) {
-        handsOnTableSetting.value.readOnly = true;
+      if (!handsOnTableSettingVoucher.value.readOnly) {
+        ElMessage({
+          type: "info",
+          message: `已退出修改状态！`,
+        });
+        handsOnTableSettingVoucher.value.readOnly = true;
+        handsOnTableSettingCashFlow.value.readOnly = true;
+        return;
       }
       ElMessageBox.prompt(
         "Access Code : use SQL to fill voucher data from local database",
@@ -90,8 +189,8 @@ export default defineComponent({
         }
       )
         .then(() => {
-          handsOnTableSetting.value.readOnly =
-            !handsOnTableSetting.value.readOnly;
+          handsOnTableSettingVoucher.value.readOnly = false;
+          handsOnTableSettingCashFlow.value.readOnly = false;
           ElMessage({
             type: "warning",
             message: `请谨慎修改，以防SQL注入`,
@@ -104,13 +203,27 @@ export default defineComponent({
           // });
         });
     };
+    let sqlStatement = ref<string>();
+    let sqlResult = ref();
+    let handleSQL = async () => {
+      if (handsOnTableSettingVoucher.value.readOnly) {
+        handleTemplateEdit();
+      } else {
+        let res = await executeSQL({
+          sql: sqlStatement.value?.toString(),
+        });
+        sqlResult.value = JSON.stringify(res.data.data);
+      }
+    };
     return {
-      voucherTemplate,
-      cashflowTemplate,
-      refHandsOnTable,
-      getRefHandsOnTable,
-      handsOnTableSetting,
+      getRefHandsOnTableVoucher,
+      getRefHandsOnTableCashFlow,
+      handsOnTableSettingVoucher,
+      handsOnTableSettingCashFlow,
       handleTemplateEdit,
+      sqlStatement,
+      sqlResult,
+      handleSQL,
     };
   },
 });
@@ -129,7 +242,7 @@ export default defineComponent({
   // width: calc(100% - 20px);
   overflow: hidden;
 }
-::v-deep(.card-header) {
+.card-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -137,5 +250,20 @@ export default defineComponent({
 }
 ::v-deep(.el-card__header) {
   padding: 10px;
+}
+.el-card-label {
+  font-weight: bold;
+  border-left: 3px solid #409eff;
+  padding-left: 5px;
+}
+.box-card {
+  border: 1px solid rgba(200, 200, 200, 0.7);
+}
+.sql-select-wrapper {
+  text-align: center;
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: repeat(auto-fill, 50%);
+  margin-top: 20px;
 }
 </style>

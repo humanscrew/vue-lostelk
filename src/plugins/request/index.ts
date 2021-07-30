@@ -12,9 +12,6 @@ const service = axios.create({
   timeout: 5000,
 });
 
-// 设置 post默认 Content-Type
-// service.defaults.headers.post["Content-Type"] = "multipart/form-data";
-
 // loading实例
 // eslint-disable-next-line
 let loadingInstance: any;
@@ -31,12 +28,14 @@ service.interceptors.request.use(
     //     config.data = JSON.stringify(config.data)
     // }
     // 请求发送前进行处理
-    // if (store.getters.token) {
-    //   // let each request carry token
-    //   // ['X-Token'] is a custom headers key
-    //   // please modify it according to the actual situation
-    //   config.headers['Token'] = getToken()
-    // }
+    const token = localStorage.getItem("token");
+    if (token) {
+      // let each request carry token
+      // ['X-Token'] is a custom headers key
+      // please modify it according to the actual situation
+      // config.headers.common["token"] = token;
+      config.headers.Authorization = "JWT " + token;
+    }
     return config;
   },
   (error) => {

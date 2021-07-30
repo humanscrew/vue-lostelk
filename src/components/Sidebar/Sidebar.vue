@@ -43,7 +43,11 @@
               <div class="job">{{ role }}</div>
             </div>
           </div>
-          <i class="bx bx-log-out log-out-icon" id="log_out"></i>
+          <i
+            class="bx bx-log-out log-out-icon"
+            id="log_out"
+            @click="handleLoginOut"
+          ></i>
         </div>
       </div>
     </div>
@@ -52,6 +56,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
 export default defineComponent({
   name: "Sidebar",
   props: {
@@ -68,10 +75,17 @@ export default defineComponent({
     let mainMenuIndex = (index: number) => {
       emit("mainMenuIndex", index);
     };
+    let router = useRouter();
+    let store = useStore();
+    let handleLoginOut = () => {
+      store.commit("delToken");
+      router.push("/Login");
+    };
     return {
       isActive,
       turnIsActive,
       mainMenuIndex,
+      handleLoginOut,
     };
   },
 });

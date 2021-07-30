@@ -113,7 +113,7 @@ export default defineComponent({
           .then((res) => {
             if (res.data.msg == "登录成功！") {
               // console.log(res);
-              let token = res.data.Token;
+              let token = res.data.token;
               store.commit("setToken", token);
               ElMessage.success(res.data.msg);
               router.push({ path: "/home/mainfunc" });

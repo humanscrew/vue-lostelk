@@ -1,3 +1,4 @@
+/* eslint-disable */
 // 节流函数
 function debounce(fn: () => any, wait = 1000): any {
   let timeout: NodeJS.Timeout;

@@ -222,6 +222,12 @@ export default createStore({
     },
     setToken: (store, token) => {
       store.token = token;
+      // 浏览器本地存储 token
+      localStorage.setItem("token", token);
+    },
+    delToken(state) {
+      state.token = "";
+      localStorage.removeItem("token");
     },
     setPublicKey: (store, publicKey) => {
       store.publicKey = publicKey;
