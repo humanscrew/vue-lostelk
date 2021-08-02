@@ -59,34 +59,19 @@ export default createStore({
         name: "人力资源",
         icon: "bxs-user-detail",
         path: "/Main",
-        children: [
-          { name: "职工管理" },
-          { name: "薪酬福利" },
-          { name: "社保公积金" },
-          { name: "互动社区" },
-        ],
+        children: [{ name: "职工管理" }, { name: "薪酬福利" }, { name: "社保公积金" }, { name: "互动社区" }],
       },
       {
         name: "资产管理",
         icon: "bx-collection",
         path: "/Main",
-        children: [
-          { name: "固定资产" },
-          { name: "无形资产" },
-          { name: "长期待摊" },
-          { name: "其他资产" },
-        ],
+        children: [{ name: "固定资产" }, { name: "无形资产" }, { name: "长期待摊" }, { name: "其他资产" }],
       },
       {
         name: "进销存",
         icon: "bx-git-merge",
         path: "/Main",
-        children: [
-          { name: "库存管理" },
-          { name: "采购管理" },
-          { name: "销售管理" },
-          { name: "供应链" },
-        ],
+        children: [{ name: "库存管理" }, { name: "采购管理" }, { name: "销售管理" }, { name: "供应链" }],
       },
       {
         name: "数据建模",

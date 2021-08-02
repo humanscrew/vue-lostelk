@@ -40,7 +40,7 @@ service.interceptors.request.use(
     console.log(error); // for debug
     loadingInstance.close();
     return Promise.reject(error);
-  }
+  },
 );
 
 // 添加响应拦截器
@@ -59,7 +59,7 @@ service.interceptors.response.use(
     loadingInstance.close();
     // });
     return Promise.reject(error);
-  }
+  },
 );
 
 // 导出 --> service

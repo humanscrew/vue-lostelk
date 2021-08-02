@@ -1,41 +1,16 @@
 <template>
   <div class="selector-area">
-    <el-select
-      class="template-select"
-      v-model="voucherTemplateName"
-      placeholder="制证模板"
-      no-match-text="未找到..."
-      size="small"
-      clearable
-      filterable
-      default-first-option
-    >
-      <el-option
-        v-for="item in voucherTemplateOptions"
-        :key="item.encoding"
-        :label="item.name"
-        :value="item.encoding"
-      >
+    <el-select class="template-select" v-model="voucherTemplateName" placeholder="制证模板" no-match-text="未找到..." size="small" clearable filterable default-first-option>
+      <el-option v-for="item in voucherTemplateOptions" :key="item.encoding" :label="item.name" :value="item.encoding">
         <span style="float: left">{{ item.name }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.encoding
-        }}</span>
+        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.encoding }}</span>
       </el-option>
     </el-select>
 
     <div class="files-upload-button">
-      <el-tooltip
-        content="仅支持 .xls,.xlsx 文件"
-        placement="bottom"
-        effect="light"
-        transition="el-fade-in-linear"
-      >
+      <el-tooltip content="仅支持 .xls,.xlsx 文件" placement="bottom" effect="light" transition="el-fade-in-linear">
         <el-badge :value="uploadFilesKeep.length" :max="10" type="danger">
-          <el-button
-            size="small"
-            type="primary"
-            @click="filesUploadDrawer = true"
-          >
+          <el-button size="small" type="primary" @click="filesUploadDrawer = true">
             文件导入
             <i class="el-icon-folder-opened el-icon--right"></i>
           </el-button>
@@ -54,12 +29,7 @@
       default-first-option
       @change="fileSelectChange"
     >
-      <el-option
-        v-for="(item, index) in uploadFilesKeep"
-        :key="item.file.name"
-        :label="item.file.name"
-        :value="index"
-      >
+      <el-option v-for="(item, index) in uploadFilesKeep" :key="item.file.name" :label="item.file.name" :value="index">
         <span style="float: left">{{ item.file.name }}</span>
         <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
           item.encoding
@@ -78,23 +48,13 @@
       default-first-option
       @change="sheetSelectChange"
     >
-      <el-option
-        v-for="(item, index) in currentSheetNameList"
-        :key="index"
-        :label="item"
-        :value="index"
-      >
+      <el-option v-for="(item, index) in currentSheetNameList" :key="index" :label="item" :value="index">
         <span style="float: left">{{ item }}</span>
       </el-option>
     </el-select>
 
     <div class="files-export-button">
-      <el-tooltip
-        content="导出当前工作表.xlsx文件"
-        placement="bottom"
-        effect="light"
-        transition="el-fade-in-linear"
-      >
+      <el-tooltip content="导出当前工作表.xlsx文件" placement="bottom" effect="light" transition="el-fade-in-linear">
         <el-button size="small" type="primary" @click="exportCurrentSheet">
           导出
           <i class="el-icon-notebook-2 el-icon--right"></i>
@@ -102,47 +62,19 @@
       </el-tooltip>
     </div>
 
-    <el-drawer
-      title="文件导入"
-      :append-to-body="true"
-      v-model="filesUploadDrawer"
-      :with-header="true"
-    >
-      <el-upload
-        class="files-upload-box"
-        ref="uploadFiles"
-        action="#"
-        :auto-upload="false"
-        accept=".xls, .xlsx"
-        multiple
-        :on-change="handleFilesChange"
-        :before-upload="beforeUpload"
-      >
+    <el-drawer title="文件导入" :append-to-body="true" v-model="filesUploadDrawer" :with-header="true">
+      <el-upload class="files-upload-box" ref="uploadFiles" action="#" :auto-upload="false" accept=".xls, .xlsx" multiple :on-change="handleFilesChange" :before-upload="beforeUpload">
         <template #trigger>
-          <el-button
-            size="small"
-            type="primary"
-            style="margin: 0 10px 10px 0px"
-          >
+          <el-button size="small" type="primary" style="margin: 0 10px 10px 0px">
             选取文件
             <i class="el-icon-folder-add el-icon--right"></i>
           </el-button>
         </template>
-        <el-button
-          style="margin: 0 10px 10px 0px"
-          size="small"
-          type="success"
-          @click="submitUploadFiles"
-        >
+        <el-button style="margin: 0 10px 10px 0px" size="small" type="success" @click="submitUploadFiles">
           上传文件
           <i class="el-icon-upload el-icon--right"></i>
         </el-button>
-        <el-button
-          style="margin: 0 10px 10px 0px"
-          size="small"
-          type="danger"
-          @click="clearUploadFiles"
-        >
+        <el-button style="margin: 0 10px 10px 0px" size="small" type="danger" @click="clearUploadFiles">
           <i class="el-icon-delete"></i>
         </el-button>
         <template #tip>
@@ -154,21 +86,14 @@
 
   <el-divider><i class="el-icon-data-analysis"></i></el-divider>
 
-  <HandsOnTable
-    :handsOnTableSetting="handsOnTableSetting"
-    @refHandsOnTable="getRefHandsOnTable"
-    class="handsontable"
-  ></HandsOnTable>
+  <HandsOnTable :handsOnTableSetting="handsOnTableSetting" @refHandsOnTable="getRefHandsOnTable" class="handsontable"></HandsOnTable>
 </template>
 
 <script lang="ts">
 /* eslint-disable */
 import { defineComponent, getCurrentInstance, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
-import {
-  defaultHandsOnTableSetting,
-  emptySheetData,
-} from "@/components/HandsOnTable/handsOnTableSetting";
+import { defaultHandsOnTableSetting, emptySheetData } from "@/components/HandsOnTable/handsOnTableSetting";
 import _ from "lodash";
 import { loadXLSX, exportArray2Sheet } from "@/plugins/sheetjs";
 // import { ElMessageBox } from "element-plus";
@@ -216,18 +141,11 @@ export default defineComponent({
     };
     let fileSelectChange = () => {
       currentSheetIndex.value = 0;
-      currentSheetNameList.value =
-        uploadFilesKeep.value[currentFileIndex.value].sheetNameList;
-      handsOnTableSetting.value.data =
-        uploadFilesKeep.value[currentFileIndex.value].sheetData[
-          currentSheetIndex.value
-        ];
+      currentSheetNameList.value = uploadFilesKeep.value[currentFileIndex.value].sheetNameList;
+      handsOnTableSetting.value.data = uploadFilesKeep.value[currentFileIndex.value].sheetData[currentSheetIndex.value];
     };
     let sheetSelectChange = () => {
-      handsOnTableSetting.value.data =
-        uploadFilesKeep.value[currentFileIndex.value].sheetData[
-          currentSheetIndex.value
-        ];
+      handsOnTableSetting.value.data = uploadFilesKeep.value[currentFileIndex.value].sheetData[currentSheetIndex.value];
     };
     // let fileRepeatDeal = () =>
     //   ElMessageBox.confirm("存在重复文件名, 是否更新该文件?", "文件重复", {
@@ -282,8 +200,7 @@ export default defineComponent({
       let XLSXResult: any = await loadXLSX(file, fileList);
       currentSheetNameList.value = XLSXResult.sheetNameList;
       currentSheetIndex.value = 0;
-      handsOnTableSetting.value.data =
-        XLSXResult.sheetData[currentSheetIndex.value];
+      handsOnTableSetting.value.data = XLSXResult.sheetData[currentSheetIndex.value];
       uploadFilesKeep.value.push(XLSXResult);
       currentFileIndex.value = uploadFilesKeep.value.length - 1;
       loadingInstance.close();
@@ -300,11 +217,7 @@ export default defineComponent({
         target: refHandsOnTable.value,
         // fullscreen: true,
       });
-      await exportArray2Sheet(
-        handsOnTableSetting.value.data as [],
-        uploadFilesKeep.value[currentFileIndex.value].file.name,
-        currentSheetNameList.value[currentSheetIndex.value]
-      );
+      await exportArray2Sheet(handsOnTableSetting.value.data as [], uploadFilesKeep.value[currentFileIndex.value].file.name, currentSheetNameList.value[currentSheetIndex.value]);
       loadingInstance.close();
     };
     return {

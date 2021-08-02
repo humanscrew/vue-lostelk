@@ -35,7 +35,7 @@ export default defineComponent({
       {
         // immediate: true,
         deep: true,
-      }
+      },
     );
     return {
       refHandsOnTable,

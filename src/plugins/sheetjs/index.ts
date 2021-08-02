@@ -15,15 +15,8 @@ export function loadXLSX(file: any, fileList: any) {
         type: "buffer",
       });
       sheetNameList = workBook.SheetNames;
-      for (
-        let sheetIndex = 0, sheetLen = sheetNameList.length;
-        sheetIndex < sheetLen;
-        sheetIndex++
-      ) {
-        const sheetJson = XLSX.utils.sheet_to_json(
-          workBook.Sheets[sheetNameList[sheetIndex]],
-          { header: 1 }
-        );
+      for (let sheetIndex = 0, sheetLen = sheetNameList.length; sheetIndex < sheetLen; sheetIndex++) {
+        const sheetJson = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNameList[sheetIndex]], { header: 1 });
         sheetData.push(sheetJson);
       }
       resolve({
@@ -38,11 +31,7 @@ export function loadXLSX(file: any, fileList: any) {
   });
 }
 
-export function exportArray2Sheet(
-  sheetDataArray: [],
-  fileName = "exportWorkBook",
-  sheetName = "exportSheet"
-) {
+export function exportArray2Sheet(sheetDataArray: [], fileName = "exportWorkBook", sheetName = "exportSheet") {
   return new Promise<void>((resolve, reject) => {
     const workBook = XLSX.utils.book_new();
     const exportSheet = XLSX.utils.aoa_to_sheet(sheetDataArray);
@@ -50,5 +39,5 @@ export function exportArray2Sheet(
     XLSX.utils.book_append_sheet(workBook, exportSheet, sheetName);
     XLSX.writeFile(workBook, fileName + "#" + timeStamp + ".xlsx");
     resolve();
-  })
+  });
 }

@@ -3,8 +3,7 @@ import CryptoJS from "crypto-js";
 export default {
   //随机生成指定数量的16进制key
   generateKey(num = 16): string {
-    const library =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const library = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let key = "";
     for (let i = 0; i < num; i++) {
       const randomPoz = Math.floor(Math.random() * library.length);

@@ -1,25 +1,14 @@
 <template>
   <div class="greet">
     <div class="div-earth-img">
-      <img
-        alt="github earth img"
-        src="~@/assets/imgs/githubEarthIMG.jpg"
-        class="github-earth-img"
-      />
+      <img alt="github earth img" src="~@/assets/imgs/githubEarthIMG.jpg" class="github-earth-img" />
     </div>
     <h1 class="welcome-greet-words">{{ greetMsg }}</h1>
     <!-- <h1>Love in the Time of Cholera</h1> -->
-    <h3 class="words-to-lostelk">
-      En adelanto van estos lugares : ya tienen su diosa coronada.
-    </h3>
+    <h3 class="words-to-lostelk">En adelanto van estos lugares : ya tienen su diosa coronada.</h3>
     <p class="contact-link">
       Here is a
-      <a
-        href="https://www.bilibili.com/video/BV1Gz4y197E9"
-        target="_blank"
-        rel="noopener"
-        >link</a
-      >
+      <a href="https://www.bilibili.com/video/BV1Gz4y197E9" target="_blank" rel="noopener">link</a>
       .
     </p>
   </div>

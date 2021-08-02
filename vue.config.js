@@ -9,6 +9,7 @@ module.exports = {
       msTileImage: "favicon.ico",
     },
   },
+  lintOnSave: true,
   // webpack 链接 API，用于生成和修改 webpack 配置
   // https://github.com/mozilla-neutrino/webpack-chain
   // chainWebpack: (config) => {

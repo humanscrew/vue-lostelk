@@ -5,55 +5,27 @@
         <template #prepend>{{ key }}</template>
       </el-input>
     </div>
-  </div> -->
-  <el-card class="box-card" body-style="padding: 5px">
+  </div>-->
+  <el-card body-style="padding: 5px" class="box-card">
     <template #header>
       <div class="card-header">
         <span class="el-card-label">记账凭证规则</span>
-        <el-button
-          :icon="
-            handsOnTableSettingVoucher.readOnly
-              ? 'el-icon-edit'
-              : 'el-icon-finished'
-          "
-          circle
-          type="danger"
-          size="small"
-          @click="handleTemplateEdit"
-        ></el-button>
+        <el-button :icon="handsOnTableSettingVoucher.readOnly ? 'el-icon-edit' : 'el-icon-finished'" @click="handleTemplateEdit" circle size="small" type="danger"></el-button>
       </div>
     </template>
-    <HandsOnTable
-      :handsOnTableSetting="handsOnTableSettingVoucher"
-      @refHandsOnTable="getRefHandsOnTableVoucher"
-      class="handsontable"
-    ></HandsOnTable>
+    <HandsOnTable :handsOnTableSetting="handsOnTableSettingVoucher" @refHandsOnTable="getRefHandsOnTableVoucher" class="handsontable"></HandsOnTable>
   </el-card>
 
   <br />
 
-  <el-card class="box-card" body-style="padding: 5px">
+  <el-card body-style="padding: 5px" class="box-card">
     <template #header>
       <div class="card-header">
         <span class="el-card-label">现金流量规则</span>
-        <el-button
-          :icon="
-            handsOnTableSettingCashFlow.readOnly
-              ? 'el-icon-edit'
-              : 'el-icon-finished'
-          "
-          circle
-          type="danger"
-          size="small"
-          @click="handleTemplateEdit"
-        ></el-button>
+        <el-button :icon="handsOnTableSettingCashFlow.readOnly ? 'el-icon-edit' : 'el-icon-finished'" @click="handleTemplateEdit" circle size="small" type="danger"></el-button>
       </div>
     </template>
-    <HandsOnTable
-      :handsOnTableSetting="handsOnTableSettingCashFlow"
-      @refHandsOnTable="getRefHandsOnTableCashFlow"
-      class="handsontable"
-    ></HandsOnTable>
+    <HandsOnTable :handsOnTableSetting="handsOnTableSettingCashFlow" @refHandsOnTable="getRefHandsOnTableCashFlow" class="handsontable"></HandsOnTable>
   </el-card>
 
   <div class="sql-select-wrapper">
@@ -61,42 +33,22 @@
       <template #header>
         <div class="card-header">
           <span class="el-card-label">SQL执行</span>
-          <el-button
-            type="primary"
-            icon="el-icon-search"
-            size="mini"
-            @click="handleSQL"
-          >
-            解析
-          </el-button>
+          <el-button @click="handleSQL" icon="el-icon-search" size="mini" type="primary">解析</el-button>
         </div>
       </template>
       <div>
-        <el-input
-          type="textarea"
-          v-model="sqlStatement"
-          class="sql-input-textarea"
-          :autosize="{ minRows: 10, maxRows: 20 }"
-          placeholder="请输入SQL语句"
-        ></el-input>
+        <el-input :autosize="{ minRows: 10, maxRows: 20 }" class="sql-input-textarea" placeholder="请输入SQL语句" type="textarea" v-model="sqlStatement"></el-input>
       </div>
     </el-card>
     <el-card class="box-card" shadow="hover">
       <template #header>
         <div class="card-header">
           <span class="el-card-label">查询结果</span>
-          <el-button type="primary" icon="el-icon-copy-document" size="mini">
-            复制
-          </el-button>
+          <el-button icon="el-icon-copy-document" size="mini" type="primary">复制</el-button>
         </div>
       </template>
       <div>
-        <el-input
-          type="textarea"
-          v-model="sqlResult"
-          class="sql-input-textarea"
-          :autosize="{ minRows: 10, maxRows: 20 }"
-        ></el-input>
+        <el-input :autosize="{ minRows: 10, maxRows: 20 }" class="sql-input-textarea" type="textarea" v-model="sqlResult"></el-input>
       </div>
     </el-card>
   </div>
