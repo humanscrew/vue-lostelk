@@ -208,4 +208,14 @@ const router = createRouter({
   routes,
 });
 
+// router配置
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem("token");
+  if (token || to.path == "/login") {
+    next();
+  } else {
+    router.push("/login");
+  }
+});
+
 export default router;

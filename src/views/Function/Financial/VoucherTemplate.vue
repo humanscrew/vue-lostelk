@@ -119,18 +119,10 @@ export default defineComponent({
   },
   setup() {
     let store = useStore();
-    let voucherTemplate = ref(
-      _.cloneDeep(store.state.bookkeepingVoucherTemplate)
-    );
-    let cashflowTemplate = ref(
-      _.cloneDeep(store.state.bookkeepingCashflowTemplate)
-    );
-    let voucherTemplateArray = computed(() => [
-      Object.values(voucherTemplate.value),
-    ]);
-    let cashFlowTemplateArray = computed(() => [
-      Object.values(cashflowTemplate.value),
-    ]);
+    let voucherTemplate = ref(_.cloneDeep(store.state.bookkeepingVoucherTemplate));
+    let cashflowTemplate = ref(_.cloneDeep(store.state.bookkeepingCashflowTemplate));
+    let voucherTemplateArray = computed(() => [Object.values(voucherTemplate.value)]);
+    let cashFlowTemplateArray = computed(() => [Object.values(cashflowTemplate.value)]);
     let refHandsOnTableVoucher = ref();
     let getRefHandsOnTableVoucher = (refDom: any) => {
       refHandsOnTableVoucher.value = refDom;
@@ -139,23 +131,15 @@ export default defineComponent({
     let getRefHandsOnTableCashFlow = (refDom: any) => {
       refHandsOnTableCashFlow.value = refDom;
     };
-    let handsOnTableSettingVoucher = ref(
-      _.cloneDeep(defaultHandsOnTableSetting)
-    );
-    let handsOnTableSettingCashFlow = ref(
-      _.cloneDeep(defaultHandsOnTableSetting)
-    );
+    let handsOnTableSettingVoucher = ref(_.cloneDeep(defaultHandsOnTableSetting));
+    let handsOnTableSettingCashFlow = ref(_.cloneDeep(defaultHandsOnTableSetting));
     // @ts-ignore
-    handsOnTableSettingVoucher.value.colHeaders = Object.keys(
-      voucherTemplate.value
-    );
+    handsOnTableSettingVoucher.value.colHeaders = Object.keys(voucherTemplate.value);
     handsOnTableSettingVoucher.value.readOnly = true;
     handsOnTableSettingVoucher.value.dropdownMenu = false;
     handsOnTableSettingVoucher.value.data = voucherTemplateArray.value;
     // @ts-ignore
-    handsOnTableSettingCashFlow.value.colHeaders = Object.keys(
-      cashflowTemplate.value
-    );
+    handsOnTableSettingCashFlow.value.colHeaders = Object.keys(cashflowTemplate.value);
     handsOnTableSettingCashFlow.value.readOnly = true;
     handsOnTableSettingCashFlow.value.dropdownMenu = false;
     handsOnTableSettingCashFlow.value.data = cashFlowTemplateArray.value;
@@ -169,25 +153,21 @@ export default defineComponent({
         handsOnTableSettingCashFlow.value.readOnly = true;
         return;
       }
-      ElMessageBox.prompt(
-        "Access Code : use SQL to fill voucher data from local database",
-        "规则维护",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          // inputPattern:
-          //   /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-          // inputErrorMessage: "密码不正确",
-          inputValidator: (value): string | boolean => {
-            if (value === "123456") {
-              return true;
-            }
-            return `权限未许可！请邮件联系tibetourist@gmail.com`;
-          },
-          inputType: "password",
-          inputPlaceholder: "请输入权限码",
-        }
-      )
+      ElMessageBox.prompt("Access Code : use SQL to fill voucher data from local database", "规则维护", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        // inputPattern:
+        //   /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+        // inputErrorMessage: "密码不正确",
+        inputValidator: (value): string | boolean => {
+          if (value === "123456") {
+            return true;
+          }
+          return `权限未许可！请邮件联系tibetourist@gmail.com`;
+        },
+        // inputType: "password",
+        inputPlaceholder: "请输入权限码",
+      })
         .then(() => {
           handsOnTableSettingVoucher.value.readOnly = false;
           handsOnTableSettingCashFlow.value.readOnly = false;
@@ -209,6 +189,7 @@ export default defineComponent({
       if (handsOnTableSettingVoucher.value.readOnly) {
         handleTemplateEdit();
       } else {
+        sqlResult.value = "";
         let res = await executeSQL({
           sql: sqlStatement.value?.toString(),
         });

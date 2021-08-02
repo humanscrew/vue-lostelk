@@ -23,10 +23,6 @@ service.interceptors.request.use(
       text: "发送请求中...",
       lock: true,
     });
-    // if (config.method === 'post' || config.method === 'put') {
-    // //     // post、put 提交时，将对象转换为string, 为处理后端解析问题
-    //     config.data = JSON.stringify(config.data)
-    // }
     // 请求发送前进行处理
     const token = localStorage.getItem("token");
     if (token) {
