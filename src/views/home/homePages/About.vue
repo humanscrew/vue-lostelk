@@ -2,7 +2,9 @@
   <div class="about">
     <h1>Github Repositories</h1>
     <h2>
-      <a href="https://github.com/humanscrew/vue-lostelk" target="_blank">https://github.com/humanscrew/vue-lostelk</a>
+      <a href="https://github.com/humanscrew/vue-lostelk" target="_blank"
+        >https://github.com/humanscrew/vue-lostelk</a
+      >
     </h2>
     <div class="link-to-me">
       <h3>WeChat : beingscrew</h3>

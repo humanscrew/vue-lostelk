@@ -3,15 +3,45 @@
     <div class="login-form-box">
       <h1 class="title-text">登录</h1>
 
-      <el-form :model="loginFrom" status-icon :rules="rules" ref="loginFrom" label-position="right" label-width="auto">
-        <el-form-item label="用户名" prop="userName" required style="margin: 20px 80px 20px 30px">
-          <el-input v-model="loginFrom.userName" autocomplete="off" placeholder="UserName" autofocus></el-input>
+      <el-form
+        :model="loginFrom"
+        status-icon
+        :rules="rules"
+        ref="loginFrom"
+        label-position="right"
+        label-width="auto"
+      >
+        <el-form-item
+          label="用户名"
+          prop="userName"
+          required
+          style="margin: 20px 80px 20px 30px"
+        >
+          <el-input
+            v-model="loginFrom.userName"
+            autocomplete="off"
+            placeholder="UserName"
+            autofocus
+          ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password" required style="margin: 20px 80px 20px 30px">
-          <el-input type="password" v-model="loginFrom.password" autocomplete="off" show-password placeholder="Password"></el-input>
+        <el-form-item
+          label="密码"
+          prop="password"
+          required
+          style="margin: 20px 80px 20px 30px"
+        >
+          <el-input
+            type="password"
+            v-model="loginFrom.password"
+            autocomplete="off"
+            show-password
+            placeholder="Password"
+          ></el-input>
         </el-form-item>
 
-        <el-button type="primary" @click="submitForm('loginFrom')">登录</el-button>
+        <el-button type="primary" @click="submitForm('loginFrom')"
+          >登录</el-button
+        >
         <el-button @click="resetForm('loginFrom')">重置</el-button>
       </el-form>
     </div>

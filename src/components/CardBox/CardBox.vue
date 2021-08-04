@@ -4,12 +4,21 @@
       <template #header>
         <div class="card-header">
           <div class="card-header-name">{{ cardList.name }}</div>
-          <el-button icon="el-icon-search" circle type="primary" plain size="small"></el-button>
+          <el-button
+            icon="el-icon-search"
+            circle
+            type="primary"
+            plain
+            size="small"
+          ></el-button>
           <!-- 加载状态 => :loading="true" -->
         </div>
       </template>
       <div v-for="item in cardList.children" :key="item" class="card-box-item">
-        <div class="card-box-item-text hvr-bounce-to-right" @click="routerPush(item.path)">
+        <div
+          class="card-box-item-text hvr-bounce-to-right"
+          @click="routerPush(item.path)"
+        >
           {{ item.name }}
         </div>
       </div>

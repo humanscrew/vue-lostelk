@@ -1,9 +1,29 @@
 <template>
-  <Sidebar :menuList="menuList" :username="username" :role="role" @isActive="getIsActive" @mainMenuIndex="getMainMenuIndex"></Sidebar>
+  <Sidebar
+    :menuList="menuList"
+    :username="username"
+    :role="role"
+    @isActive="getIsActive"
+    @mainMenuIndex="getMainMenuIndex"
+  ></Sidebar>
 
   <div class="function-area" :class="{ active: sidebarActive }">
-    <el-tabs tab-position="top" type="border-card" class="el-tabs-box" v-model="tabName" @tab-click="handleTabClick">
-      <el-tab-pane v-for="item in submenu" :key="item.name" :label="item.name" :name="item.name" class="el-tab-pane" :disabled="!item.path" lazy>
+    <el-tabs
+      tab-position="top"
+      type="border-card"
+      class="el-tabs-box"
+      v-model="tabName"
+      @tab-click="handleTabClick"
+    >
+      <el-tab-pane
+        v-for="item in submenu"
+        :key="item.name"
+        :label="item.name"
+        :name="item.name"
+        class="el-tab-pane"
+        :disabled="!item.path"
+        lazy
+      >
         <div class="scrollbar-wrapper">
           <el-scrollbar>
             <!-- <div class="main-area" v-for="itemNd in Array(100)" :key="itemNd">
@@ -43,7 +63,9 @@ export default defineComponent({
     let role = computed(() => store.state.role);
     let sidebarActive = ref(false);
     let mainMenuIndex = ref(route.meta.mainMenuIndex);
-    let submenu = computed(() => menuList.value[mainMenuIndex.value as number].children);
+    let submenu = computed(
+      () => menuList.value[mainMenuIndex.value as number].children
+    );
     let tabName = ref(submenu.value[route.meta.submenuIndex as number].name);
     let getIsActive = (isActive: boolean) => {
       sidebarActive.value = isActive;

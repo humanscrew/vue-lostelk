@@ -7,7 +7,11 @@
           <i class="bx bxl-telegram"></i>
           <div class="logo_name">Lost ELK</div>
         </div>
-        <i class="bx expand-button" :class="isActive ? 'bx-arrow-from-right' : 'bx-menu'" @click="turnIsActive"></i>
+        <i
+          class="bx expand-button"
+          :class="isActive ? 'bx-arrow-from-right' : 'bx-menu'"
+          @click="turnIsActive"
+        ></i>
       </div>
 
       <div class="main-menu">
@@ -39,7 +43,11 @@
               <div class="job">{{ role }}</div>
             </div>
           </div>
-          <i class="bx bx-log-out log-out-icon" id="log_out" @click="handleLoginOut"></i>
+          <i
+            class="bx bx-log-out log-out-icon"
+            id="log_out"
+            @click="handleLoginOut"
+          ></i>
         </div>
       </div>
     </div>

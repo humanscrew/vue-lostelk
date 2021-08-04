@@ -1,16 +1,41 @@
 <template>
   <div class="selector-area">
-    <el-select class="template-select" v-model="voucherTemplateName" placeholder="制证模板" no-match-text="未找到..." size="small" clearable filterable default-first-option>
-      <el-option v-for="item in voucherTemplateOptions" :key="item.encoding" :label="item.name" :value="item.encoding">
+    <el-select
+      class="template-select"
+      clearable
+      default-first-option
+      filterable
+      no-match-text="未找到..."
+      placeholder="制证模板"
+      size="small"
+      v-model="voucherTemplateName"
+    >
+      <el-option
+        :key="item.encoding"
+        :label="item.name"
+        :value="item.encoding"
+        v-for="item in voucherTemplateOptions"
+      >
         <span style="float: left">{{ item.name }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.encoding }}</span>
+        <span style="float: right; color: #8492a6; font-size: 13px">{{
+          item.encoding
+        }}</span>
       </el-option>
     </el-select>
 
     <div class="files-upload-button">
-      <el-tooltip content="仅支持 .xls,.xlsx 文件" placement="bottom" effect="light" transition="el-fade-in-linear">
-        <el-badge :value="uploadFilesKeep.length" :max="10" type="danger">
-          <el-button size="small" type="primary" @click="filesUploadDrawer = true">
+      <el-tooltip
+        content="仅支持 .xls,.xlsx 文件"
+        effect="light"
+        placement="bottom"
+        transition="el-fade-in-linear"
+      >
+        <el-badge :max="10" :value="uploadFilesKeep.length" type="danger">
+          <el-button
+            @click="filesUploadDrawer = true"
+            size="small"
+            type="primary"
+          >
             文件导入
             <i class="el-icon-folder-opened el-icon--right"></i>
           </el-button>
@@ -19,62 +44,105 @@
     </div>
 
     <el-select
-      class="template-select"
-      v-model="currentFileIndex"
-      placeholder="选择工作簿"
-      no-match-text="未找到..."
-      no-data-text="请导入.xls,.xlsx文件"
-      size="small"
-      filterable
-      default-first-option
       @change="fileSelectChange"
+      class="template-select"
+      default-first-option
+      filterable
+      no-data-text="请导入.xls,.xlsx文件"
+      no-match-text="未找到..."
+      placeholder="选择工作簿"
+      size="small"
+      v-model="currentFileIndex"
     >
-      <el-option v-for="(item, index) in uploadFilesKeep" :key="item.file.name" :label="item.file.name" :value="index">
+      <el-option
+        :key="item.file.name"
+        :label="item.file.name"
+        :value="index"
+        v-for="(item, index) in uploadFilesKeep"
+      >
         <span style="float: left">{{ item.file.name }}</span>
         <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{
           item.encoding
-        }}</span> -->
+        }}</span>-->
       </el-option>
     </el-select>
 
     <el-select
-      class="template-select"
-      v-model="currentSheetIndex"
-      placeholder="选择工作表"
-      no-match-text="未找到..."
-      no-data-text="请导入.xls,.xlsx文件"
-      size="small"
-      filterable
-      default-first-option
       @change="sheetSelectChange"
+      class="template-select"
+      default-first-option
+      filterable
+      no-data-text="请导入.xls,.xlsx文件"
+      no-match-text="未找到..."
+      placeholder="选择工作表"
+      size="small"
+      v-model="currentSheetIndex"
     >
-      <el-option v-for="(item, index) in currentSheetNameList" :key="index" :label="item" :value="index">
+      <el-option
+        :key="index"
+        :label="item"
+        :value="index"
+        v-for="(item, index) in currentSheetNameList"
+      >
         <span style="float: left">{{ item }}</span>
       </el-option>
     </el-select>
 
     <div class="files-export-button">
-      <el-tooltip content="导出当前工作表.xlsx文件" placement="bottom" effect="light" transition="el-fade-in-linear">
-        <el-button size="small" type="primary" @click="exportCurrentSheet">
+      <el-tooltip
+        content="导出当前工作表.xlsx文件"
+        effect="light"
+        placement="bottom"
+        transition="el-fade-in-linear"
+      >
+        <el-button @click="exportCurrentSheet" size="small" type="primary">
           导出
           <i class="el-icon-notebook-2 el-icon--right"></i>
         </el-button>
       </el-tooltip>
     </div>
 
-    <el-drawer title="文件导入" :append-to-body="true" v-model="filesUploadDrawer" :with-header="true">
-      <el-upload class="files-upload-box" ref="uploadFiles" action="#" :auto-upload="false" accept=".xls, .xlsx" multiple :on-change="handleFilesChange" :before-upload="beforeUpload">
+    <el-drawer
+      :append-to-body="true"
+      :with-header="true"
+      title="文件导入"
+      v-model="filesUploadDrawer"
+    >
+      <el-upload
+        :auto-upload="false"
+        :before-upload="beforeUpload"
+        :on-change="handleFilesChange"
+        accept=".xls, .xlsx"
+        action="#"
+        class="files-upload-box"
+        multiple
+        ref="uploadFiles"
+      >
         <template #trigger>
-          <el-button size="small" type="primary" style="margin: 0 10px 10px 0px">
+          <el-button
+            size="small"
+            style="margin: 0 10px 10px 0px"
+            type="primary"
+          >
             选取文件
             <i class="el-icon-folder-add el-icon--right"></i>
           </el-button>
         </template>
-        <el-button style="margin: 0 10px 10px 0px" size="small" type="success" @click="submitUploadFiles">
+        <el-button
+          @click="submitUploadFiles"
+          size="small"
+          style="margin: 0 10px 10px 0px"
+          type="success"
+        >
           上传文件
           <i class="el-icon-upload el-icon--right"></i>
         </el-button>
-        <el-button style="margin: 0 10px 10px 0px" size="small" type="danger" @click="clearUploadFiles">
+        <el-button
+          @click="clearUploadFiles"
+          size="small"
+          style="margin: 0 10px 10px 0px"
+          type="danger"
+        >
           <i class="el-icon-delete"></i>
         </el-button>
         <template #tip>
@@ -84,14 +152,20 @@
     </el-drawer>
   </div>
 
-  <el-divider><i class="el-icon-data-analysis"></i></el-divider>
+  <el-divider>
+    <i class="el-icon-data-analysis"></i>
+  </el-divider>
 
-  <HandsOnTable :handsOnTableSetting="handsOnTableSetting" @refHandsOnTable="getRefHandsOnTable" class="handsontable"></HandsOnTable>
+  <HandsOnTable
+    :handsOnTableSetting="handsOnTableSetting"
+    @refHandsOnTable="getRefHandsOnTable"
+    class="handsontable"
+  ></HandsOnTable>
 </template>
 
 <script lang="ts">
 /* eslint-disable */
-import { defineComponent, getCurrentInstance, ref } from "vue";
+import { defineComponent, getCurrentInstance, onMounted, ref } from "vue";
 import HandsOnTable from "@/components/HandsOnTable/HandsOnTable.vue";
 import { defaultHandsOnTableSetting, emptySheetData } from "@/components/HandsOnTable/handsOnTableSetting";
 import _ from "lodash";
@@ -196,7 +270,6 @@ export default defineComponent({
         loadingInstance.close();
         return;
       }
-      // let temp = await fileRepeatDeal();
       let XLSXResult: any = await loadXLSX(file, fileList);
       currentSheetNameList.value = XLSXResult.sheetNameList;
       currentSheetIndex.value = 0;
