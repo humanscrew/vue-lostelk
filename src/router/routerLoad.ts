@@ -17,11 +17,7 @@ const Layout = () => import(/* webpackChunkName: "Layout" */ "@/views/Layout/Lay
 
 const Upload = () => import(/* webpackChunkName: "Components" */ "@/components/Upload/Upload.vue");
 
-// const HandsOnTable = () =>
-//   import(
-//     /* webpackChunkName: "Components" */ "@/components/HandsOnTable/HandsOnTable.vue"
-//   );
-const LuckySheet = () => import(/* webpackChunkName: "Components" */ "@/components/LuckySheet/LuckySheet.vue");
+// const LuckySheet = () => import(/* webpackChunkName: "Components" */ "@/components/LuckySheet/LuckySheet.vue");
 
 const FinancialAccounting = () => import(/* webpackChunkName: "Financial" */ "@/views/Function/Financial/FinancialAccounting.vue");
 const CashFlow = () => import(/* webpackChunkName: "Financial" */ "@/views/Function/Financial/CashFlow.vue");
@@ -52,8 +48,7 @@ export {
   Login,
   Layout,
   Upload,
-  // HandsOnTable,
-  LuckySheet,
+  // LuckySheet,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,

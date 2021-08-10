@@ -7,8 +7,6 @@ import {
   Login,
   Layout,
   Upload,
-  // HandsOnTable,
-  LuckySheet,
   FinancialAccounting,
   CashFlow,
   Bookkeeping,
@@ -68,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     component: Login,
   },
-  // func page -> Layout on Left
+  // Main page -> Layout on Left
   {
     path: "/Main",
     name: "Layout",
@@ -186,16 +184,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "Upload",
     component: Upload,
   },
-  // {
-  //   path: "/HandsOnTable",
-  //   name: "HandsOnTable",
-  //   component: HandsOnTable,
-  // },
-  {
-    path: "/LuckySheet",
-    name: "LuckySheet",
-    component: LuckySheet,
-  },
   {
     path: "/:redirect*",
     name: "redirect",
@@ -209,13 +197,13 @@ const router = createRouter({
 });
 
 // router配置
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("token");
-  if (token || to.path == "/login") {
-    next();
-  } else {
-    router.push("/login");
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem("token");
+//   if (token || to.path == "/login") {
+//     next();
+//   } else {
+//     router.push("/login");
+//   }
+// });
 
 export default router;
